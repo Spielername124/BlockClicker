@@ -10,10 +10,9 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.ThreadLocalRandom;
 
 public class HandleDrops {
-    public static void handleGroupDrops(BlockClicker plugin, FileConfiguration config, GlobalFlags flags, Player player, Block block, Location location, String parentGroup){
+    public static void handleGroupDrops(BlockClicker plugin, FileConfiguration config, GlobalFlags flags, Player player, Block block, Location location, ItemStack toolUsed, String parentGroup){
         String brokenBlockName = block.getType().name();
         String path = "block-rewards." + parentGroup + "." + brokenBlockName;
 
@@ -58,7 +57,7 @@ public class HandleDrops {
                 continue;
             }
 
-            if(Chance.performDropRoll(flags, chance)){
+            if(Chance.performDropRoll(flags, chance, toolUsed)){
                 ItemStack reward = new ItemStack(rewardItem, amount);
 
                 if(flags.depositToInventory) player.getInventory().addItem(reward);
