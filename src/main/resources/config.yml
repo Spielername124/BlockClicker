@@ -1,0 +1,24 @@
+
+protected-zone:
+  region-id: "clickerzone"
+
+#The chance has to be given as a number between 0 and 1.
+block-rewards:
+  DIAMOND_ORE:
+    xp: 100
+    rewards:
+      - item: "DIAMOND"
+        amount: 2
+        chance: 0.1
+      - item: "EMERALD"
+        amount: 1
+        chance: 0.5 # 10% bonus chance to get an emerald too!
+  GOLD_ORE:
+    xp: 200
+    rewards:
+      - item: "GOLD_INGOT"
+        amount: 3
+        chance: 1
+      - item: "IRON_INGOT"
+        amount: 1
+        chance: 0.12

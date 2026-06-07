@@ -1,0 +1,8 @@
+name: BlockClicker
+version: '${version}'
+
+main: me.Spielername124.blockClicker.BlockClicker
+api-version: '26.1.2'
+load: POSTWORLD
+
+depend: [WorldEdit, WorldGuard]
