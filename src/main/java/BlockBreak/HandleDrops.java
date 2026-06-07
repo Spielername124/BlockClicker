@@ -12,8 +12,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ThreadLocalRandom;
 
-public class handleDrops {
-    public static void handleGroupDrops(BlockClicker plugin, FileConfiguration config, Player player, Block block, Location location, boolean depositToInventory, String parentGroup){
+public class HandleDrops {
+    public static void handleGroupDrops(BlockClicker plugin, FileConfiguration config, GlobalFlags flags, Player player, Block block, Location location, String parentGroup){
         String brokenBlockName = block.getType().name();
         String path = "block-rewards." + parentGroup + "." + brokenBlockName;
 
@@ -25,7 +25,7 @@ public class handleDrops {
         //give the specified amount of XP to the player / or drop it
         int xp = config.getInt(path + ".xp", 0);
         if(xp>0) {
-            if (depositToInventory) player.giveExp(xp);
+            if (flags.depositToInventory) player.giveExp(xp);
             else {
                 ExperienceOrb xpDrop = location.getWorld().spawn(location, ExperienceOrb.class);
                 xpDrop.setExperience(xp);
@@ -58,14 +58,10 @@ public class handleDrops {
                 continue;
             }
 
-
-            double randomRoll = ThreadLocalRandom.current().nextDouble(100.0);;
-
-            if(randomRoll <= chance){
-
+            if(Chance.performDropRoll(flags, chance)){
                 ItemStack reward = new ItemStack(rewardItem, amount);
 
-                if(depositToInventory) player.getInventory().addItem(reward);
+                if(flags.depositToInventory) player.getInventory().addItem(reward);
                 else location.getWorld().dropItemNaturally(location, reward);
             }
         }
