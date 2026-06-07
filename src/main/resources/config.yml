@@ -2,6 +2,10 @@
 protected-zone:
   region-id: "clickerzone"
 
+global-flags:
+  #setting to decide whether Items are dropped (false) or deposited directly to the players inventory
+  deposit-to-inventory: false
+
 #The chance has to be given as a number between 0 and 1.
 block-rewards:
   DIAMOND_ORE:

@@ -1,10 +1,12 @@
 package BlockBreak;
 
 import me.Spielername124.blockClicker.BlockClicker;
+import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.entity.ExperienceOrb;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
@@ -13,7 +15,12 @@ import java.util.Map;
 import java.util.concurrent.ThreadLocalRandom;
 
 class BlockBreakHandler {
-    protected static void onBlockBreakInZone (BlockClicker plugin, FileConfiguration config, Player player, Block block){
+    protected static void onBlockBreakInZone (BlockClicker plugin, FileConfiguration config, Player player, Block block, Location location){
+
+        //read global flags
+        String globalFlagPath = "global-flags.";
+        boolean depositToInventory = config.getBoolean(globalFlagPath+ "deposit-to-inventory");
+
         String brokenBlockName = block.getType().name();
         String path = "block-rewards." + brokenBlockName;
 
@@ -22,9 +29,13 @@ class BlockBreakHandler {
             return;
         }
 
-        //give the specified amount of XP to the player
+        //give the specified amount of XP to the player / or drop it
         int xp = config.getInt(path + ".xp", 0);
-        player.giveExp(xp);
+        if(depositToInventory) player.giveExp(xp);
+        else {
+            ExperienceOrb xpDrop = location.getWorld().spawn(location, ExperienceOrb.class);
+            xpDrop.setExperience(xp);
+        }
 
         List<Map<?, ?>> possibleRewards = config.getMapList("block-rewards." + brokenBlockName + ".rewards");
 
@@ -58,7 +69,9 @@ class BlockBreakHandler {
             if(randomRoll <= chance){
 
                 ItemStack reward = new ItemStack(rewardItem, amount);
-                player.getInventory().addItem(reward);
+
+                if(depositToInventory) player.getInventory().addItem(reward);
+                else location.getWorld().dropItem(location, reward);
             }
         }
     }

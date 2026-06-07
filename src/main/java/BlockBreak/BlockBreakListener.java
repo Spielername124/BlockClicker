@@ -45,7 +45,7 @@ public class BlockBreakListener implements Listener {
 
                 //call the handler for the event
                 Player player =  brokenBlock.getPlayer();
-                BlockBreakHandler.onBlockBreakInZone(plugin, config, player, block);
+                BlockBreakHandler.onBlockBreakInZone(plugin, config, player, block, location);
 
             }
         }
