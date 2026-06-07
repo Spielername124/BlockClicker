@@ -6,23 +6,36 @@ global-flags:
   #setting to decide whether Items are dropped (false) or deposited directly to the players inventory
   deposit-to-inventory: false
 
+
+#Define groups of tools to make drops individualized to certain tools
+#Important: If tools are in multiple groups, they will drop loot from all the lists they are in.
+tool-Groups:
+  default:
+    alwaysPossible: true
+  shovels:
+    tools:
+      - "DIAMOND_SHOVEL"
+      - "WOODEN_SHOVEL"
+
 #The chance has to be given as a number between 0 and 1.
 block-rewards:
-  DIAMOND_ORE:
-    xp: 100
-    rewards:
-      - item: "DIAMOND"
-        amount: 2
-        chance: 0.1
-      - item: "EMERALD"
-        amount: 1
-        chance: 0.5 # 10% bonus chance to get an emerald too!
-  GOLD_ORE:
-    xp: 200
-    rewards:
-      - item: "GOLD_INGOT"
-        amount: 3
-        chance: 1
-      - item: "IRON_INGOT"
-        amount: 1
-        chance: 0.12
+  default:
+    DIRT:
+      xp: 0
+      rewards:
+        - item: "CLAY_BALL"
+          amount: 5
+          chance: 100
+        - item: "DIAMOND"
+          amount: 1
+          chance: 50
+  shovels:
+    DIRT:
+      xp: 100
+      rewards:
+        - item: "CLAY_BALL"
+          amount: 5
+          chance: 100
+        - item: "DIAMOND"
+          amount: 1
+          chance: 50

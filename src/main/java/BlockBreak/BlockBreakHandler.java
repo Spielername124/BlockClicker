@@ -15,64 +15,27 @@ import java.util.Map;
 import java.util.concurrent.ThreadLocalRandom;
 
 class BlockBreakHandler {
-    protected static void onBlockBreakInZone (BlockClicker plugin, FileConfiguration config, Player player, Block block, Location location){
+    protected static void onBlockBreakInZone (BlockClicker plugin, FileConfiguration config, Player player, Block block, Location location) {
 
         //read global flags
         String globalFlagPath = "global-flags.";
-        boolean depositToInventory = config.getBoolean(globalFlagPath+ "deposit-to-inventory");
+        boolean depositToInventory = config.getBoolean(globalFlagPath + "deposit-to-inventory");
 
-        String brokenBlockName = block.getType().name();
-        String path = "block-rewards." + brokenBlockName;
+        //gets the tool used to break the block
+        ItemStack toolUsed = player.getInventory().getItemInMainHand();
 
-        //returns if the block has no specified rewards
-        if (!config.contains(path)) {
-            return;
+        ConfigurationSection blockRewardsRoot = config.getConfigurationSection("block-rewards");
+        if (blockRewardsRoot == null) return;
+
+        //iterate through all possible tool groups
+        for(String groupKey: blockRewardsRoot.getKeys(false)){
+
+            //if the used tool is not in the current group, skip.
+            if(!toolIsAllowedCheck.checkTool(config, toolUsed,groupKey)) continue;
+
+            //Perform the drops logic in a subclass
+            handleDrops.handleGroupDrops(plugin,config,player, block, location,depositToInventory, groupKey);
         }
 
-        //give the specified amount of XP to the player / or drop it
-        int xp = config.getInt(path + ".xp", 0);
-        if(depositToInventory) player.giveExp(xp);
-        else {
-            ExperienceOrb xpDrop = location.getWorld().spawn(location, ExperienceOrb.class);
-            xpDrop.setExperience(xp);
-        }
-
-        List<Map<?, ?>> possibleRewards = config.getMapList("block-rewards." + brokenBlockName + ".rewards");
-
-        // Iterating through every possible reward for the broken block
-        for(Map<?, ?> rewardData : possibleRewards){
-
-            //get the specifics for possible reward
-            String itemName = (String) rewardData.get("item");
-            Number amountNr = (Number) rewardData.get("amount");
-            Number chanceNr = (Number) rewardData.get("chance");
-
-            if(itemName == null || chanceNr == null) {
-                plugin.getLogger().warning("[Config Error] Missing item, or chance for reward in " + brokenBlockName);
-                continue;
-            }
-
-            int amount = 1;
-            if (amountNr!=null) amount = amountNr.intValue();
-            double chance = chanceNr.doubleValue();
-            Material rewardItem = Material.matchMaterial(itemName);
-
-            if (rewardItem == null) {
-                plugin.getLogger().warning("[Config Error] Invalid material name '" + itemName +
-                        "' found under block-rewards." + brokenBlockName);
-                continue;
-            }
-
-
-            double randomRoll = ThreadLocalRandom.current().nextDouble(100.0);;
-
-            if(randomRoll <= chance){
-
-                ItemStack reward = new ItemStack(rewardItem, amount);
-
-                if(depositToInventory) player.getInventory().addItem(reward);
-                else location.getWorld().dropItem(location, reward);
-            }
-        }
     }
 }
