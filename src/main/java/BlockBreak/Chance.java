@@ -35,11 +35,9 @@ public class Chance {
 
 
         //calculates and returns the total chance
-
         double fortuneModifier = Math.pow(flags.fortuneMultiplier,fortuneLevel);
         double luckModifier = Math.pow(flags.luckMultiplier, luckLevel);
         double badLuckModifier = Math.pow(flags.badLuckMultiplier, unluckLevel);
-
 
 
         //returns an on 100% capped total chance

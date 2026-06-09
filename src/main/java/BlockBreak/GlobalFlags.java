@@ -17,12 +17,7 @@ public class GlobalFlags {
         badLuckMultiplier = percentageInDoubleConverter(config.getDouble(globalFlagPath + "bad-Luck-modifier-per-level"));
     }
 
-    private double percentageInDoubleConverter(double value){
-        if(value < 0){
-            return value < -100 ?
-                    1 + (value/100):
-                    0;
-        }
-        return 1 + (value/100);
+    private double percentageInDoubleConverter(double value) {
+        return Math.max(0, 1 + (value / 100));
     }
 }
