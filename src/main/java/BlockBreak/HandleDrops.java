@@ -57,7 +57,7 @@ public class HandleDrops {
                 continue;
             }
 
-            if(Chance.performDropRoll(flags, chance, toolUsed)){
+            if(Chance.performDropRoll(flags, chance, toolUsed, player)){
                 ItemStack reward = new ItemStack(rewardItem, amount);
 
                 if(flags.depositToInventory) player.getInventory().addItem(reward);
