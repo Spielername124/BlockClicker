@@ -12,7 +12,7 @@ class BlockBreakHandler {
     protected static void onBlockBreakInZone (BlockClicker plugin, FileConfiguration config, Player player, Block block, Location location) {
 
         //get the global Flags:
-        GlobalFlags flags = new GlobalFlags(config, player);
+        GlobalFlags flags = new GlobalFlags(config);
 
         //gets the tool used to break the block
         ItemStack toolUsed = player.getInventory().getItemInMainHand();

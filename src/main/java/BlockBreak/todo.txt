@@ -1,7 +1,7 @@
 todo: making different worldguard areas possible
 todo: add git stuff (download of jar, read me, documentation)
 todo: add relaod possiblitities for the config
-todo: add luck/ bad luck to chances
+DONE add luck/ bad luck to chances
 todo: add possiblitiy of drop ranges
 todo: add mobspawn possibility
 todo: add findable chests
