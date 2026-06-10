@@ -17,11 +17,10 @@ import org.bukkit.event.block.BlockBreakEvent;
 
 public class BlockBreakListener implements Listener {
     private final BlockClicker plugin;
-    private final FileConfiguration config;
+
 
     public BlockBreakListener (BlockClicker plugin){
         this.plugin = plugin;
-        this.config = plugin.getConfig();
     }
 
 
@@ -31,6 +30,8 @@ public class BlockBreakListener implements Listener {
         Block block = brokenBlock.getBlock();
         Location location = block.getLocation();
 
+        //get the config
+        FileConfiguration config = plugin.getConfig();
 
         //polling the config
         String ClickerArea = config.getString("protected-zone.region-id");

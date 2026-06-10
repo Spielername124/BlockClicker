@@ -1,5 +1,5 @@
-
 protected-zone:
+  #provide the name of the worldguard zone in which the plugin should work.
   region-id: "clickerzone"
 
 global-flags:
@@ -7,8 +7,6 @@ global-flags:
   deposit-to-inventory: false
   #setting the bonus to the loot chance from fortune enchantments (in percent), this modifier is multiplicative.
   fortune-modifier-per-level: 10
-  luck-modifier-per-level: 10
-  bad-Luck-modifier-per-level: -10
 
 #Define groups of tools to make drops individualized to certain tools
 #Important: If tools are in multiple groups, they will drop loot from all the lists they are in.
@@ -20,7 +18,8 @@ tool-Groups:
       - "DIAMOND_SHOVEL"
       - "WOODEN_SHOVEL"
 
-#The chance has to be given as a number between 0 and 1.
+
+#The chance has to be given as double between 0 and 100.
 block-rewards:
   default:
     DIRT:
@@ -28,7 +27,7 @@ block-rewards:
       rewards:
         - item: "CLAY_BALL"
           amount: 5
-          chance: 100
+          chance: 0
         - item: "DIAMOND"
           amount: 1
           chance: 50
@@ -36,9 +35,18 @@ block-rewards:
     DIRT:
       xp: 100
       rewards:
+        #You can create custom items via the bc saveitem <name of the Item> command while holding the item in your main hand
+        #specification of the amount is facultative. If not provided, it is assumed to be the same amount as the item used in the creation of the key
+        #be warned, using amount != 1 for an unstackable Item does still give a stack of this unstackable Item.
+
+        # You can award a custom reward like this (create the item, replace oldShovel by your items name and remove the  #in the following lines)
+
+        #- custom-item: "oldShovel"
+          #amount: 5
+          #chance: 100
         - item: "CLAY_BALL"
           amount: 5
-          chance: 100
+          chance: 0
         - item: "DIAMOND"
           amount: 1
           chance: 50
