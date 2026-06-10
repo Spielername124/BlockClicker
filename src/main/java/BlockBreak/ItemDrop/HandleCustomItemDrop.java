@@ -23,7 +23,7 @@ public class HandleCustomItemDrop {
         if (rewardData.containsKey("amount")) {
             reward.setAmount(((Number) rewardData.get("amount")).intValue());
         }
-        double chance = ((Number) rewardData.get("chance")).intValue();
+        double chance = ((Number) rewardData.get("chance")).doubleValue();
 
         if (Chance.performDropRoll(flags, chance, toolUsed, player)) {
             if (flags.depositToInventory) {

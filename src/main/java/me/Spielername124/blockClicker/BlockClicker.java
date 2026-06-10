@@ -14,18 +14,15 @@ public final class BlockClicker extends JavaPlugin {
 
     private File itemsFile;
     private FileConfiguration itemsConfig;
-    private GlobalFlags flags;
 
     @Override
     public void onEnable() {
         saveDefaultConfig();
         createItemsConfig();
 
-        flags = new GlobalFlags(this.getConfig());
-
         getCommand("blockclicker").setExecutor(new BlockClickerCommands(this));
 
-        getServer().getPluginManager().registerEvents(new BlockBreakListener(this, flags), this);
+        getServer().getPluginManager().registerEvents(new BlockBreakListener(this), this);
 
     }
 
@@ -37,8 +34,6 @@ public final class BlockClicker extends JavaPlugin {
     public void reloadAllConfigs() {
         reloadConfig();
         itemsConfig = YamlConfiguration.loadConfiguration(itemsFile);
-
-        flags = new GlobalFlags(this.getConfig());
     }
 
 

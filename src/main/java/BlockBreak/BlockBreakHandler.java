@@ -10,7 +10,9 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
 class BlockBreakHandler {
-    protected static void onBlockBreakInZone (BlockClicker plugin, FileConfiguration config, Player player, Block block, Location location, GlobalFlags flags) {
+    protected static void onBlockBreakInZone (BlockClicker plugin, FileConfiguration config, Player player, Block block, Location location) {
+        //read the global flags
+        GlobalFlags flags = new GlobalFlags(config);
 
         //gets the tool used to break the block
         ItemStack toolUsed = player.getInventory().getItemInMainHand();
