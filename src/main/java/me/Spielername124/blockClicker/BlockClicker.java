@@ -1,14 +1,31 @@
 package me.Spielername124.blockClicker;
 
 import BlockBreak.BlockBreakListener;
+import BlockBreak.BlockClickerCommands;
+import BlockBreak.GlobalFlags;
+import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.io.File;
+import java.io.IOException;
+
 public final class BlockClicker extends JavaPlugin {
+
+    private File itemsFile;
+    private FileConfiguration itemsConfig;
+    private GlobalFlags flags;
 
     @Override
     public void onEnable() {
         saveDefaultConfig();
-        getServer().getPluginManager().registerEvents(new BlockBreakListener(this), this);
+        createItemsConfig();
+
+        flags = new GlobalFlags(this.getConfig());
+
+        getCommand("blockclicker").setExecutor(new BlockClickerCommands(this));
+
+        getServer().getPluginManager().registerEvents(new BlockBreakListener(this, flags), this);
 
     }
 
@@ -16,4 +33,43 @@ public final class BlockClicker extends JavaPlugin {
     public void onDisable() {
         // Plugin shutdown logic
     }
+
+    public void reloadAllConfigs() {
+        reloadConfig();
+        itemsConfig = YamlConfiguration.loadConfiguration(itemsFile);
+
+        flags = new GlobalFlags(this.getConfig());
+    }
+
+
+
+
+
+
+    private void createItemsConfig(){
+        itemsFile = new File(getDataFolder(), "items.yml");
+        if (!itemsFile.exists()) {
+            itemsFile.getParentFile().mkdirs();
+            try {
+                itemsFile.createNewFile();
+            } catch (IOException e) {
+                getLogger().severe("Could not create items.yml!");
+                e.printStackTrace();
+            }
+        }
+        itemsConfig = YamlConfiguration.loadConfiguration(itemsFile);
+    }
+
+    public FileConfiguration getItemsConfig() {
+        return itemsConfig;
+    }
+
+    public void saveItemsConfig() {
+        try {
+            itemsConfig.save(itemsFile);
+        } catch (IOException e) {
+            getLogger().severe("Could not save items.yml!");
+        }
+    }
+
 }

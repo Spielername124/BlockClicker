@@ -18,10 +18,12 @@ import org.bukkit.event.block.BlockBreakEvent;
 public class BlockBreakListener implements Listener {
     private final BlockClicker plugin;
     private final FileConfiguration config;
+    private final GlobalFlags flags;
 
-    public BlockBreakListener (BlockClicker plugin){
+    public BlockBreakListener (BlockClicker plugin, GlobalFlags flags){
         this.plugin = plugin;
         this.config = plugin.getConfig();
+        this.flags= flags;
     }
 
 
@@ -45,7 +47,7 @@ public class BlockBreakListener implements Listener {
 
                 //call the handler for the event
                 Player player =  brokenBlock.getPlayer();
-                BlockBreakHandler.onBlockBreakInZone(plugin, config, player, block, location);
+                BlockBreakHandler.onBlockBreakInZone(plugin, config, player, block, location, flags);
 
             }
         }

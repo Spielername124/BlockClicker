@@ -1,5 +1,7 @@
-package BlockBreak;
+package BlockBreak.ItemDrop;
 
+import BlockBreak.Chance;
+import BlockBreak.GlobalFlags;
 import me.Spielername124.blockClicker.BlockClicker;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -36,33 +38,12 @@ public class HandleDrops {
         // Iterating through every possible reward for the broken block
         for(Map<?, ?> rewardData : possibleRewards){
 
-            //get the specifics for possible reward
-            String itemName = (String) rewardData.get("item");
-            Number amountNr = (Number) rewardData.get("amount");
-            Number chanceNr = (Number) rewardData.get("chance");
-
-            if(itemName == null || chanceNr == null) {
-                plugin.getLogger().warning("[Config Error] Missing item, or chance for reward in " + brokenBlockName);
+            if(rewardData.containsKey("custom-item")){
+                HandleCustomItemDrop.rollCustomItem(plugin, rewardData, flags, player, location, toolUsed);
                 continue;
             }
+            HandleNormalItemDrop.rollNormalItem(plugin, rewardData, flags, player, location, toolUsed, brokenBlockName);
 
-            int amount = 1;
-            if (amountNr!=null) amount = amountNr.intValue();
-            double chance = chanceNr.doubleValue();
-            Material rewardItem = Material.matchMaterial(itemName);
-
-            if (rewardItem == null) {
-                plugin.getLogger().warning("[Config Error] Invalid material name '" + itemName +
-                        "' found under block-rewards." + brokenBlockName);
-                continue;
-            }
-
-            if(Chance.performDropRoll(flags, chance, toolUsed, player)){
-                ItemStack reward = new ItemStack(rewardItem, amount);
-
-                if(flags.depositToInventory) player.getInventory().addItem(reward);
-                else location.getWorld().dropItemNaturally(location, reward);
-            }
         }
     }
 }

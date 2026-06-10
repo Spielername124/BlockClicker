@@ -4,7 +4,7 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 
 public class GlobalFlags {
-    boolean depositToInventory = false;
+    public boolean depositToInventory = false;
     double fortuneMultiplier = 1;
     double luckMultiplier = 1;
     double badLuckMultiplier = 1;

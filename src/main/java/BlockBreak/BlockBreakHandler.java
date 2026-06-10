@@ -1,5 +1,6 @@
 package BlockBreak;
 
+import BlockBreak.ItemDrop.HandleDrops;
 import me.Spielername124.blockClicker.BlockClicker;
 import org.bukkit.Location;
 import org.bukkit.block.Block;
@@ -9,10 +10,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
 class BlockBreakHandler {
-    protected static void onBlockBreakInZone (BlockClicker plugin, FileConfiguration config, Player player, Block block, Location location) {
-
-        //get the global Flags:
-        GlobalFlags flags = new GlobalFlags(config);
+    protected static void onBlockBreakInZone (BlockClicker plugin, FileConfiguration config, Player player, Block block, Location location, GlobalFlags flags) {
 
         //gets the tool used to break the block
         ItemStack toolUsed = player.getInventory().getItemInMainHand();

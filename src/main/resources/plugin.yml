@@ -5,4 +5,18 @@ main: me.Spielername124.blockClicker.BlockClicker
 api-version: '26.1.2'
 load: POSTWORLD
 
+commands:
+  blockclicker:
+    description: Main command for managing BlockClicker.
+    aliases: [bc]
+    permission: blockclicker.admin
+    usage: /<command> <saveitem|reload>
+
+
+
 depend: [WorldEdit, WorldGuard]
+
+permissions:
+  blockclicker.admin:
+    description: Allows saving custom items and reloading the plugin.
+    default: op
