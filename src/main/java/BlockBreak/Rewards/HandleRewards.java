@@ -1,12 +1,12 @@
 package BlockBreak.Rewards;
 
 import BlockBreak.GlobalFlags;
-import BlockBreak.Rewards.ItemDrop.ItemDrops;
+import BlockBreak.Rewards.ChestSpawn.ChestDrop;
+import BlockBreak.Rewards.ItemDrop.ItemDrop;
 import me.Spielername124.blockClicker.BlockClicker;
 import org.bukkit.Location;
 import org.bukkit.block.Block;
 import org.bukkit.configuration.file.FileConfiguration;
-import org.bukkit.entity.ExperienceOrb;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import java.util.List;
@@ -28,11 +28,12 @@ public class HandleRewards {
         for(Map<?, ?> rewardData : possibleRewards){
 
             if(rewardData.containsKey("item")){
-                ItemDrops.performItemDrop(plugin, rewardData, flags, player, block, location, toolUsed);
+                ItemDrop.performItemDrop(plugin, rewardData, flags, player, block, location, toolUsed);
                 continue;
             }
-            if(rewardData.containsKey("xp")){
 
+            if(rewardData.containsKey("chest")){
+                ChestDrop.rollChestDrop(plugin, config, rewardData, flags, player, toolUsed, location);
             }
 
         }

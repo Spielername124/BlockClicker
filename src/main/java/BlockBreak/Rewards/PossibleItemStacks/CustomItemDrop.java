@@ -1,4 +1,4 @@
-package BlockBreak.Rewards.ItemDrop;
+package BlockBreak.Rewards.PossibleItemStacks;
 
 import BlockBreak.Rewards.RewardsHelper.Chance;
 import BlockBreak.GlobalFlags;

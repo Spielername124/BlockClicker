@@ -18,11 +18,24 @@ tool-Groups:
       - "DIAMOND_SHOVEL"
       - "WOODEN_SHOVEL"
 
+findable-Chests:
+  normal-chest:
+
+    - item: "CLAY_BALL"
+      amount: 64
+      chance: 90
+
+    - item: "DIAMOND"
+      amount-lower-bound: 1
+      amount-upper-bound: 10
+
+
 
 #The chance has to be given as double between 0 and 100.
 block-rewards:
   default:
     DIRT:
+      -
       - xp: 0
         # you can set an upper and lower bound to give the player a random amount within these bounds back.
         # generally a set amount does override the bounds.
@@ -30,12 +43,15 @@ block-rewards:
         amount-lower-bound: 0
         amount-upper-bound: 10
         chance: 100
+
         #if like here, no amount at all is specified, it defaults to 1.
       - item: "CLAY_BALL"
         chance: 0
+
         # if not chance is specified, like it is here, the item is dropped with a 100% chance.
       - item: "DIAMOND"
         amount: 1
+
   shovels:
     DIRT:
       - xp: 100
@@ -51,6 +67,10 @@ block-rewards:
       - item: "CLAY_BALL"
         amount: 5
         chance: 0
+
       - item: "DIAMOND"
         amount: 1
         chance: 50
+
+      - chest: "normal-chest"
+        chance: 100

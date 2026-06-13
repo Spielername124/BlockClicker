@@ -1,6 +1,8 @@
 package BlockBreak.Rewards.ItemDrop;
 
 import BlockBreak.GlobalFlags;
+import BlockBreak.Rewards.PossibleItemStacks.CustomItemDrop;
+import BlockBreak.Rewards.PossibleItemStacks.NormalItemDrop;
 import BlockBreak.Rewards.RewardsHelper.Amount;
 import me.Spielername124.blockClicker.BlockClicker;
 import org.bukkit.Location;
@@ -10,7 +12,7 @@ import org.bukkit.inventory.ItemStack;
 
 import java.util.Map;
 
-public class ItemDrops {
+public class ItemDrop {
     public static void performItemDrop(BlockClicker plugin, Map<?, ?> rewardData, GlobalFlags flags, Player player, Block block, Location location, ItemStack toolUsed){
 
         String brokenBlockName = block.getType().name();
@@ -37,7 +39,7 @@ public class ItemDrops {
         // get the possible dropping Stack
         ItemStack reward = isSpecialItem ?
                 CustomItemDrop.rollCustomItem(plugin, rewardData, flags, player, toolUsed, itemName, amount, chance):
-                NormalItemDrop.rollNormalItem(plugin, rewardData, flags, player, toolUsed, brokenBlockName, itemName, amount, chance);
+                NormalItemDrop.rollNormalItem(plugin, rewardData, flags, player, toolUsed, brokenBlockName, amount, chance);
 
         if (reward != null){
             if (flags.depositToInventory) player.getInventory().addItem(reward);
