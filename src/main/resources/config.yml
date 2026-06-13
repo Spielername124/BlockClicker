@@ -1,14 +1,11 @@
-clicker-zones:
-  # Zone 1: Applies everywhere
-  default:
+zone-groups:
+  - regionName: "default"
     everywhere: true
 
-    dirtArea:
-      everywhere: false
-      region-ids:
-        - "clickerzone"
-        - "spawnzone"
-        - "mining_area"
+  - regionName: "dirtArea"
+    everywhere: false
+    region-ids:
+      - "clickerzone"
 
 global-flags:
   #setting to decide whether Items are dropped (false) or deposited directly to the players inventory

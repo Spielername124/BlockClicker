@@ -13,9 +13,9 @@ import java.util.List;
 import java.util.Map;
 
 public class HandleRewards {
-    public static void handleGroupDrops(BlockClicker plugin, FileConfiguration config, GlobalFlags flags, Player player, Block block, Location location, ItemStack toolUsed, String parentGroup){
+    public static void handleGroupDrops(BlockClicker plugin, FileConfiguration config, GlobalFlags flags, Player player, Block block, Location location, ItemStack toolUsed, String parentGroup, String zoneGroup){
         String brokenBlockName = block.getType().name();
-        String path = "block-rewards." + parentGroup + "." + brokenBlockName;
+        String path = zoneGroup+ "." + parentGroup + "." + brokenBlockName;
 
         //returns if the block has no specified rewards
         if (!config.contains(path)) {

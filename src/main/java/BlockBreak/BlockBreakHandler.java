@@ -20,15 +20,19 @@ import java.util.Map;
 
 class BlockBreakHandler {
     protected static void checkAreas (BlockClicker plugin, FileConfiguration config, Player player, Block block, Location location) {
+        //iter
+        for (Map<?, ?> zoneGroup : config.getMapList("zone-groups")) {
+            String zoneGroupName = (String) zoneGroup.get("regionName");
 
-        for (Map<?, ?> zone : config.getMapList("clicker-zones")) {
-            String zoneGroup = (String) zone.get("regionName");
+            boolean isEverywhere = Boolean.TRUE.equals(zoneGroup.get("everywhere"));
+            if (isEverywhere) {
+                onBlockBreakInZone(plugin, config, player, block, location, zoneGroupName);
+                return;
+            }
 
-            boolean isEverywhere = Boolean.TRUE.equals(zone.get("everywhere"));
-            if (isEverywhere) onBlockBreakInZone(plugin, config, player, block, location, zoneGroup);
 
-            if (zone.containsKey("region-ids")) {
-                List<String> regionIds = (List<String>) zone.get("region-ids");
+            if (zoneGroup.containsKey("region-ids")) {
+                List<String> regionIds = (List<String>) zoneGroup.get("region-ids");
 
                 //iterate through the zones to look if one contains the block
                 for (String id : regionIds) {
@@ -38,32 +42,13 @@ class BlockBreakHandler {
                     if (regions != null) {
                         ProtectedRegion targetRegion = regions.getRegion(id);
                         if (targetRegion != null && targetRegion.contains(BlockVector3.at(location.getBlockX(), location.getBlockY(), location.getBlockZ()))) {
-                            onBlockBreakInZone(plugin, config, player, block, location, zoneGroup);
+                            onBlockBreakInZone(plugin, config, player, block, location, zoneGroupName);
+                            return;
                         }
                     }
                 }
             }
         }
-
-
-
-        /*
-        String ClickerArea = config.getString("protected-zone.region-id");
-        if (ClickerArea == null) return;
-
-        //get the Zone from Worldguard (if it Exists)
-        RegionContainer container = WorldGuard.getInstance().getPlatform().getRegionContainer();
-        RegionManager regions = container.get(BukkitAdapter.adapt(location.getWorld()));
-        if (regions != null) {
-            ProtectedRegion targetRegion = regions.getRegion(ClickerArea);
-            if (targetRegion != null && targetRegion.contains(BlockVector3.at(location.getBlockX(), location.getBlockY(), location.getBlockZ()))) {
-
-                //call the handler for the event
-
-
-            }
-        }
-*/
     }
 
     private static void onBlockBreakInZone (BlockClicker plugin, FileConfiguration config, Player player, Block block, Location location, String zoneGroup){
@@ -83,7 +68,7 @@ class BlockBreakHandler {
             if(!ToolIsAllowedCheck.checkTool(config, toolUsed,groupKey)) continue;
 
             //Perform the drops logic in a subclass
-            HandleRewards.handleGroupDrops(plugin, config, flags, player, block, location, toolUsed, groupKey);
+            HandleRewards.handleGroupDrops(plugin, config, flags, player, block, location, toolUsed, groupKey, zoneGroup);
         }
     }
 
