@@ -50,6 +50,10 @@ public class ChestDrop {
             chestData.setType(Chest.Type.SINGLE);
             block.setBlockData(chestData);
 
+            //update the Chests State
+            block.getState().update(true);
+
+
             // get the Chest Inventory
             org.bukkit.block.Chest chestState = (org.bukkit.block.Chest) block.getState();
             Inventory chestInventory = chestState.getInventory();
@@ -63,8 +67,6 @@ public class ChestDrop {
                     chestInventory.setItem(freeChestSlots.poll(), rolledItem);
                 }
             }
-
-            chestState.update(true);
         });
 
     }
