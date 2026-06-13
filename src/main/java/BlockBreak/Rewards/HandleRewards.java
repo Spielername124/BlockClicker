@@ -22,18 +22,6 @@ public class HandleRewards {
             return;
         }
 
-        /*
-        //give the specified amount of XP to the player / or drop it
-        int xp = config.getInt(path + ".xp", 0);
-        if(xp>0) {
-            if (flags.depositToInventory) player.giveExp(xp);
-            else {
-                ExperienceOrb xpDrop = location.getWorld().spawn(location, ExperienceOrb.class);
-                xpDrop.setExperience(xp);
-            }
-        }
-        */
-
         List<Map<?, ?>> possibleRewards = config.getMapList(path);
 
         // Iterating through every possible reward for the broken block
