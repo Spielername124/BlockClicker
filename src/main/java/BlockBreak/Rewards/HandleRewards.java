@@ -22,6 +22,7 @@ public class HandleRewards {
             return;
         }
 
+        /*
         //give the specified amount of XP to the player / or drop it
         int xp = config.getInt(path + ".xp", 0);
         if(xp>0) {
@@ -31,14 +32,19 @@ public class HandleRewards {
                 xpDrop.setExperience(xp);
             }
         }
+        */
 
-        List<Map<?, ?>> possibleRewards = config.getMapList(path + ".rewards");
+        List<Map<?, ?>> possibleRewards = config.getMapList(path);
 
         // Iterating through every possible reward for the broken block
         for(Map<?, ?> rewardData : possibleRewards){
 
             if(rewardData.containsKey("item")){
                 ItemDrops.performItemDrop(plugin, rewardData, flags, player, block, location, toolUsed);
+                continue;
+            }
+            if(rewardData.containsKey("xp")){
+
             }
 
         }

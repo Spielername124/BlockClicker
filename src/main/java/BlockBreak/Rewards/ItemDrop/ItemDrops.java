@@ -1,6 +1,7 @@
 package BlockBreak.Rewards.ItemDrop;
 
 import BlockBreak.GlobalFlags;
+import BlockBreak.Rewards.RewardsHelper.Amount;
 import me.Spielername124.blockClicker.BlockClicker;
 import org.bukkit.Location;
 import org.bukkit.block.Block;
@@ -17,7 +18,6 @@ public class ItemDrops {
         //get all possibly needed data for a drop
         String itemName = (String) rewardData.get("item");
         boolean isSpecialItem = Boolean.TRUE.equals(rewardData.get("is-custom"));
-        Number amountNr = (Number) rewardData.get("amount");
         Number chanceNr = (Number) rewardData.get("chance");
 
         if (itemName == null) {
@@ -25,11 +25,16 @@ public class ItemDrops {
             return;
         }
 
-        //sets amount and chance to the set values/ to the default, if not specified in the config
-        int amount = amountNr != null ? amountNr.intValue() : 1;
         double chance = chanceNr != null ? chanceNr.doubleValue() : 100;
+        int amount = Amount.getAmount(rewardData);
 
-        // get the possible droping Stack
+        //handle the Special case that XP should be dropped
+        if(itemName.equals("xp")){
+            XpDrop.performXpDrop(flags, player, location, amount, chance, toolUsed);
+            return;
+        }
+
+        // get the possible dropping Stack
         ItemStack reward = isSpecialItem ?
                 CustomItemDrop.rollCustomItem(plugin, rewardData, flags, player, toolUsed, itemName, amount, chance):
                 NormalItemDrop.rollNormalItem(plugin, rewardData, flags, player, toolUsed, brokenBlockName, itemName, amount, chance);

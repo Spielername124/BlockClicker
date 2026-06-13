@@ -23,31 +23,34 @@ tool-Groups:
 block-rewards:
   default:
     DIRT:
-      xp: 0
-      rewards:
-        - item: "CLAY_BALL"
-          amount: 5
-          chance: 0
-        - item: "DIAMOND"
-          amount: 1
-          chance: 50
+      - xp: 0
+        # you can set an upper and lower bound to give the player a random amount within these bounds back.
+        # generally a set amount does override the bounds.
+        # if no amount is specified but a lower or upperbound is specified, are the defaults for the bounds 0 and 64.
+        amount-lower-bound: 0
+        amount-upper-bound: 10
+        chance: 100
+        #if like here, no amount at all is specified, it defaults to 1.
+      - item: "CLAY_BALL"
+        chance: 0
+        # if not chance is specified, like it is here, the item is dropped with a 100% chance.
+      - item: "DIAMOND"
+        amount: 1
   shovels:
     DIRT:
-      xp: 100
-      rewards:
-        #You can create custom items via the bc saveitem <name of the Item> command while holding the item in your main hand
-        #specification of the amount is facultative. If not provided, it is assumed to be the same amount as the item used in the creation of the key
-        #be warned, using amount != 1 for an unstackable Item does still give a stack of this unstackable Item.
+      - xp: 100
 
+        #You can create custom items via the bc saveitem <name of the Item> command while holding the item in your main hand.
         # You can award a custom reward like this (create the item, replace oldShovel by your items name and remove the  #in the following lines)
 
         #- item: "oldShovel"
-          #is-custom: true
-          #amount: 5
-          #chance: 100
-        - item: "CLAY_BALL"
-          amount: 5
-          chance: 0
-        - item: "DIAMOND"
-          amount: 1
-          chance: 50
+        #is-custom: true
+        #amount: 5
+        #chance: 100
+
+      - item: "CLAY_BALL"
+        amount: 5
+        chance: 0
+      - item: "DIAMOND"
+        amount: 1
+        chance: 50
