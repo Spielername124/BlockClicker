@@ -33,22 +33,8 @@ public class BlockBreakListener implements Listener {
         //get the config
         FileConfiguration config = plugin.getConfig();
 
-        //polling the config
-        String ClickerArea = config.getString("protected-zone.region-id");
-        if (ClickerArea == null) return;
+        Player player =  brokenBlock.getPlayer();
 
-        //get the Zone from Worldguard (if it Exists)
-        RegionContainer container = WorldGuard.getInstance().getPlatform().getRegionContainer();
-        RegionManager regions = container.get(BukkitAdapter.adapt(location.getWorld()));
-        if (regions != null) {
-            ProtectedRegion targetRegion = regions.getRegion(ClickerArea);
-            if (targetRegion != null && targetRegion.contains(BlockVector3.at(location.getBlockX(), location.getBlockY(), location.getBlockZ()))) {
-
-                //call the handler for the event
-                Player player =  brokenBlock.getPlayer();
-                BlockBreakHandler.onBlockBreakInZone(plugin, config, player, block, location);
-
-            }
-        }
+        BlockBreakHandler.checkAreas(plugin, config, player, block, location);
     }
 }
