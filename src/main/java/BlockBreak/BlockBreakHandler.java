@@ -1,6 +1,6 @@
 package BlockBreak;
 
-import BlockBreak.ItemDrop.HandleDrops;
+import BlockBreak.Rewards.HandleRewards;
 import me.Spielername124.blockClicker.BlockClicker;
 import org.bukkit.Location;
 import org.bukkit.block.Block;
@@ -27,7 +27,7 @@ class BlockBreakHandler {
             if(!ToolIsAllowedCheck.checkTool(config, toolUsed,groupKey)) continue;
 
             //Perform the drops logic in a subclass
-            HandleDrops.handleGroupDrops(plugin, config, flags, player, block, location, toolUsed, groupKey);
+            HandleRewards.handleGroupDrops(plugin, config, flags, player, block, location, toolUsed, groupKey);
         }
 
     }

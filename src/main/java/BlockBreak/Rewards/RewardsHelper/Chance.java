@@ -1,6 +1,6 @@
-package BlockBreak;
+package BlockBreak.Rewards.RewardsHelper;
 
-import org.bukkit.Material;
+import BlockBreak.GlobalFlags;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;

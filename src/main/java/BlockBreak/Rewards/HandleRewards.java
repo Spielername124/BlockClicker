@@ -1,10 +1,9 @@
-package BlockBreak.ItemDrop;
+package BlockBreak.Rewards;
 
-import BlockBreak.Chance;
 import BlockBreak.GlobalFlags;
+import BlockBreak.Rewards.ItemDrop.ItemDrops;
 import me.Spielername124.blockClicker.BlockClicker;
 import org.bukkit.Location;
-import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.ExperienceOrb;
@@ -13,7 +12,7 @@ import org.bukkit.inventory.ItemStack;
 import java.util.List;
 import java.util.Map;
 
-public class HandleDrops {
+public class HandleRewards {
     public static void handleGroupDrops(BlockClicker plugin, FileConfiguration config, GlobalFlags flags, Player player, Block block, Location location, ItemStack toolUsed, String parentGroup){
         String brokenBlockName = block.getType().name();
         String path = "block-rewards." + parentGroup + "." + brokenBlockName;
@@ -38,11 +37,9 @@ public class HandleDrops {
         // Iterating through every possible reward for the broken block
         for(Map<?, ?> rewardData : possibleRewards){
 
-            if(rewardData.containsKey("custom-item")){
-                HandleCustomItemDrop.rollCustomItem(plugin, rewardData, flags, player, location, toolUsed);
-                continue;
+            if(rewardData.containsKey("item")){
+                ItemDrops.performItemDrop(plugin, rewardData, flags, player, block, location, toolUsed);
             }
-            HandleNormalItemDrop.rollNormalItem(plugin, rewardData, flags, player, location, toolUsed, brokenBlockName);
 
         }
     }

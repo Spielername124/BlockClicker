@@ -5,9 +5,9 @@ import org.bukkit.entity.Player;
 
 public class GlobalFlags {
     public boolean depositToInventory = false;
-    double fortuneMultiplier = 1;
-    double luckMultiplier = 1;
-    double badLuckMultiplier = 1;
+    public double fortuneMultiplier = 1;
+    public double luckMultiplier = 1;
+    public double badLuckMultiplier = 1;
 
     public GlobalFlags(FileConfiguration config){
         String globalFlagPath = "global-flags.";

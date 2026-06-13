@@ -41,7 +41,8 @@ block-rewards:
 
         # You can award a custom reward like this (create the item, replace oldShovel by your items name and remove the  #in the following lines)
 
-        #- custom-item: "oldShovel"
+        #- item: "oldShovel"
+          #is-custom: true
           #amount: 5
           #chance: 100
         - item: "CLAY_BALL"
