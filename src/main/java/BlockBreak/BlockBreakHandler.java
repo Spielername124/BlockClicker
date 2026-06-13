@@ -20,40 +20,55 @@ import java.util.Map;
 
 class BlockBreakHandler {
     protected static void checkAreas (BlockClicker plugin, FileConfiguration config, Player player, Block block, Location location) {
-        //iter
-        for (Map<?, ?> zoneGroup : config.getMapList("zone-groups")) {
-            String zoneGroupName = (String) zoneGroup.get("regionName");
+        //read the global flags
+        GlobalFlags flags = new GlobalFlags(config);
 
-            boolean isEverywhere = Boolean.TRUE.equals(zoneGroup.get("everywhere"));
-            if (isEverywhere) {
-                onBlockBreakInZone(plugin, config, player, block, location, zoneGroupName);
-                return;
+        ConfigurationSection zoneGroupsSection = config.getConfigurationSection("zone-groups");
+        if (zoneGroupsSection == null) return;
+
+        //iterate trough every possible zone-group
+        for (String zoneGroupName : zoneGroupsSection.getKeys(false)) {
+            ConfigurationSection zoneGroup = zoneGroupsSection.getConfigurationSection(zoneGroupName);
+            if (zoneGroup == null) continue;
+
+            //if a zone-group is everywhere possible, let the
+            if (zoneGroup.getBoolean("everywhere", false)) {
+                onBlockBreakInZone(plugin, config, flags, player, block, location, zoneGroupName);
+                if(flags.mutuallyExclusiveRegions){
+                    return;
+                }
+                continue;
             }
 
+            //check all region Id's of the zone group and proceed if the broken block is contained in one of the regions
+            if (zoneGroup.contains("region-ids")) {
+                List<String> regionIds = zoneGroup.getStringList("region-ids");
+                boolean isInZone = false;
 
-            if (zoneGroup.containsKey("region-ids")) {
-                List<String> regionIds = (List<String>) zoneGroup.get("region-ids");
-
-                //iterate through the zones to look if one contains the block
                 for (String id : regionIds) {
-                    //get the Zone from Worldguard (if it Exists)
                     RegionContainer container = WorldGuard.getInstance().getPlatform().getRegionContainer();
                     RegionManager regions = container.get(BukkitAdapter.adapt(location.getWorld()));
+
                     if (regions != null) {
                         ProtectedRegion targetRegion = regions.getRegion(id);
                         if (targetRegion != null && targetRegion.contains(BlockVector3.at(location.getBlockX(), location.getBlockY(), location.getBlockZ()))) {
-                            onBlockBreakInZone(plugin, config, player, block, location, zoneGroupName);
-                            return;
+                            isInZone = true;
+                            break;
                         }
+                    }
+                }
+
+                if (isInZone) {
+                    onBlockBreakInZone(plugin, config, flags, player, block, location, zoneGroupName);
+                    if(flags.mutuallyExclusiveRegions){
+                        return;
                     }
                 }
             }
         }
     }
 
-    private static void onBlockBreakInZone (BlockClicker plugin, FileConfiguration config, Player player, Block block, Location location, String zoneGroup){
-        //read the global flags
-        GlobalFlags flags = new GlobalFlags(config);
+    private static void onBlockBreakInZone (BlockClicker plugin, FileConfiguration config, GlobalFlags flags, Player player, Block block, Location location, String zoneGroup){
 
         //gets the tool used to break the block
         ItemStack toolUsed = player.getInventory().getItemInMainHand();

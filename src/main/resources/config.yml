@@ -1,17 +1,21 @@
+# define the groups of world guard regions, that share a lootable
 zone-groups:
-  - regionName: "default"
-    everywhere: true
-
-  - regionName: "dirtArea"
-    everywhere: false
+    dirtArea:
+    #list your regions
     region-ids:
       - "clickerzone"
+    default:
+      #setting this flag enables the loot table of this group everywhere
+      everywhere: true
 
 global-flags:
+  mutualy-exclusive-regions: true
   #setting to decide whether Items are dropped (false) or deposited directly to the players inventory
   deposit-to-inventory: false
   #setting the bonus to the loot chance from fortune enchantments (in percent), this modifier is multiplicative.
   fortune-modifier-per-level: 10
+  luck-modifier-per-level: 10
+  badLuckMultiplier: -10
 
 #Define groups of tools to make drops individualized to certain tools
 #Important: If tools are in multiple groups, they will drop loot from all the lists they are in.
