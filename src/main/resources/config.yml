@@ -1,12 +1,12 @@
 # define the groups of world guard regions, that share a lootable
 zone-groups:
-    dirtArea:
+  dirtArea:
     #list your regions
     region-ids:
       - "clickerzone"
-    default:
-      #setting this flag enables the loot table of this group everywhere
-      everywhere: true
+  default:
+    #setting this flag enables the loot table of this group everywhere
+    everywhere: true
 
 global-flags:
   mutualy-exclusive-regions: true
