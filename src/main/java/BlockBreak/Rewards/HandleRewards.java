@@ -33,7 +33,7 @@ public class HandleRewards {
             }
 
             if(rewardData.containsKey("chest")){
-                ChestDrop.rollChestDrop(plugin, config, rewardData, flags, player, toolUsed, location);
+                ChestDrop.rollChestDrop(plugin, config, rewardData, flags, player, toolUsed, block);
             }
 
         }

@@ -40,32 +40,32 @@ public class ChestDrop {
         List<Map<?, ?>> possibleContainedItems = config.getMapList("findable-Chests." + chestName);
         LinkedList<Integer> freeChestSlots = ChestHelper.randomPossibleChestSlots();
 
-        //creates a chest at on the location of the previous block
-        block.setType(Material.CHEST, false);
+        //schedule a new Task so that the chest gets placed in the next tick
+        plugin.getServer().getScheduler().runTask(plugin, () -> {
+            // creates a chest at the location of the previous block
+            block.setType(Material.CHEST, false);
 
-        //ensure it to not merge with another chest
-        org.bukkit.block.data.type.Chest chestData = (org.bukkit.block.data.type.Chest) block.getBlockData();
-        chestData.setType(Chest.Type.SINGLE);
-        block.setBlockData(chestData);
+            // ensure it does not merge with another chest
+            org.bukkit.block.data.type.Chest chestData = (org.bukkit.block.data.type.Chest) block.getBlockData();
+            chestData.setType(Chest.Type.SINGLE);
+            block.setBlockData(chestData);
 
-        // get the Chest Inventory
-        org.bukkit.block.Chest chestState = (org.bukkit.block.Chest) block.getState();
-        Inventory chestInventory = chestState.getInventory();
+            // get the Chest Inventory
+            org.bukkit.block.Chest chestState = (org.bukkit.block.Chest) block.getState();
+            Inventory chestInventory = chestState.getInventory();
 
+            for(Map<?, ?> rewardData : possibleContainedItems) {
+                if(freeChestSlots.isEmpty()) break;
 
+                ItemStack rolledItem = ChestItems.rollPossibleItem(plugin, rewardData, flags, player, toolUsed);
 
-        for(Map<?, ?> rewardData : possibleContainedItems) {
-            if(freeChestSlots.isEmpty())break;
-
-            ItemStack rolledItem = ChestItems.rollPossibleItem(plugin, rewardData, flags, player, toolUsed);
-
-            if(rolledItem != null){
-                chestInventory.setItem(freeChestSlots.poll(),rolledItem);
+                if(rolledItem != null){
+                    chestInventory.setItem(freeChestSlots.poll(), rolledItem);
+                }
             }
 
-        }
-
-        chestState.update();
+            chestState.update(true);
+        });
 
     }
 }

@@ -15,7 +15,7 @@ public class Chance {
         double totalChance = calculatePostModifierChance(baseChance, flags, toolUsed, player);
 
         double randomRoll = ThreadLocalRandom.current().nextDouble(100.0);
-        return randomRoll <= baseChance;
+        return randomRoll <= totalChance;
     }
 
     private static double calculatePostModifierChance(double baseChance, GlobalFlags flags, ItemStack toolUsed, Player player){

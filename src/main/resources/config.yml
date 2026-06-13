@@ -35,8 +35,7 @@ findable-Chests:
 block-rewards:
   default:
     DIRT:
-      -
-      - xp: 0
+      - item: "xp"
         # you can set an upper and lower bound to give the player a random amount within these bounds back.
         # generally a set amount does override the bounds.
         # if no amount is specified but a lower or upperbound is specified, are the defaults for the bounds 0 and 64.
@@ -54,7 +53,7 @@ block-rewards:
 
   shovels:
     DIRT:
-      - xp: 100
+      - item: "xp"
 
         #You can create custom items via the bc saveitem <name of the Item> command while holding the item in your main hand.
         # You can award a custom reward like this (create the item, replace oldShovel by your items name and remove the  #in the following lines)

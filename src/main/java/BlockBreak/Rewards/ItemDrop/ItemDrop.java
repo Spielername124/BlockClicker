@@ -39,7 +39,7 @@ public class ItemDrop {
         // get the possible dropping Stack
         ItemStack reward = isSpecialItem ?
                 CustomItemDrop.rollCustomItem(plugin, rewardData, flags, player, toolUsed, itemName, amount, chance):
-                NormalItemDrop.rollNormalItem(plugin, rewardData, flags, player, toolUsed, brokenBlockName, amount, chance);
+                NormalItemDrop.rollNormalItem(plugin, rewardData, flags, player, toolUsed, itemName, amount, chance);
 
         if (reward != null){
             if (flags.depositToInventory) player.getInventory().addItem(reward);
