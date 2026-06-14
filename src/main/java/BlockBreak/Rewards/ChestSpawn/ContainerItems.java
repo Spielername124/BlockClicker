@@ -1,19 +1,16 @@
 package BlockBreak.Rewards.ChestSpawn;
 
 import BlockBreak.GlobalFlags;
-import BlockBreak.Rewards.ItemDrop.XpDrop;
 import BlockBreak.Rewards.PossibleItemStacks.CustomItemDrop;
 import BlockBreak.Rewards.PossibleItemStacks.NormalItemDrop;
 import BlockBreak.Rewards.RewardsHelper.Amount;
 import me.Spielername124.blockClicker.BlockClicker;
-import org.bukkit.Location;
-import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.Map;
 
-public class ChestItems {
+public class ContainerItems {
 
     public static ItemStack rollPossibleItem(BlockClicker plugin, Map<?, ?> rewardData, GlobalFlags flags, Player player, ItemStack toolUsed) {
 

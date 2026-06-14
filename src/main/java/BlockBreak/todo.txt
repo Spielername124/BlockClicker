@@ -1,10 +1,13 @@
-Done: making different worldguard areas possible
+DONE: making different worldguard areas possible
 todo: add git stuff (download of jar, read me, documentation)
 Done: add reload possibilities for the config
 DONE: add luck/ bad luck to chances
 DONE: add possibility of drop ranges
 todo: add mobs spawn possibility
-Done: add findable chests
+DONE: add findable chests
 todo: add effects/ sounds for drops
 todo: add command execution on
 DONE: add possibility to add custom items to the drop chance
+DONE: add different chest like containers/ setting to choose the container
+todo: make a global flag to choose if luck modificators are multiplicative
+todo: add possibility to make a guaranteed drop from a list. (Can be usefull for example filling ovens with 1 drop out of the "burnable" and one out of the "fule" catagory

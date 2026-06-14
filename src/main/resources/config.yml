@@ -27,16 +27,17 @@ tool-Groups:
       - "DIAMOND_SHOVEL"
       - "WOODEN_SHOVEL"
 
-findable-Chests:
+findable-containers:
   normal-chest:
-
-    - item: "CLAY_BALL"
-      amount: 64
-      chance: 90
-
-    - item: "DIAMOND"
-      amount-lower-bound: 1
-      amount-upper-bound: 10
+    container-type: "BARREL"
+    shuffle: false
+    loot:
+      - item: "CLAY_BALL"
+        amount: 64
+        chance: 90
+      - item: "DIAMOND"
+        amount-lower-bound: 1
+        amount-upper-bound: 10
 
 
 
@@ -80,5 +81,5 @@ dirtArea:
         amount: 1
         chance: 50
 
-      - chest: "normal-chest"
+      - container: "normal-chest"
         chance: 100

@@ -1,7 +1,7 @@
 package BlockBreak.Rewards;
 
 import BlockBreak.GlobalFlags;
-import BlockBreak.Rewards.ChestSpawn.ChestDrop;
+import BlockBreak.Rewards.ChestSpawn.ContainerDrop;
 import BlockBreak.Rewards.ItemDrop.ItemDrop;
 import me.Spielername124.blockClicker.BlockClicker;
 import org.bukkit.Location;
@@ -32,8 +32,8 @@ public class HandleRewards {
                 continue;
             }
 
-            if(rewardData.containsKey("chest")){
-                ChestDrop.rollChestDrop(plugin, config, rewardData, flags, player, toolUsed, block);
+            if(rewardData.containsKey("container")){
+                ContainerDrop.rollContainerDrop(plugin, config, rewardData, flags, player, toolUsed, block);
             }
 
         }
