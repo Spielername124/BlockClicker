@@ -2,6 +2,7 @@ This Documentation is currently work in Progress. Things might be missing and ar
 
 Commands:
     bc reload: reloads tha config
+    bc saveitem <customName>: saves the item you currently hold in the main hand under the name <customName> in items.yml, allowing you to use the name as item in the loot tables (!Important! you still have to set the "is-custom" flag in the loot table)
 
   "global-flags":
     Here you can set global flags that generally count plugin wide.
@@ -52,10 +53,10 @@ First you have to define in which zone-group a given table should be working, fo
 
 
 
-There are the following types of rewards and it's subpoints:
-    - item: "<item name>" (<item name> is either: a minecraft item, a custom item, or "xp" for xp points)
-           is-custom: if set to true, searches the item in your saved items, which are safed in items.yml, instead of dropping a normal item.
-           amount: is by default, if neither it or any bounds are provided set to 1, determines how many of a given item are dropped
+There are the following types of rewards, and it's subpoints:
+    - item: "<item name>" (<item name> is either: a Minecraft item, a custom item, or "xp" for xp points)
+           is-custom: if set to true, searches the item in your saved items, which are saved in items.yml, instead of dropping a normal item. This needs to be set to make a custom item a reward
+           amount: is by default, if neither it nor any bounds are provided set to 1, determines how many of a given item are dropped
            amount-lower-bound and amount-upper-bound:
                 this modifier define a range of items that can be dropped. both bounds are defined inclusively, for example if lower bound is set to 1, and upperbound to 10, the player may get between 1 and 10 of the given item
                 the default values if one of them is set but the other is not are: 0 for the lower bound and 64 for the upper bound
