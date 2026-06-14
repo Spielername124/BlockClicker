@@ -9,5 +9,5 @@ Currently, it is still in development, but you can still download the current be
 ## Documentation
 Here you can find the [Documentation Guide](Documentation.txt) for the config
 
-## Dependents 
+## Dependencies
 This plugin is dependent on: WorldEdit, WorldGuard
