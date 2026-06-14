@@ -1,0 +1,14 @@
+This Documentation is currently work in Progress. Things might be missing and are subjetc to change :)
+
+zone-groups:
+  Under this point you have to define groups of world guard zones in which the plugin will check for broken blocks, and uses the loottable defined for this region.
+  You can do this by giving it a name, for example: dirtArea.
+  There are two subpoints for a group:
+    - a settable flag "everywhere". If this flag is set to true, every block on the server is valid and will and the lootable defined for this area will be used
+    - A map "region-ids", where you can list the world guard regions which will count to this region by adding them as a subpoint with "- <regionName>
+
+global Flags:
+  Here you can set global flags that generally count plugin wide.
+    - "mutualy-exclusive-regions": if this is set to true, breaking a block will only check the loottable of the highest in the config defined zone-group where the block is a part of. Turing this flag off (or omitting it) is discouraged, since it may leed to unintended behaviour if multiple loottables try to spawn a container at the same location.
+    - "deposit-to-inventory": if this flag is set to true, dropped Items and XP will instantely be depositied in the players inventory. If set false or it is omitted, the Items / Xp will drop at the location of the broken block.
+    
