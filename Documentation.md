@@ -59,7 +59,6 @@ There are the following types of rewards and it's subpoints:
            amount-lower-bound and amount-upper-bound:
                 this modifier define a range of items that can be dropped. both bounds are defined inclusively, for example if lower bound is set to 1, and upperbound to 10, the player may get between 1 and 10 of the given item
                 the default values if one of them is set but the other is not are: 0 for the lower bound and 64 for the upper bound
-
     - container: "<container name>": places a container defined in "findable-containers" on the location the block has been broken.
     - effect: "<effectName>": effectName sets which effect should be given
         effect-duration : sets the effect time in seconds
