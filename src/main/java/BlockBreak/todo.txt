@@ -1,11 +1,11 @@
 DONE: making different worldguard areas possible
-todo: add git stuff (download of jar, read me, documentation)
+todo: add git stuff (download of jar, read me, documentation <- Work in progress)
 Done: add reload possibilities for the config
 DONE: add luck/ bad luck to chances
 DONE: add possibility of drop ranges
 todo: add mobs spawn possibility
 DONE: add findable chests
-todo: add effects/ sounds for drops
+DONE: add effects/ sounds for drops
 todo: add command execution on
 DONE: add possibility to add custom items to the drop chance
 DONE: add different chest like containers/ setting to choose the container

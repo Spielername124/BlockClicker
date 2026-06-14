@@ -41,6 +41,7 @@ First you have to define in which zone-group a given table should be working, fo
  loot tables generally are lists of different rewards. You can add as many rewards as you like. Each reward must be added like:
     - <reward type>:
       chance: sets the chance that a reward is given. this can be given by any double value (basically decimal value) between 0 and 100. it is by default by 100%.
+            this modifier works in every possible reward.
       <specific reward values>
 
 
@@ -53,3 +54,6 @@ There are the following types of rewards and it's subpoints:
                 the default values if one of them is set but the other is not are: 0 for the lower bound and 64 for the upper bound
 
     - container: "<container name>": places a container defined in "findable-containers" on the location the block has been broken.
+    - effect: "<effectName>": effectName sets which effect should be given
+        effect-duration : sets the effect time in seconds
+        level: sets the effect level (attention! this means level and not amplifier! to give level 1 you have to set this to 1, not to 0)

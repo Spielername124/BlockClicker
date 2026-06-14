@@ -85,3 +85,8 @@ dirtArea:
 
       - container: "normal-chest"
         chance: 100
+
+      - effect: SPEED
+        duration-duration: 10
+        level: 1
+        chance: 50.1
