@@ -1,6 +1,7 @@
 package BlockBreak.Rewards.ChestSpawn;
 
 import BlockBreak.GlobalFlags;
+import BlockBreak.Rewards.RewardSound;
 import BlockBreak.Rewards.RewardsHelper.Chance;
 import me.Spielername124.blockClicker.BlockClicker;
 import org.bukkit.Material;
@@ -20,7 +21,7 @@ import static BlockBreak.Rewards.ChestSpawn.ContainerHelper.doesContainerExist;
 
 public class ContainerDrop {
 
-    public static void rollContainerDrop(BlockClicker plugin, FileConfiguration config, Map<?, ?> rewardData, GlobalFlags flags, Player player, ItemStack toolUsed, Block block){
+    public static void rollContainerDrop(BlockClicker plugin, FileConfiguration config, RewardSound sound, Map<?, ?> rewardData, GlobalFlags flags, Player player, ItemStack toolUsed, Block block){
 
         String containerName = (String) rewardData.get("container");
 
@@ -31,7 +32,10 @@ public class ContainerDrop {
         double chance = chanceNr != null ? chanceNr.doubleValue() : 100;
 
         // perform the Chest creation if the player rolled it
-        if (Chance.performDropRoll(flags, chance, toolUsed, player)) performContainerDrop(plugin, config, flags, player, toolUsed, containerName, block);
+        if (Chance.performDropRoll(flags, chance, toolUsed, player)){
+            performContainerDrop(plugin, config, flags, player, toolUsed, containerName, block);
+            sound.setSound(rewardData);
+        }
     }
 
     public static void performContainerDrop(BlockClicker plugin, FileConfiguration config, GlobalFlags flags, Player player, ItemStack toolUsed, String containerName, Block block){

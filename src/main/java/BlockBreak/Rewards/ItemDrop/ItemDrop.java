@@ -3,6 +3,7 @@ package BlockBreak.Rewards.ItemDrop;
 import BlockBreak.GlobalFlags;
 import BlockBreak.Rewards.PossibleItemStacks.CustomItemDrop;
 import BlockBreak.Rewards.PossibleItemStacks.NormalItemDrop;
+import BlockBreak.Rewards.RewardSound;
 import BlockBreak.Rewards.RewardsHelper.Amount;
 import me.Spielername124.blockClicker.BlockClicker;
 import org.bukkit.Location;
@@ -13,7 +14,7 @@ import org.bukkit.inventory.ItemStack;
 import java.util.Map;
 
 public class ItemDrop {
-    public static void performItemDrop(BlockClicker plugin, Map<?, ?> rewardData, GlobalFlags flags, Player player, Block block, Location location, ItemStack toolUsed){
+    public static void performItemDrop(BlockClicker plugin, RewardSound sound, Map<?, ?> rewardData, GlobalFlags flags, Player player, Block block, Location location, ItemStack toolUsed){
 
         String brokenBlockName = block.getType().name();
 
@@ -44,6 +45,7 @@ public class ItemDrop {
         if (reward != null){
             if (flags.depositToInventory) player.getInventory().addItem(reward);
             else location.getWorld().dropItemNaturally(location, reward);
+            sound.setSound(rewardData);
         }
     }
 }

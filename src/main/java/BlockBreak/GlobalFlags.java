@@ -9,6 +9,7 @@ public class GlobalFlags {
     public double fortuneMultiplier = 1;
     public double luckMultiplier = 1;
     public double badLuckMultiplier = 1;
+    public boolean publicSound;
 
     public GlobalFlags(FileConfiguration config){
         String globalFlagPath = "global-flags.";
@@ -17,6 +18,7 @@ public class GlobalFlags {
         fortuneMultiplier = percentageInDoubleConverter(config.getDouble(globalFlagPath + "fortune-modifier-per-level"));
         luckMultiplier = percentageInDoubleConverter(config.getDouble(globalFlagPath + "luck-modifier-per-level"));
         badLuckMultiplier = percentageInDoubleConverter(config.getDouble(globalFlagPath + "bad-Luck-modifier-per-level"));
+        publicSound = config.getBoolean(globalFlagPath + "public-reward-sound");
 
     }
 

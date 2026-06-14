@@ -6,6 +6,7 @@ global-flags:
   fortune-modifier-per-level: 10
   luck-modifier-per-level: 10
   badLuckMultiplier: -10
+  public-reward-sound: true
 
 
 #define the groups of world guard regions, that share a lootable
@@ -32,11 +33,11 @@ tool-groups:
 findable-containers:
   normal-chest:
     container-type: "BARREL"
-    shuffle: false
+    shuffle: true
     loot:
       - item: "CLAY_BALL"
         amount: 64
-        chance: 90
+        chance: 1
       - item: "DIAMOND"
         amount-lower-bound: 1
         amount-upper-bound: 10
@@ -61,6 +62,7 @@ dirtArea:
 
         # if not chance is specified, like it is here, the item is dropped with a 100% chance.
       - item: "DIAMOND"
+        chance: 0.001
         amount: 1
 
   shovels:
@@ -68,7 +70,7 @@ dirtArea:
       - item: "xp"
 
         #You can create custom items via the bc saveitem <name of the Item> command while holding the item in your main hand.
-        # You can award a custom reward like this (create the item, replace oldShovel by your items name and remove the  #in the following lines)
+        # You can award a custom reward like this (create the item, replace oldShovel by your items name and remove the  #in the     following lines)
 
         #- item: "oldShovel"
         #is-custom: true
@@ -81,10 +83,12 @@ dirtArea:
 
       - item: "DIAMOND"
         amount: 1
-        chance: 50
+        chance: 10
+        sound: "ui.toast.challenge_complete"
+        sound-priority: 0
 
       - container: "normal-chest"
-        chance: 100
+        chance: 1
 
       - effect: SPEED
         duration-duration: 10
