@@ -29,7 +29,12 @@ jobs:
         run: chmod +x gradlew
 
       - name: Build with Gradle
-        run: ./gradlew build
+        run: |
+          # This strips the 'v' from the tag (e.g., v1.5.2 becomes 1.5.2)
+          # If you WANT the 'v' in your JAR name, change it to: VERSION="$GITHUB_REF_NAME"
+          VERSION="${GITHUB_REF_NAME#v}"
+          
+          ./gradlew build -Pversion="$VERSION"
 
       - name: Create GitHub Release and Upload JAR
         uses: softprops/action-gh-release@v2

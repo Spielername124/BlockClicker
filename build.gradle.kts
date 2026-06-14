@@ -7,7 +7,6 @@ repositories {
     mavenCentral()
     maven("https://repo.papermc.io/repository/maven-public/")
     maven("https://maven.enginehub.org/repo/")
-
 }
 
 dependencies {
@@ -30,5 +29,9 @@ tasks {
         filesMatching("plugin.yml") {
             expand(props)
         }
+    }
+
+    jar {
+        archiveFileName.set("${project.name}.jar")
     }
 }
