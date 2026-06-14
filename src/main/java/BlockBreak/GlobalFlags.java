@@ -13,7 +13,7 @@ public class GlobalFlags {
     public GlobalFlags(FileConfiguration config){
         String globalFlagPath = "global-flags.";
         depositToInventory = config.getBoolean(globalFlagPath + "deposit-to-inventory");
-        mutuallyExclusiveRegions = config.getBoolean(globalFlagPath + "mutualy-exclusive-regions");
+        mutuallyExclusiveRegions = config.getBoolean(globalFlagPath + "mutually-exclusive-regions");
         fortuneMultiplier = percentageInDoubleConverter(config.getDouble(globalFlagPath + "fortune-modifier-per-level"));
         luckMultiplier = percentageInDoubleConverter(config.getDouble(globalFlagPath + "luck-modifier-per-level"));
         badLuckMultiplier = percentageInDoubleConverter(config.getDouble(globalFlagPath + "bad-Luck-modifier-per-level"));

@@ -1,14 +1,55 @@
-This Documentation is currently work in Progress. Things might be missing and are subjetc to change :)
+This Documentation is currently work in Progress. Things might be missing and are subject to change :)
 
-zone-groups:
-  Under this point you have to define groups of world guard zones in which the plugin will check for broken blocks, and uses the loottable defined for this region.
-  You can do this by giving it a name, for example: dirtArea.
+Commands:
+    bc reload: reloads tha config
+
+"zone-groups":
+  Under this point you have to define groups of world guard zones in which the plugin will check for broken blocks, and uses the loot table defined for this region.
+  You can do this by giving it a name, for example: "dirtArea".
   There are two subpoints for a group:
     - a settable flag "everywhere". If this flag is set to true, every block on the server is valid and will and the lootable defined for this area will be used
-    - A map "region-ids", where you can list the world guard regions which will count to this region by adding them as a subpoint with "- <regionName>
+    - A map "region-ids", where you can list the world guard regions which will count to this region by adding them as a subpoint with - "<regionName>"
 
-global Flags:
+"global-flags":
   Here you can set global flags that generally count plugin wide.
-    - "mutualy-exclusive-regions": if this is set to true, breaking a block will only check the loottable of the highest in the config defined zone-group where the block is a part of. Turing this flag off (or omitting it) is discouraged, since it may leed to unintended behaviour if multiple loottables try to spawn a container at the same location.
-    - "deposit-to-inventory": if this flag is set to true, dropped Items and XP will instantely be depositied in the players inventory. If set false or it is omitted, the Items / Xp will drop at the location of the broken block.
-    
+    - "mutually-exclusive-regions": if this is set to true, breaking a block will only check the loot table of the highest in the config defined zone-group where the block is a part of. Turing this flag off (or omitting it) is discouraged, since it may lead to unintended behaviour if multiple loot tables try to spawn a container at the same location.
+    - "deposit-to-inventory": if this flag is set to true, dropped Items and XP will instantly be deposited in the players inventory. If set false or it is omitted, the Items / Xp will drop at the location of the broken block.
+    - "fortune-modifier-per-level": Sets in % how much chance increase / decrease a fortune level on the used tool gives to the chance in any loot table element. (to decrease just give a negative number)
+    - "luck-modifier-per-level", "badLuckMultiplier": Sets in % how much chance increase / decrease a luck/badLuck effect on player that broke the block gives to the chance in any loot table element. (to decrease just give a negative number)
+
+ "tool-groups":
+    Under this point you have to define groups of tools that share a loot table. (rewarding chests in different loot tables which include the same tool is discouraged, since this may lead to unintended behaviour)
+    You can do this by giving it a name, for example: "shovels"
+    There are two subpoints for a group:
+        - a settable flag "always-possible". If this flag is set to true, the loot table will always be activated, no matter which Item the player uses.
+        - A map "tools", where you can list the different Items which will count to this group by adding them as a subpoint with - "<ItemsStackName>" (for example - "DIAMOND_SHOVEL")
+
+ "findable-containers":
+    Here you define which kinds of containers can be rewarded in a loot table.
+    for that you first name the container, for example "normal-chest"
+    As subpoints you have to:
+        set "container-type" to a valid container, eg "CHEST", "FURNACE", ...
+        set shuffle, if set to false, the container is filled slot by slot, if set to true or omitted the slots of the container are filled in a random order
+        define a loot table under "loot" This behaves in the same way as the loot tables, for the broken blocks, except only accepting rewards of the "item" Type (look below to see how loot tables have to be structured)
+
+Now we look at the heart of this whole plugin: The actual mechanic to define and configure the possible rewards for breaking blocks.
+First you have to define in which zone-group a given table should be working, for example "dirtArea"
+    nested in this, you can assign different tables for each too-groups, for example "shovels"
+        one level deeper you have to list a block, for example "DIRT" and then append it a loot table containing the rewards that breaking this block with this tool should give.
+
+ The loot tables:
+ loot tables generally are lists of different rewards. You can add as many rewards as you like. Each reward must be added like:
+    - <reward type>:
+      chance: sets the chance that a reward is given. this can be given by any double value (basically decimal value) between 0 and 100. it is by default by 100%.
+      <specific reward values>
+
+
+There are the following types of rewards and it's subpoints:
+    - item: "<item name>" (<item name> is either: a minecraft item, a custom item, or "xp" for xp points)
+           is-custom: if set to true, searches the item in your saved items, which are safed in items.yml, instead of dropping a normal item.
+           amount: is by default, if neither it or any bounds are provided set to 1, determines how many of a given item are dropped
+           amount-lower-bound and amount-upper-bound:
+                this modifier define a range of items that can be dropped. both bounds are defined inclusively, for example if lower bound is set to 1, and upperbound to 10, the player may get between 1 and 10 of the given item
+                the default values if one of them is set but the other is not are: 0 for the lower bound and 64 for the upper bound
+
+    - container: "<container name>": places a container defined in "findable-containers" on the location the block has been broken.

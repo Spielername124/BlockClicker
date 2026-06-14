@@ -11,3 +11,8 @@ DONE: add possibility to add custom items to the drop chance
 DONE: add different chest like containers/ setting to choose the container
 todo: make a global flag to choose if luck modificators are multiplicative
 todo: add possibility to make a guaranteed drop from a list. (Can be usefull for example filling ovens with 1 drop out of the "burnable" and one out of the "fule" catagory
+
+todo: add possibility to override global flags
+todo: add possibility to override luck flags globally
+todo: either handle creation of multiple chests form different loot tables or creating a new flag to only use the loot table of the first tool group
+todo: add a possibility for luck/fortune/etc to influence the drop range
