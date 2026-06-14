@@ -1,4 +1,4 @@
-This is a Minecraft Plugin made to allow the admin to configure different drops that can be "dropped" by breaking a block.
+This is a Minecraft Plugin made to allowing to configure different drops that can be "dropped" by breaking a generic block.
 
 Currently, it is still in development, but you can still download the current beta version [here](../../releases/latest).
 
