@@ -100,3 +100,6 @@ dirtArea:
         duration-duration: 10
         level: 1
         chance: 50.1
+
+      - mob: "ZOMBIE"
+        chance: 0.1

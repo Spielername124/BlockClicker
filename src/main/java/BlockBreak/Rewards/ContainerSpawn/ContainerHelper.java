@@ -1,4 +1,4 @@
-package BlockBreak.Rewards.ChestSpawn;
+package BlockBreak.Rewards.ContainerSpawn;
 
 import org.bukkit.configuration.file.FileConfiguration;
 

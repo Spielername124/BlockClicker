@@ -1,4 +1,4 @@
-package BlockBreak.Rewards.ChestSpawn;
+package BlockBreak.Rewards.ContainerSpawn;
 
 import BlockBreak.GlobalFlags;
 import BlockBreak.Rewards.RewardSound;
@@ -16,7 +16,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
-import static BlockBreak.Rewards.ChestSpawn.ContainerHelper.doesContainerExist;
+import static BlockBreak.Rewards.ContainerSpawn.ContainerHelper.doesContainerExist;
 
 
 public class ContainerDrop {

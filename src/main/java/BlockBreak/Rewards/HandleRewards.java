@@ -1,13 +1,15 @@
 package BlockBreak.Rewards;
 
 import BlockBreak.GlobalFlags;
-import BlockBreak.Rewards.ChestSpawn.ContainerDrop;
+import BlockBreak.Rewards.ContainerSpawn.ContainerDrop;
 import BlockBreak.Rewards.Effects.Effects;
 import BlockBreak.Rewards.ItemDrop.ItemDrop;
+import BlockBreak.Rewards.MobSpawn.MobSpawn;
 import me.Spielername124.blockClicker.BlockClicker;
 import org.bukkit.Location;
 import org.bukkit.block.Block;
 import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.entity.Mob;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import java.util.List;
@@ -43,6 +45,10 @@ public class HandleRewards {
 
             if(rewardData.containsKey("effect")){
                 Effects.GiveEffect(sound, rewardData, flags, player, toolUsed);
+                continue;
+            }
+            if(rewardData.containsKey("mob")){
+                MobSpawn.rollMobSpawn(plugin, sound, rewardData, flags, player, location ,toolUsed);
             }
 
         }

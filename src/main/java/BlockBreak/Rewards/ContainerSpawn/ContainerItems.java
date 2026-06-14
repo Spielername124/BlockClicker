@@ -1,4 +1,4 @@
-package BlockBreak.Rewards.ChestSpawn;
+package BlockBreak.Rewards.ContainerSpawn;
 
 import BlockBreak.GlobalFlags;
 import BlockBreak.Rewards.PossibleItemStacks.CustomItemDrop;

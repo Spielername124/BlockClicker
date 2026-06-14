@@ -67,3 +67,5 @@ There are the following types of rewards, and it's subpoints:
     - effect: "<effectName>": effectName sets which effect should be given
         effect-duration : sets the effect time in seconds
         level: sets the effect level (attention! this means level and not amplifier! to give level 1 you have to set this to 1, not to 0)
+    - mob: "<mobName>" creates a <mobName> mob at the location of the broken block
+        luck-dependence: by default on false, if set to true, the mob spawn is dependent on the luck modifiers

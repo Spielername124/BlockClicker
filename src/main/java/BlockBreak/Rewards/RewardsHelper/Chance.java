@@ -18,6 +18,15 @@ public class Chance {
         return randomRoll <= totalChance;
     }
 
+    //overloading the method to make it possible to have not luck dependent rewards
+    public static boolean performDropRoll(GlobalFlags flags, double baseChance, ItemStack toolUsed, Player player, boolean  isLuckLuckDependent){
+
+        double totalChance = isLuckLuckDependent ? calculatePostModifierChance(baseChance, flags, toolUsed, player): baseChance;
+
+        double randomRoll = ThreadLocalRandom.current().nextDouble(100.0);
+        return randomRoll <= totalChance;
+    }
+
     private static double calculatePostModifierChance(double baseChance, GlobalFlags flags, ItemStack toolUsed, Player player){
         int fortuneLevel = toolUsed.getEnchantmentLevel(Enchantment.FORTUNE);
 
