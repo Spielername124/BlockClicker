@@ -4,4 +4,4 @@ Currently it is still in developement, hence is downloading the preview only pos
 
 This plugin is dependend on: WorldEdit, WorldGuard
 
-Here you can find the [Documentation Guide](Documentation.md) for the config
+Here you can find the [Documentation Guide](Documentation.txt) for the config
