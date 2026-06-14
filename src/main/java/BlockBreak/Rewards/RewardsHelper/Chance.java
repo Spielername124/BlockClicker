@@ -34,13 +34,15 @@ public class Chance {
             unluckLevel = unluckEffect.getAmplifier()+1;
 
 
-        //calculates and returns the total chance
-        double fortuneModifier = Math.pow(flags.fortuneMultiplier,fortuneLevel);
-        double luckModifier = Math.pow(flags.luckMultiplier, luckLevel);
-        double badLuckModifier = Math.pow(flags.badLuckMultiplier, unluckLevel);
+        //calculates and returns the total chance per type of modifier, depending on if they are multiplicative or additive
+        double fortuneModifier = flags.intraModifierMultiplicativity ? Math.pow(flags.fortuneMultiplier,fortuneLevel) : flags.fortuneMultiplier * fortuneLevel ;
+        double luckModifier = flags.intraModifierMultiplicativity ? Math.pow(flags.luckMultiplier, luckLevel) : flags.luckMultiplier * luckLevel;
+        double badLuckModifier = flags.intraModifierMultiplicativity ? Math.pow(flags.badLuckMultiplier, unluckLevel) : flags.badLuckMultiplier * unluckLevel;
 
+        //calculates the total modifier depending on if the submodifier are multiplicative or additive
+        double totalModifier= flags.interModifierMultiplicativity ? fortuneModifier * luckModifier * badLuckModifier : fortuneModifier + luckModifier + badLuckModifier;
 
-        //returns an on 100% capped total chance
-        return Math.min(100, baseChance * fortuneModifier * luckModifier * badLuckModifier);
+        //returns an on 0% and 100% capped total chance
+        return Math.clamp(baseChance * totalModifier, 0, 100);
     }
 }

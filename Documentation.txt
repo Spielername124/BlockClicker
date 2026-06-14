@@ -11,7 +11,9 @@ Commands:
       - "deposit-to-inventory": if this flag is set to true, dropped Items and XP will instantly be deposited in the players inventory. If set false or it is omitted, the Items / Xp will drop at the location of the broken block.
       - "fortune-modifier-per-level": Sets in % how much chance increase / decrease a fortune level on the used tool gives to the chance in any loot table element. (to decrease just give a negative number)
       - "luck-modifier-per-level", "badLuckMultiplier": Sets in % how much chance increase / decrease a luck/badLuck effect on player that broke the block gives to the chance in any loot table element. (to decrease just give a negative number
-      - "public-reward-sound: if set true all reward sounds are played for every player, by default they only play for the player breaking the block
+      - "public-reward-sound": if set true all reward sounds are played for every player, by default they only play for the player breaking the block
+      - "intra-modifire-multiplicativity": if set to true or on being omitted it makes that modifier level are multiplicative, and else they are additive
+        inter-modifire-multiplicativity: if set to true or on being omitted it makes that the different luck influencing modifier are multiplicative, and else they are additive
 
 
 "zone-groups":
