@@ -1,8 +1,9 @@
 This Documentation is currently work in Progress. Things might be missing and are subject to change :)
 
 Commands:
-    bc reload: reloads tha config
-    bc saveitem <customName>: saves the item you currently hold in the main hand under the name <customName> in items.yml, allowing you to use the name as item in the loot tables (!Important! you still have to set the "is-custom" flag in the loot table)
+    - bc reload: reloads the config
+    - bc saveitem <customName>: saves the item you currently hold in the main hand...
+
 
   "global-flags":
     Here you can set global flags that generally count plugin wide.
