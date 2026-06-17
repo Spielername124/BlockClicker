@@ -42,7 +42,7 @@ public class HandleRewards {
             boolean isLuckDependent = Boolean.TRUE.equals(rewardData.get("luck-dependence"));
             if(!Chance.performDropRoll(flags, chance, toolUsed, player, isLuckDependent)) continue;
 
-            ExecuteSingleReward.executeReward(plugin, config, sound, rewardData, flags, player, block, location, toolUsed);
+            ExecuteSingleReward.executeReward(plugin, config, sound, rewardData, flags, player, block, location, toolUsed,0);
 
         }
         sound.PlaySound(flags, player, location);

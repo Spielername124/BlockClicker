@@ -53,7 +53,7 @@ First you have to define in which zone-group a given table should be working, fo
     sound: "<soundName>" adds a sound effect to the given reward
     sound-priority: defines the priority of a sound. it is by default on 0.
           Per broken block, only the sound with the highest priority gets played. If there are multiple sounds with the same priority, it is not defined which of those gets played. (generally the one that gets processed first, eg is higher up in the config, but no guarantees are given)
-
+    luck-dependence: by default on false, if set to true, the mob spawn is dependent on the luck modifiers
 
 
 There are the following types of rewards, and it's subpoints:
@@ -68,4 +68,5 @@ There are the following types of rewards, and it's subpoints:
         effect-duration : sets the effect time in seconds
         level: sets the effect level (attention! this means level and not amplifier! to give level 1 you have to set this to 1, not to 0)
     - mob: "<mobName>" creates a <mobName> mob at the location of the broken block
-        luck-dependence: by default on false, if set to true, the mob spawn is dependent on the luck modifiers
+    - guaranteed rewards: <List of rewards> Grants one of the rewards in the list that is appended on it. If placed in containers, only item drops are allowed.
+            you can set the proportional weight of all list items with the weight: value, which by default is 1
