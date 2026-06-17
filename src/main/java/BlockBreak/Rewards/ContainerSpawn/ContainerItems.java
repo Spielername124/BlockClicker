@@ -1,6 +1,7 @@
 package BlockBreak.Rewards.ContainerSpawn;
 
 import BlockBreak.GlobalFlags;
+import BlockBreak.Rewards.GuaranteedReward.GuaranteedReward;
 import BlockBreak.Rewards.PossibleItemStacks.CustomItemDrop;
 import BlockBreak.Rewards.PossibleItemStacks.NormalItemDrop;
 import BlockBreak.Rewards.RewardsHelper.Amount;
@@ -9,31 +10,50 @@ import me.Spielername124.blockClicker.BlockClicker;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
+import java.util.List;
 import java.util.Map;
 
 public class ContainerItems {
 
-    public static ItemStack rollPossibleItem(BlockClicker plugin, Map<?, ?> rewardData, GlobalFlags flags, Player player, ItemStack toolUsed) {
+    public static ItemStack rollPossibleItem(BlockClicker plugin, Map<?, ?> rewardData, GlobalFlags flags, Player player, ItemStack toolUsed, int recursionDepth) {
 
-        //get all possibly needed data for a drop
-        String itemName = (String) rewardData.get("item");
-        boolean isSpecialItem = Boolean.TRUE.equals(rewardData.get("is-custom"));
+        //todo, make the hardcoded value to a flag
+        if (recursionDepth > 5) {
+            plugin.getLogger().warning("Maximum recursion depth in ContainerItems reached.");
+            return null;
+        }
 
+        //get chance
         Number chanceNr = (Number) rewardData.get("chance");
         double chance = chanceNr != null ? chanceNr.doubleValue() : 100;
         boolean isLuckDependent = Boolean.TRUE.equals(rewardData.get("luck-dependence"));
 
+        //continue if luck succeeds
+        if(!Chance.performDropRoll(flags, chance, toolUsed, player, isLuckDependent)) return null;
+
+        //guaranteed drop logic for Items
+        if (rewardData.containsKey("guaranteed-reward")) {
+            Object rawList = rewardData.get("guaranteed-reward");
+            if (rawList instanceof List) {
+                Map<?, ?> innerRewardData = GuaranteedReward.getRandomWeightedReward((List<?>) rawList);
+                if (innerRewardData != null) {
+                    return rollPossibleItem(plugin, innerRewardData, flags, player, toolUsed, recursionDepth + 1);
+                }
+            }
+            return null;
+        }
+
+        //regular items logic
+        String itemName = (String) rewardData.get("item");
+        boolean isSpecialItem = Boolean.TRUE.equals(rewardData.get("is-custom"));
         if (itemName == null) return null;
 
         int amount = Amount.getAmount(rewardData);
 
-        //if luck succeeds
-        if(!Chance.performDropRoll(flags, chance, toolUsed, player, isLuckDependent)) {
-            // returns the possible dropping Stack
-            return isSpecialItem ?
-                    CustomItemDrop.getCustomItem(plugin, itemName, amount) :
-                    NormalItemDrop.getNormalItem( itemName, amount);
-        }
-        return null;
+        // returns the possible dropping Stack
+        return isSpecialItem ?
+                CustomItemDrop.getCustomItem(plugin, itemName, amount) :
+                NormalItemDrop.getNormalItem( itemName, amount);
+
     }
 }

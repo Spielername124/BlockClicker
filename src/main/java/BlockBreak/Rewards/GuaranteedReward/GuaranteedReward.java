@@ -18,18 +18,19 @@ public class GuaranteedReward {
 
     public static void performGuaranteedReward(BlockClicker plugin, RewardSound sound, Map<?, ?> rewardData, GlobalFlags flags, Player player, Block block, Location location, ItemStack toolUsed, int recursionDepth){
 
-        //get the list of possible Rewards and check if it has entries
-        List<?> innerRewardsList = Collections.singletonList(rewardData.get("guaranteedReward"));
-        if (innerRewardsList == null || innerRewardsList.isEmpty()) {
-            return;
+        Object rawList = rewardData.get("guaranteed-reward");
+
+        if (rawList instanceof List) {
+
+            List<?> innerRewardsList = (List<?>) rawList;
+            Map<?, ?> innerRewardData = getRandomWeightedReward(innerRewardsList);
+            ExecuteSingleReward.executeReward(plugin, plugin.getItemsConfig(), sound, innerRewardData, flags, player, block, location, toolUsed, recursionDepth + 1);
         }
-        Map<?, ?> innerRewardData = getRandomWeightedReward(innerRewardsList);
-        ExecuteSingleReward.executeReward(plugin, plugin.getItemsConfig(), sound, innerRewardData, flags, player, block, location, toolUsed, recursionDepth + 1);
 
     }
 
     // gets the reward randomly by the weighted list
-    private static Map<?, ?> getRandomWeightedReward(List<?> rewardsList) {
+    public static Map<?, ?> getRandomWeightedReward(List<?> rewardsList) {
         double totalWeight = 0.0;
         for (Object obj : rewardsList) {
             if (obj instanceof Map<?, ?> rewardData) {

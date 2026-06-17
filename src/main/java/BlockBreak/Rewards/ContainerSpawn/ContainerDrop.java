@@ -78,7 +78,7 @@ public class ContainerDrop {
             for(Map<?, ?> rewardData : possibleContainedItems) {
                 if(freeContainerSlots.isEmpty()) break;
 
-                ItemStack rolledItem = ContainerItems.rollPossibleItem(plugin, rewardData, flags, player, toolUsed);
+                ItemStack rolledItem = ContainerItems.rollPossibleItem(plugin, rewardData, flags, player, toolUsed, 0);
 
                 if(rolledItem != null){
                     containerInventory.setItem(freeContainerSlots.poll(), rolledItem);
