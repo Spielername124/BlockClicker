@@ -28,14 +28,9 @@ public class ContainerDrop {
         //if either no name is provided, or the chest is not defined, return
         if(containerName== null || !doesContainerExist(config, containerName)) return;
 
-        Number chanceNr = (Number) rewardData.get("chance");
-        double chance = chanceNr != null ? chanceNr.doubleValue() : 100;
-
-        // perform the Chest creation if the player rolled it
-        if (Chance.performDropRoll(flags, chance, toolUsed, player)){
-            performContainerDrop(plugin, config, flags, player, toolUsed, containerName, block);
-            sound.setSound(rewardData);
-        }
+        // perform the Chest creation
+        performContainerDrop(plugin, config, flags, player, toolUsed, containerName, block);
+        sound.setSound(rewardData);
     }
 
     public static void performContainerDrop(BlockClicker plugin, FileConfiguration config, GlobalFlags flags, Player player, ItemStack toolUsed, String containerName, Block block){

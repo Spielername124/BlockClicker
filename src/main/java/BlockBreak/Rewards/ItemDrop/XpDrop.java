@@ -12,9 +12,9 @@ import java.util.Map;
 
 public class XpDrop {
 
-    public static void performXpDrop(GlobalFlags flags, Player player, Location location, int amount, double chance, ItemStack toolUsed) {
+    public static void performXpDrop(GlobalFlags flags, Player player, Location location, int amount, ItemStack toolUsed) {
 
-        if( amount > 0 && Chance.performDropRoll(flags, chance, toolUsed, player) ) {
+        if( amount > 0) {
             if (flags.depositToInventory) player.giveExp(amount);
             else {
                 ExperienceOrb xpDrop = location.getWorld().spawn(location, ExperienceOrb.class);

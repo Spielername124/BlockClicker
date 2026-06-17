@@ -5,6 +5,7 @@ import BlockBreak.Rewards.ContainerSpawn.ContainerDrop;
 import BlockBreak.Rewards.Effects.Effects;
 import BlockBreak.Rewards.ItemDrop.ItemDrop;
 import BlockBreak.Rewards.MobSpawn.MobSpawn;
+import BlockBreak.Rewards.RewardsHelper.Chance;
 import me.Spielername124.blockClicker.BlockClicker;
 import org.bukkit.Location;
 import org.bukkit.block.Block;
@@ -33,6 +34,13 @@ public class HandleRewards {
         // Iterating through every possible reward for the broken block
         for(Map<?, ?> rewardData : possibleRewards){
 
+            // Retrieves the chance and skips if the drop roll fails
+            Number chanceNr = (Number) rewardData.get("chance");
+            double chance = chanceNr != null ? chanceNr.doubleValue() : 100;
+            boolean isLuckDependent = Boolean.TRUE.equals(rewardData.get("luck-dependence"));
+            if(!Chance.performDropRoll(flags, chance, toolUsed, player, isLuckDependent)) continue;
+
+
             if(rewardData.containsKey("item")){
                 ItemDrop.performItemDrop(plugin, sound, rewardData, flags, player, block, location, toolUsed);
                 continue;
@@ -44,7 +52,7 @@ public class HandleRewards {
             }
 
             if(rewardData.containsKey("effect")){
-                Effects.GiveEffect(sound, rewardData, flags, player, toolUsed);
+                Effects.GiveEffect(sound, rewardData, player);
                 continue;
             }
             if(rewardData.containsKey("mob")){

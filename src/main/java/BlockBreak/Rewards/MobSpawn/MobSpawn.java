@@ -19,26 +19,20 @@ public class MobSpawn {
         String mobType = (String) rewardData.get("mob");
         if(mobType==null) return;
 
-        //gets the odds
-        Number chanceNr = (Number) rewardData.get("chance");
-        double chance = chanceNr != null ? chanceNr.doubleValue() : 100;
 
-        boolean isLuckDependent = Boolean.TRUE.equals(rewardData.get("luck-dependence"));
+        try{
+            //get the entity type and spawn the entity
+            EntityType type = EntityType.valueOf(mobType);
+            Entity entity = location.getWorld().spawnEntity(location, type);
 
-        if(Chance.performDropRoll(flags, chance, toolUsed, player, isLuckDependent)){
-            try{
-                //get the entity type and spawn the entity
-                EntityType type = EntityType.valueOf(mobType);
-                Entity entity = location.getWorld().spawnEntity(location, type);
-
-                //set the sound if existing
-                sound.setSound(rewardData);
-            }
-            catch (IllegalArgumentException e) {
-                plugin.getLogger().warning("Invalid EntityType '" + mobType);
-            }
-
+            //set the sound if existing
+            sound.setSound(rewardData);
         }
+        catch (IllegalArgumentException e) {
+            plugin.getLogger().warning("Invalid EntityType '" + mobType);
+        }
+
+
 
     }
 }

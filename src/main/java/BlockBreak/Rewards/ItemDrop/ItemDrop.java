@@ -21,31 +21,30 @@ public class ItemDrop {
         //get all possibly needed data for a drop
         String itemName = (String) rewardData.get("item");
         boolean isSpecialItem = Boolean.TRUE.equals(rewardData.get("is-custom"));
-        Number chanceNr = (Number) rewardData.get("chance");
 
         if (itemName == null) {
             plugin.getLogger().warning("[Config Error] Missing item in " + brokenBlockName);
             return;
         }
 
-        double chance = chanceNr != null ? chanceNr.doubleValue() : 100;
         int amount = Amount.getAmount(rewardData);
 
         //handle the Special case that XP should be dropped
         if(itemName.equals("xp")){
-            XpDrop.performXpDrop(flags, player, location, amount, chance, toolUsed);
+            XpDrop.performXpDrop(flags, player, location, amount, toolUsed);
             return;
         }
-
-        // get the possible dropping Stack
+//retrieve
+        // gets the item stack
         ItemStack reward = isSpecialItem ?
-                CustomItemDrop.rollCustomItem(plugin, rewardData, flags, player, toolUsed, itemName, amount, chance):
-                NormalItemDrop.rollNormalItem(plugin, rewardData, flags, player, toolUsed, itemName, amount, chance);
+                CustomItemDrop.getCustomItem(plugin, itemName, amount) :
+                NormalItemDrop.getNormalItem(itemName, amount);
 
-        if (reward != null){
+        if (reward != null) {
             if (flags.depositToInventory) player.getInventory().addItem(reward);
             else location.getWorld().dropItemNaturally(location, reward);
             sound.setSound(rewardData);
         }
     }
 }
+

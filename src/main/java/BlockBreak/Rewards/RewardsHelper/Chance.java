@@ -10,15 +10,7 @@ import org.bukkit.potion.PotionEffectType;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class Chance {
-    public static boolean performDropRoll(GlobalFlags flags, double baseChance, ItemStack toolUsed, Player player){
 
-        double totalChance = calculatePostModifierChance(baseChance, flags, toolUsed, player);
-
-        double randomRoll = ThreadLocalRandom.current().nextDouble(100.0);
-        return randomRoll <= totalChance;
-    }
-
-    //overloading the method to make it possible to have not luck dependent rewards
     public static boolean performDropRoll(GlobalFlags flags, double baseChance, ItemStack toolUsed, Player player, boolean  isLuckLuckDependent){
 
         double totalChance = isLuckLuckDependent ? calculatePostModifierChance(baseChance, flags, toolUsed, player): baseChance;
