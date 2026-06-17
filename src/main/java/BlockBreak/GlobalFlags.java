@@ -12,6 +12,9 @@ public class GlobalFlags {
     public boolean intraModifierMultiplicativity;
     public boolean publicSound;
 
+    //tracks if already a container was rewarded --> if so prevents another one from spawning
+    public boolean containerHasBeenPlaced = false;
+
     public GlobalFlags(FileConfiguration config){
         String globalFlagPath = "global-flags.";
         depositToInventory = config.getBoolean(globalFlagPath + "deposit-to-inventory");

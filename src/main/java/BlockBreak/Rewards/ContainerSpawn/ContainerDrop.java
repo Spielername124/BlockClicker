@@ -28,9 +28,12 @@ public class ContainerDrop {
         //if either no name is provided, or the chest is not defined, return
         if(containerName== null || !doesContainerExist(config, containerName)) return;
 
-        // perform the Chest creation
-        performContainerDrop(plugin, config, flags, player, toolUsed, containerName, block);
-        sound.setSound(rewardData);
+        if(!flags.containerHasBeenPlaced) {
+            flags.containerHasBeenPlaced = true;
+            // perform the Chest creation
+            performContainerDrop(plugin, config, flags, player, toolUsed, containerName, block);
+            sound.setSound(rewardData);
+        }
     }
 
     public static void performContainerDrop(BlockClicker plugin, FileConfiguration config, GlobalFlags flags, Player player, ItemStack toolUsed, String containerName, Block block){

@@ -3,6 +3,7 @@ package BlockBreak.Rewards;
 import BlockBreak.GlobalFlags;
 import BlockBreak.Rewards.ContainerSpawn.ContainerDrop;
 import BlockBreak.Rewards.Effects.Effects;
+import BlockBreak.Rewards.GuaranteedReward.GuaranteedReward;
 import BlockBreak.Rewards.ItemDrop.ItemDrop;
 import BlockBreak.Rewards.MobSpawn.MobSpawn;
 import BlockBreak.Rewards.RewardsHelper.Chance;
@@ -57,6 +58,10 @@ public class HandleRewards {
             }
             if(rewardData.containsKey("mob")){
                 MobSpawn.rollMobSpawn(plugin, sound, rewardData, flags, player, location ,toolUsed);
+            }
+
+            if(rewardData.containsKey("guaranteed-reward")){
+                GuaranteedReward.performGuaranteedReward(plugin, sound, rewardData, flags, player, block, location, toolUsed);
             }
 
         }

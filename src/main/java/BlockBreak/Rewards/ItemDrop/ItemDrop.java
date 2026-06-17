@@ -34,7 +34,7 @@ public class ItemDrop {
             XpDrop.performXpDrop(flags, player, location, amount, toolUsed);
             return;
         }
-//retrieve
+
         // gets the item stack
         ItemStack reward = isSpecialItem ?
                 CustomItemDrop.getCustomItem(plugin, itemName, amount) :
