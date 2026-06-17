@@ -2,7 +2,7 @@ package BlockBreak.Rewards.GuaranteedReward;
 
 import BlockBreak.GlobalFlags;
 import BlockBreak.Rewards.RewardSound;
-import BlockBreak.Rewards.RewardsHelper.Chance;
+import BlockBreak.Rewards.RewardsHelper.ExecuteSingleReward;
 import me.Spielername124.blockClicker.BlockClicker;
 import org.bukkit.Location;
 import org.bukkit.block.Block;
@@ -16,7 +16,7 @@ import java.util.concurrent.ThreadLocalRandom;
 
 public class GuaranteedReward {
 
-    public static void performGuaranteedReward(BlockClicker plugin, RewardSound sound, Map<?, ?> rewardData, GlobalFlags flags, Player player, Block block, Location location, ItemStack toolUsed){
+    public static void performGuaranteedReward(BlockClicker plugin, RewardSound sound, Map<?, ?> rewardData, GlobalFlags flags, Player player, Block block, Location location, ItemStack toolUsed, int recursionDepth){
 
         //get the list of possible Rewards and check if it has entries
         List<?> innerRewardsList = Collections.singletonList(rewardData.get("guaranteedReward"));
@@ -24,7 +24,7 @@ public class GuaranteedReward {
             return;
         }
         Map<?, ?> innerRewardData = getRandomWeightedReward(innerRewardsList);
-        ExecuteSingleReward.executeReward(plugin, plugin.getItemsConfig(), sound, innerRewardData, flags, player, block, location, toolUsed);
+        ExecuteSingleReward.executeReward(plugin, plugin.getItemsConfig(), sound, innerRewardData, flags, player, block, location, toolUsed, recursionDepth + 1);
 
     }
 

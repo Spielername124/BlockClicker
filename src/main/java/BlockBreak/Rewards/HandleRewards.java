@@ -7,6 +7,7 @@ import BlockBreak.Rewards.GuaranteedReward.GuaranteedReward;
 import BlockBreak.Rewards.ItemDrop.ItemDrop;
 import BlockBreak.Rewards.MobSpawn.MobSpawn;
 import BlockBreak.Rewards.RewardsHelper.Chance;
+import BlockBreak.Rewards.RewardsHelper.ExecuteSingleReward;
 import me.Spielername124.blockClicker.BlockClicker;
 import org.bukkit.Location;
 import org.bukkit.block.Block;
@@ -41,28 +42,7 @@ public class HandleRewards {
             boolean isLuckDependent = Boolean.TRUE.equals(rewardData.get("luck-dependence"));
             if(!Chance.performDropRoll(flags, chance, toolUsed, player, isLuckDependent)) continue;
 
-
-            if(rewardData.containsKey("item")){
-                ItemDrop.performItemDrop(plugin, sound, rewardData, flags, player, block, location, toolUsed);
-                continue;
-            }
-
-            if(rewardData.containsKey("container")){
-                ContainerDrop.rollContainerDrop(plugin, config, sound, rewardData, flags, player, toolUsed, block);
-                continue;
-            }
-
-            if(rewardData.containsKey("effect")){
-                Effects.GiveEffect(sound, rewardData, player);
-                continue;
-            }
-            if(rewardData.containsKey("mob")){
-                MobSpawn.rollMobSpawn(plugin, sound, rewardData, flags, player, location ,toolUsed);
-            }
-
-            if(rewardData.containsKey("guaranteed-reward")){
-                GuaranteedReward.performGuaranteedReward(plugin, sound, rewardData, flags, player, block, location, toolUsed);
-            }
+            ExecuteSingleReward.executeReward(plugin, config, sound, rewardData, flags, player, block, location, toolUsed);
 
         }
         sound.PlaySound(flags, player, location);
