@@ -48,6 +48,39 @@ findable-containers:
         amount-lower-bound: 1
         amount-upper-bound: 10
 
+smelting-furnace:
+  container-type: FURNACE
+  shuffle: false
+  loot:
+    - #guarantees that one of th listed rewards gets dropped. If used for container Items, all possible rewards must be items.
+    - guaranteed-reward:
+        - item: RAW_IRON
+          weight: 10
+          amount-lower-bound: 2
+          amount-upper-bound: 6
+        - item: RAW_GOLD
+          weight: 5
+          amount-lower-bound: 1
+          amount-upper-bound: 4
+        - item: RAW_COPPER
+          weight: 15
+          amount-lower-bound: 4
+          amount-upper-bound: 12
+    - guaranteed-reward:
+        - item: COAL
+          weight: 20
+          amount-lower-bound: 5
+          amount-upper-bound: 15
+        - item: CHARCOAL
+          weight: 10
+          amount-lower-bound: 5
+          amount-upper-bound: 15
+        - item: OAK_LOG
+          weight: 5
+          amount-lower-bound: 2
+          amount-upper-bound: 8
+
+
 
 
 #The chance has to be given as double between 0 and 100.
@@ -93,13 +126,26 @@ dirtArea:
         sound: "ui.toast.challenge_complete"
         sound-priority: 0
 
-      - container: "normal-chest"
+        # since this reward is defined on the outside of a container, any possible reward may be guaranteed
+      - guaranteed-reward:
+        - container: "normal-chest"
+          #sets weight for the roll of which reward from the guaranteed rewards gets granted
+          weight: 10
+
+        - container: "smelting-furnace"
+          weight: 1
+
+          #gives an effect
+        - effect: SPEED
+          # defines the effect duration
+          duration-duration: 10
+          # defines the give effect
+          level: 1
+          weight: 5
+        # defines chance for the guaranteed reward
         chance: 1
 
-      - effect: SPEED
-        duration-duration: 10
-        level: 1
-        chance: 50.1
 
+        #spawns a zombie
       - mob: "ZOMBIE"
         chance: 0.1

@@ -64,9 +64,13 @@ There are the following types of rewards, and it's subpoints:
                 this modifier define a range of items that can be dropped. both bounds are defined inclusively, for example if lower bound is set to 1, and upperbound to 10, the player may get between 1 and 10 of the given item
                 the default values if one of them is set but the other is not are: 0 for the lower bound and 64 for the upper bound
     - container: "<container name>": places a container defined in "findable-containers" on the location the block has been broken.
+        - guaranteed rewards <List of rewards, as in a normal loot table, !but all of them must be items!>
     - effect: "<effectName>": effectName sets which effect should be given
         effect-duration : sets the effect time in seconds
         level: sets the effect level (attention! this means level and not amplifier! to give level 1 you have to set this to 1, not to 0)
     - mob: "<mobName>" creates a <mobName> mob at the location of the broken block
     - guaranteed rewards: <List of rewards> Grants one of the rewards in the list that is appended on it. If placed in containers, only item drops are allowed.
             you can set the proportional weight of all list items with the weight: value, which by default is 1
+    - guaranteed rewards <List of rewards, as in a normal loot table, !but all of them must be items!>
+        - exampleReward: "blabla" shows the reward for this
+          weight gives the weight of this loot in comparison to the other possible loot stated in this declaration for guaranteed rewards
