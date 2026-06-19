@@ -31,7 +31,7 @@ public class RewardSound {
 
         //get priority, return if the new sound has a lower priority than the current one
         Number priorityNr = (Number) rewardData.get("sound-priority");
-        int priority = priorityNr==null ? priorityNr.intValue() : 0;
+        int priority = priorityNr != null ? priorityNr.intValue() : 0;
         if(priority <= currentPriority) return;
         try {
             //overwrite the sound and priority if possible

@@ -13,8 +13,6 @@ global-flags:
   #if set to false, a fortune modifier of 10 and a luck modifier of 10, and fortune 1 and luck 1 would amount to a 20% bonus instead of a bonus of 1.21 (= 1.1 * 1.1) Default is true
   inter-modifire-multiplicativity: true
 
-
-
 #define the groups of world guard regions, that share a lootable
 zone-groups:
   dirtArea:
@@ -24,7 +22,6 @@ zone-groups:
   default:
     #setting this flag enables the loot table of this group everywhere
     everywhere: true
-
 
 #Define groups of tools to make drops individualized to certain tools
 #Important: If tools are in multiple groups, they will drop loot from all the lists they are in.
@@ -48,40 +45,37 @@ findable-containers:
         amount-lower-bound: 1
         amount-upper-bound: 10
 
-smelting-furnace:
-  container-type: FURNACE
-  shuffle: false
-  loot:
-    - #guarantees that one of th listed rewards gets dropped. If used for container Items, all possible rewards must be items.
-    - guaranteed-reward:
-        - item: RAW_IRON
-          weight: 10
-          amount-lower-bound: 2
-          amount-upper-bound: 6
-        - item: RAW_GOLD
-          weight: 5
-          amount-lower-bound: 1
-          amount-upper-bound: 4
-        - item: RAW_COPPER
-          weight: 15
-          amount-lower-bound: 4
-          amount-upper-bound: 12
-    - guaranteed-reward:
-        - item: COAL
-          weight: 20
-          amount-lower-bound: 5
-          amount-upper-bound: 15
-        - item: CHARCOAL
-          weight: 10
-          amount-lower-bound: 5
-          amount-upper-bound: 15
-        - item: OAK_LOG
-          weight: 5
-          amount-lower-bound: 2
-          amount-upper-bound: 8
-
-
-
+  smelting-furnace:
+    container-type: FURNACE
+    shuffle: false
+    loot:
+      #guarantees that one of th listed rewards gets dropped. If used for container Items, all possible rewards must be items.
+      - guaranteed-reward:
+          - item: RAW_IRON
+            weight: 10
+            amount-lower-bound: 2
+            amount-upper-bound: 6
+          - item: RAW_GOLD
+            weight: 5
+            amount-lower-bound: 1
+            amount-upper-bound: 4
+          - item: RAW_COPPER
+            weight: 15
+            amount-lower-bound: 4
+            amount-upper-bound: 12
+      - guaranteed-reward:
+          - item: COAL
+            weight: 20
+            amount-lower-bound: 5
+            amount-upper-bound: 15
+          - item: CHARCOAL
+            weight: 10
+            amount-lower-bound: 5
+            amount-upper-bound: 15
+          - item: OAK_LOG
+            weight: 5
+            amount-lower-bound: 2
+            amount-upper-bound: 8
 
 #The chance has to be given as double between 0 and 100.
 dirtArea:
@@ -123,28 +117,33 @@ dirtArea:
       - item: "DIAMOND"
         amount: 1
         chance: 10
-        sound: "ui.toast.challenge_complete"
-        sound-priority: 0
 
         # since this reward is defined on the outside of a container, any possible reward may be guaranteed
       - guaranteed-reward:
-        - container: "normal-chest"
-          #sets weight for the roll of which reward from the guaranteed rewards gets granted
-          weight: 10
+          - container: "normal-chest"
+            #sets weight for the roll of which reward from the guaranteed rewards gets granted
+            weight: 10
 
-        - container: "smelting-furnace"
-          weight: 1
+          - container: "smelting-furnace"
+            weight: 1
 
-          #gives an effect
-        - effect: SPEED
-          # defines the effect duration
-          duration-duration: 10
-          # defines the give effect
-          level: 1
-          weight: 5
+            #gives an effect
+          - effect: SPEED
+            # defines the effect duration
+            duration-duration: 10
+            # defines the give effect
+            level: 1
+            weight: 5
+            sound: "entity.firework_rocket.launch"
+            sound-priority: 1
+
         # defines chance for the guaranteed reward
-        chance: 1
+        chance: 25
 
+        #chooses a sound that should be played if the reward is awarded
+        sound: "ui.toast.challenge_complete"
+        # sets the priority of the sound chosen for this reward. The system only plays the first sound of the highest priority it received
+        sound-priority: 0
 
         #spawns a zombie
       - mob: "ZOMBIE"

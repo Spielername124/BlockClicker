@@ -7,7 +7,7 @@ Commands:
 
   "global-flags":
     Here you can set global flags that generally count plugin wide.
-      - "mutually-exclusive-regions": if this is set to true, breaking a block will only check the loot table of the highest in the config defined zone-group where the block is a part of. Turing this flag off (or omitting it) is discouraged, since it may lead to unintended behaviour if multiple loot tables try to spawn a container at the same location.
+      - "mutually-exclusive-regions": if this is set to true, breaking a block will only check the loot table of the highest in the config defined zone-group where the block is a part of.
       - "deposit-to-inventory": if this flag is set to true, dropped Items and XP will instantly be deposited in the players inventory. If set false or it is omitted, the Items / Xp will drop at the location of the broken block.
       - "fortune-modifier-per-level": Sets in % how much chance increase / decrease a fortune level on the used tool gives to the chance in any loot table element. (to decrease just give a negative number)
       - "luck-modifier-per-level", "badLuckMultiplier": Sets in % how much chance increase / decrease a luck/badLuck effect on player that broke the block gives to the chance in any loot table element. (to decrease just give a negative number
@@ -24,7 +24,7 @@ Commands:
     - A map "region-ids", where you can list the world guard regions which will count to this region by adding them as a subpoint with - "<regionName>"
 
  "tool-groups":
-    Under this point you have to define groups of tools that share a loot table. (rewarding chests in different loot tables which include the same tool is discouraged, since this may lead to unintended behaviour)
+    Under this point you have to define groups of tools that share a loot table.
     You can do this by giving it a name, for example: "shovels"
     There are two subpoints for a group:
         - a settable flag "always-possible". If this flag is set to true, the loot table will always be activated, no matter which Item the player uses.
@@ -74,3 +74,8 @@ There are the following types of rewards, and it's subpoints:
     - guaranteed rewards <List of rewards, as in a normal loot table, !but all of them must be items!>
         - exampleReward: "blabla" shows the reward for this
           weight gives the weight of this loot in comparison to the other possible loot stated in this declaration for guaranteed rewards
+
+
+ And here are some random Information, that I was not sure where to include but still might be important:
+    - generally only one container can be rewarded in the same drop. It should be the first one which drops, (since the plugin generally reads the config from the top to the bottom, the one defined higher [you have to read the container loot etc. in the line they are called])
+    - container only get filled one tick after they are rewarded / created.

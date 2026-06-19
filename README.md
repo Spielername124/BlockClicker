@@ -7,7 +7,10 @@ There are many different rewards that can be granted, like dropping custom Items
 Currently, it is still in development, but you can still download the current beta version [here](../../releases/latest).
 
 ## Documentation
-Here you can find the [Documentation Guide](Documentation.txt) for the config
+
+The best way to see the features in action and see how they can be configured is to check out the [commented standard config](src/main/resources/config.yml), and testing what happens if you change some values. Keep in mind that you always can reload the config with "bc reload"
+
+The full documentation for the config can be found [here](Documentation.txt)
 
 ## Dependencies
 This plugin is dependent on: WorldEdit, WorldGuard

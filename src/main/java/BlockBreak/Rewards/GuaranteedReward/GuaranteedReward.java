@@ -17,6 +17,8 @@ import java.util.concurrent.ThreadLocalRandom;
 public class GuaranteedReward {
 
     public static void performGuaranteedReward(BlockClicker plugin, RewardSound sound, Map<?, ?> rewardData, GlobalFlags flags, Player player, Block block, Location location, ItemStack toolUsed, int recursionDepth){
+        //sets the sound if one exists
+        sound.setSound(rewardData);
 
         Object rawList = rewardData.get("guaranteed-reward");
 
@@ -24,7 +26,7 @@ public class GuaranteedReward {
 
             List<?> innerRewardsList = (List<?>) rawList;
             Map<?, ?> innerRewardData = getRandomWeightedReward(innerRewardsList);
-            ExecuteSingleReward.executeReward(plugin, plugin.getItemsConfig(), sound, innerRewardData, flags, player, block, location, toolUsed, recursionDepth + 1);
+            ExecuteSingleReward.executeReward(plugin, plugin.getConfig(), sound, innerRewardData, flags, player, block, location, toolUsed, recursionDepth + 1);
         }
 
     }
