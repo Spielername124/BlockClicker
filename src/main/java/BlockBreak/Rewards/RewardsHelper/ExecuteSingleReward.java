@@ -1,6 +1,7 @@
 package BlockBreak.Rewards.RewardsHelper;
 
 import BlockBreak.GlobalFlags;
+import BlockBreak.Rewards.CommandExecution.CommandExecution;
 import BlockBreak.Rewards.ContainerSpawn.ContainerDrop;
 import BlockBreak.Rewards.Effects.Effects;
 import BlockBreak.Rewards.GuaranteedReward.GuaranteedReward;
@@ -19,8 +20,7 @@ import java.util.Map;
 public class ExecuteSingleReward {
     public static void executeReward (BlockClicker plugin, FileConfiguration config, RewardSound sound, Map<?, ?> rewardData, GlobalFlags flags, Player player, Block block, Location location, ItemStack toolUsed, int recursionDepth) {
 
-        //todo make a flag for max depth
-        if (recursionDepth > 5) {
+        if (recursionDepth > flags.recursionDepth) {
             plugin.getLogger().warning("Maximum recursion depth of " + recursionDepth + " reached. Recursion prevention measures were taken by cancelling this reward. If you are certain that no recursion exists, increase the cap");
             return;
         }
@@ -35,6 +35,8 @@ public class ExecuteSingleReward {
             MobSpawn.rollMobSpawn(plugin, sound, rewardData, flags, player, location, toolUsed);
         } else if (rewardData.containsKey("guaranteed-reward")) {
             GuaranteedReward.performGuaranteedReward(plugin, sound, rewardData, flags, player, block, location, toolUsed, recursionDepth);
+        } else if(rewardData.containsKey("command")){
+            CommandExecution.performCommandExecution(plugin, sound, rewardData, player, location);
         }
     }
 }

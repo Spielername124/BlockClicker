@@ -17,9 +17,8 @@ public class ContainerItems {
 
     public static ItemStack rollPossibleItem(BlockClicker plugin, Map<?, ?> rewardData, GlobalFlags flags, Player player, ItemStack toolUsed, int recursionDepth) {
 
-        //todo, make the hardcoded value to a flag
-        if (recursionDepth > 5) {
-            plugin.getLogger().warning("Maximum recursion depth in ContainerItems reached.");
+        if (recursionDepth > flags.recursionDepth) {
+            plugin.getLogger().warning("Maximum recursion depth of " + recursionDepth + " reached. Recursion prevention measures were taken by cancelling this reward. If you are certain that no recursion exists, increase the cap");
             return null;
         }
 

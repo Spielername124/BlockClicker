@@ -98,6 +98,11 @@ dirtArea:
         chance: 0.001
         amount: 1
 
+        # this lets you define a command as a possible reward. The Command is generally parsed by PlaceholderAPI.
+        # additionally the plugin lets you access the x y z values of the block that has been removed with the variables you can see below
+      - command: "summon lightning_bolt %blockXValue% %blockYValue% %blockZValue%"
+        chance: 10
+
   shovels:
     DIRT:
       - item: "xp"

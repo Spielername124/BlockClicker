@@ -11,6 +11,7 @@ public class GlobalFlags {
     public boolean interModifierMultiplicativity;
     public boolean intraModifierMultiplicativity;
     public boolean publicSound;
+    public int recursionDepth;
 
     //tracks if already a container was rewarded --> if so prevents another one from spawning
     public boolean containerHasBeenPlaced = false;
@@ -25,6 +26,8 @@ public class GlobalFlags {
         interModifierMultiplicativity = config.getBoolean(globalFlagPath + "inter-modifire-multiplicativity", true);
         intraModifierMultiplicativity = config.getBoolean(globalFlagPath + "intra-modifire-multiplicativity", true);
         publicSound = config.getBoolean(globalFlagPath + "public-reward-sound");
+        recursionDepth = config. getInt(globalFlagPath + "recursion-depth", 5);
+
 
     }
 

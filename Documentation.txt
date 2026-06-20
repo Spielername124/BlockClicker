@@ -14,8 +14,7 @@ Commands:
       - "public-reward-sound": if set true all reward sounds are played for every player, by default they only play for the player breaking the block
       - "intra-modifire-multiplicativity": if set to true or on being omitted it makes that modifier level are multiplicative, and else they are additive
         inter-modifire-multiplicativity: if set to true or on being omitted it makes that the different luck influencing modifier are multiplicative, and else they are additive
-
-
+      - "recursion-depth" sets the maximum depth for recursions to appear. this is by default set to 5 and should only be increased if you are sure your config is loop free
 "zone-groups":
   Under this point you have to define groups of world guard zones in which the plugin will check for broken blocks, and uses the loot table defined for this region.
   You can do this by giving it a name, for example: "dirtArea".
@@ -74,6 +73,14 @@ There are the following types of rewards, and it's subpoints:
     - guaranteed rewards <List of rewards, as in a normal loot table, !but all of them must be items!>
         - exampleReward: "blabla" shows the reward for this
           weight gives the weight of this loot in comparison to the other possible loot stated in this declaration for guaranteed rewards
+    - command: <your command>: executes <your command>. This command generally parsed by PlaceholderAPI --> look at their documentation to see how your command must be written (https://wiki.placeholderapi.com/users/placeholder-list/minecraft/)
+             following variables are added by this plugin to the command to make it possible for the command to target the broken block:
+                - "%blockXValue%" -> gets the X value of the broken block
+                - "%blockYValue%" -> gets the Y value of the broken block
+                - "%blockZValue%" -> gets the Z value of the broken block
+
+        - executed-by-player: is by default false. If this is set to true, the command gets executed from the player, e.g. is restricted to use their permissions. If omitted or false, the command is executed by the console
+
 
 
  And here are some random Information, that I was not sure where to include but still might be important:

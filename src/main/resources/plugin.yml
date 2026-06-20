@@ -14,7 +14,7 @@ commands:
 
 
 
-depend: [WorldEdit, WorldGuard]
+depend: [WorldEdit, WorldGuard, PlaceholderAPI]
 
 permissions:
   blockclicker.admin:

@@ -15,6 +15,6 @@ DONE add possibility to make a guaranteed drop from a list. (Can be usefull for 
 todo: add loot tables to the spawned mobs
 todo: add possibility to override global flags
 todo: add possibility to override luck flags globally
-todo: either handle creation of multiple chests form different loot tables or creating a new flag to only use the loot table of the first tool group
+DONE: either handle creation of multiple chests form different loot tables or creating a new flag to only use the loot table of the first tool group
 todo: add a possibility for luck/fortune/etc to influence the drop range
 todo: add mob modifiers like names or custom health
