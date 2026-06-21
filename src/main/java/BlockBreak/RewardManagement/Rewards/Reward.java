@@ -16,7 +16,7 @@ public abstract class Reward {
     public final FileConfiguration config;
     protected final BlockClicker plugin;
     protected final double chance;
-    protected final Map<?, ?> rewardData;
+    public final Map<?, ?> rewardData;
     protected final boolean isLuckDependent;
 
     public Reward(BlockClicker plugin, FileConfiguration config, Map<?, ?> rewardData) {
