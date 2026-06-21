@@ -1,4 +1,4 @@
-package BlockBreak.Rewards.RewardsHelper;
+package BlockBreak.RewardManagement.Rewards.RewardsHelper;
 import java.util.Map;
 import java.util.concurrent.ThreadLocalRandom;
 public class Amount {

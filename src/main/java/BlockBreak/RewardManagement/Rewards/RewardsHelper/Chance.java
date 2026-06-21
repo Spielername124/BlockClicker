@@ -1,4 +1,4 @@
-package BlockBreak.Rewards.RewardsHelper;
+package BlockBreak.RewardManagement.Rewards.RewardsHelper;
 
 import BlockBreak.GlobalFlags;
 import org.bukkit.enchantments.Enchantment;

@@ -1,14 +1,10 @@
-package BlockBreak.Rewards.ItemDrop;
+package BlockBreak.RewardManagement.Rewards.ItemDrop;
 
 import BlockBreak.GlobalFlags;
-import BlockBreak.Rewards.RewardsHelper.Chance;
-import me.Spielername124.blockClicker.BlockClicker;
 import org.bukkit.Location;
 import org.bukkit.entity.ExperienceOrb;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
-
-import java.util.Map;
 
 public class XpDrop {
 

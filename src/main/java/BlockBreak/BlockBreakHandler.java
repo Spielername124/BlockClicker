@@ -1,6 +1,7 @@
 package BlockBreak;
 
-import BlockBreak.Rewards.HandleRewards;
+import BlockBreak.RewardManagement.RewardCache;
+import BlockBreak.RewardManagement.Rewards.HandleRewards;
 import com.sk89q.worldedit.bukkit.BukkitAdapter;
 import com.sk89q.worldedit.math.BlockVector3;
 import com.sk89q.worldguard.WorldGuard;
@@ -16,10 +17,9 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.List;
-import java.util.Map;
 
 class BlockBreakHandler {
-    protected static void checkAreas (BlockClicker plugin, FileConfiguration config, Player player, Block block, Location location) {
+    protected static void checkAreas (BlockClicker plugin, FileConfiguration config, RewardCache rewardCache, Player player, Block block, Location location) {
         //read the global flags
         GlobalFlags flags = new GlobalFlags(config);
 
@@ -33,7 +33,7 @@ class BlockBreakHandler {
 
             //if a zone-group is everywhere possible, let the
             if (zoneGroup.getBoolean("everywhere", false)) {
-                onBlockBreakInZone(plugin, config, flags, player, block, location, zoneGroupName);
+                onBlockBreakInZone(plugin, config, rewardCache, flags, player, block, location, zoneGroupName);
                 if(flags.mutuallyExclusiveRegions){
                     return;
                 }
@@ -59,7 +59,7 @@ class BlockBreakHandler {
                 }
 
                 if (isInZone) {
-                    onBlockBreakInZone(plugin, config, flags, player, block, location, zoneGroupName);
+                    onBlockBreakInZone(plugin, config, rewardCache, flags, player, block, location, zoneGroupName);
                     if(flags.mutuallyExclusiveRegions){
                         return;
                     }
@@ -68,7 +68,7 @@ class BlockBreakHandler {
         }
     }
 
-    private static void onBlockBreakInZone (BlockClicker plugin, FileConfiguration config, GlobalFlags flags, Player player, Block block, Location location, String zoneGroup){
+    private static void onBlockBreakInZone (BlockClicker plugin, FileConfiguration config, RewardCache rewardCache, GlobalFlags flags, Player player, Block block, Location location, String zoneGroup){
 
         //gets the tool used to break the block
         ItemStack toolUsed = player.getInventory().getItemInMainHand();
@@ -83,7 +83,7 @@ class BlockBreakHandler {
             if(!ToolIsAllowedCheck.checkTool(config, toolUsed,groupKey)) continue;
 
             //Perform the drops logic in a subclass
-            HandleRewards.handleGroupDrops(plugin, config, flags, player, block, location, toolUsed, groupKey, zoneGroup);
+            HandleRewards.handleGroupDrops(plugin, rewardCache, flags, player, block, location, toolUsed, groupKey, zoneGroup);
         }
     }
 

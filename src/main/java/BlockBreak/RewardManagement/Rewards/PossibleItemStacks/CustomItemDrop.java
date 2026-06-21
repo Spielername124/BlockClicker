@@ -1,11 +1,7 @@
-package BlockBreak.Rewards.PossibleItemStacks;
+package BlockBreak.RewardManagement.Rewards.PossibleItemStacks;
 
-import BlockBreak.GlobalFlags;
 import me.Spielername124.blockClicker.BlockClicker;
-import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
-
-import java.util.Map;
 
 public class CustomItemDrop {
     public static ItemStack getCustomItem(BlockClicker plugin, String itemName, int amount){

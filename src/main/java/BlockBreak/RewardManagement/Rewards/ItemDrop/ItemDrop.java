@@ -1,11 +1,11 @@
-package BlockBreak.Rewards.ItemDrop;
+package BlockBreak.RewardManagement.Rewards.ItemDrop;
 
 import BlockBreak.GlobalFlags;
-import BlockBreak.Rewards.PossibleItemStacks.CustomItemDrop;
-import BlockBreak.Rewards.PossibleItemStacks.NormalItemDrop;
-import BlockBreak.Rewards.Reward;
-import BlockBreak.Rewards.RewardSound;
-import BlockBreak.Rewards.RewardsHelper.Amount;
+import BlockBreak.RewardManagement.Rewards.PossibleItemStacks.CustomItemDrop;
+import BlockBreak.RewardManagement.Rewards.PossibleItemStacks.NormalItemDrop;
+import BlockBreak.RewardManagement.Rewards.Reward;
+import BlockBreak.RewardManagement.Rewards.RewardSound;
+import BlockBreak.RewardManagement.Rewards.RewardsHelper.Amount;
 import me.Spielername124.blockClicker.BlockClicker;
 import org.bukkit.Location;
 import org.bukkit.block.Block;
@@ -16,8 +16,8 @@ import org.bukkit.inventory.ItemStack;
 import java.util.Map;
 
 public class ItemDrop extends Reward {
-    public ItemDrop(BlockClicker plugin, FileConfiguration config, Map<?, ?> rewardData, RewardSound sound) {
-        super(plugin, config, rewardData, sound);
+    public ItemDrop(BlockClicker plugin, FileConfiguration config, Map<?, ?> rewardData) {
+        super(plugin, config, rewardData);
     }
 
     protected void execute (Player player, Location location, GlobalFlags flags, ItemStack toolUsed, Block block){
@@ -49,7 +49,6 @@ public class ItemDrop extends Reward {
         if (reward != null) {
             if (flags.depositToInventory) player.getInventory().addItem(reward);
             else location.getWorld().dropItemNaturally(location, reward);
-            sound.setSound(rewardData);
         }
     }
 }

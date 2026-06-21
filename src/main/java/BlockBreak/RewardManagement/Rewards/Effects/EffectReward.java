@@ -1,8 +1,8 @@
-package BlockBreak.Rewards.Effects;
+package BlockBreak.RewardManagement.Rewards.Effects;
 
 import BlockBreak.GlobalFlags;
-import BlockBreak.Rewards.Reward;
-import BlockBreak.Rewards.RewardSound;
+import BlockBreak.RewardManagement.Rewards.Reward;
+import BlockBreak.RewardManagement.Rewards.RewardSound;
 import me.Spielername124.blockClicker.BlockClicker;
 import org.bukkit.Location;
 import org.bukkit.block.Block;
@@ -16,8 +16,8 @@ import java.util.Map;
 
 public class EffectReward extends Reward {
 
-    public EffectReward(BlockClicker plugin, FileConfiguration config,  Map<?, ?> rewardData, RewardSound sound) {
-        super(plugin, config, rewardData, sound);
+    public EffectReward(BlockClicker plugin, FileConfiguration config,  Map<?, ?> rewardData) {
+        super(plugin, config, rewardData);
     }
 
     @Override

@@ -1,4 +1,4 @@
-package BlockBreak.Rewards;
+package BlockBreak.RewardManagement.Rewards;
 
 import BlockBreak.GlobalFlags;
 import me.Spielername124.blockClicker.BlockClicker;
@@ -11,8 +11,6 @@ import org.bukkit.World;
 import org.bukkit.entity.Player;
 
 import java.util.Map;
-
-import static org.bukkit.Bukkit.getLogger;
 
 public class RewardSound {
     BlockClicker plugin;

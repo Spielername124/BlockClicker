@@ -1,9 +1,8 @@
-package BlockBreak.Rewards.ContainerSpawn;
+package BlockBreak.RewardManagement.Rewards.ContainerSpawn;
 
 import BlockBreak.GlobalFlags;
-import BlockBreak.Rewards.Reward;
-import BlockBreak.Rewards.RewardSound;
-import BlockBreak.Rewards.RewardsHelper.Chance;
+import BlockBreak.RewardManagement.Rewards.Reward;
+import BlockBreak.RewardManagement.Rewards.RewardSound;
 import me.Spielername124.blockClicker.BlockClicker;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -18,12 +17,12 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
-import static BlockBreak.Rewards.ContainerSpawn.ContainerHelper.doesContainerExist;
+import static BlockBreak.RewardManagement.Rewards.ContainerSpawn.ContainerHelper.doesContainerExist;
 
 
 public class ContainerDrop extends Reward {
-    public ContainerDrop(BlockClicker plugin, FileConfiguration config, Map<?, ?> rewardData, RewardSound sound) {
-        super(plugin, config, rewardData, sound);
+    public ContainerDrop(BlockClicker plugin, FileConfiguration config, Map<?, ?> rewardData) {
+        super(plugin, config, rewardData);
     }
     protected void execute (Player player, Location location, GlobalFlags flags, ItemStack toolUsed, Block block){
 

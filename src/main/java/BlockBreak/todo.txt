@@ -6,11 +6,13 @@ DONE: add possibility of drop ranges
 DONE: add mobs spawn possibility
 DONE: add findable chests
 DONE: add effects/ sounds for drops
-todo: add command execution on
+DONE: add command execution on
 DONE: add possibility to add custom items to the drop chance
 DONE: add different chest like containers/ setting to choose the container
 DONE: make a global flag to choose if luck modificators are multiplicative
 DONE add possibility to make a guaranteed drop from a list. (Can be usefull for example filling ovens with 1 drop out of the "burnable" and one out of the "fule" catagory
+todo: add the pobbibility to add a specific cutsom Item to the tool group
+
 
 todo: add loot tables to the spawned mobs
 todo: add possibility to override global flags

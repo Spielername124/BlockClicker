@@ -1,11 +1,11 @@
-package BlockBreak.Rewards.ContainerSpawn;
+package BlockBreak.RewardManagement.Rewards.ContainerSpawn;
 
 import BlockBreak.GlobalFlags;
-import BlockBreak.Rewards.GuaranteedReward.GuaranteedReward;
-import BlockBreak.Rewards.PossibleItemStacks.CustomItemDrop;
-import BlockBreak.Rewards.PossibleItemStacks.NormalItemDrop;
-import BlockBreak.Rewards.RewardsHelper.Amount;
-import BlockBreak.Rewards.RewardsHelper.Chance;
+import BlockBreak.RewardManagement.Rewards.GuaranteedReward.GuaranteedReward;
+import BlockBreak.RewardManagement.Rewards.PossibleItemStacks.CustomItemDrop;
+import BlockBreak.RewardManagement.Rewards.PossibleItemStacks.NormalItemDrop;
+import BlockBreak.RewardManagement.Rewards.RewardsHelper.Amount;
+import BlockBreak.RewardManagement.Rewards.RewardsHelper.Chance;
 import me.Spielername124.blockClicker.BlockClicker;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;

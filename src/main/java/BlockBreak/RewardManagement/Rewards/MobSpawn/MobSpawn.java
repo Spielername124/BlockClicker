@@ -1,9 +1,8 @@
-package BlockBreak.Rewards.MobSpawn;
+package BlockBreak.RewardManagement.Rewards.MobSpawn;
 
 import BlockBreak.GlobalFlags;
-import BlockBreak.Rewards.Reward;
-import BlockBreak.Rewards.RewardSound;
-import BlockBreak.Rewards.RewardsHelper.Chance;
+import BlockBreak.RewardManagement.Rewards.Reward;
+import BlockBreak.RewardManagement.Rewards.RewardSound;
 import me.Spielername124.blockClicker.BlockClicker;
 import org.bukkit.Location;
 import org.bukkit.block.Block;
@@ -16,8 +15,8 @@ import org.bukkit.inventory.ItemStack;
 import java.util.Map;
 
 public class MobSpawn extends Reward {
-    public MobSpawn(BlockClicker plugin, FileConfiguration config, Map<?, ?> rewardData, RewardSound sound) {
-        super(plugin, config, rewardData, sound);
+    public MobSpawn(BlockClicker plugin, FileConfiguration config, Map<?, ?> rewardData) {
+        super(plugin, config, rewardData);
     }
 
     @Override

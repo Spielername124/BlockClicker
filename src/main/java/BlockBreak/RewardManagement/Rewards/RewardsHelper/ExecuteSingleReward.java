@@ -1,14 +1,9 @@
-package BlockBreak.Rewards.RewardsHelper;
+package BlockBreak.RewardManagement.Rewards.RewardsHelper;
 
 import BlockBreak.GlobalFlags;
-import BlockBreak.Rewards.CommandExecution.CommandExecution;
-import BlockBreak.Rewards.ContainerSpawn.ContainerDrop;
-import BlockBreak.Rewards.Effects.EffectReward;
-import BlockBreak.Rewards.GuaranteedReward.GuaranteedReward;
-import BlockBreak.Rewards.ItemDrop.ItemDrop;
-import BlockBreak.Rewards.MobSpawn.MobSpawn;
-import BlockBreak.Rewards.Reward;
-import BlockBreak.Rewards.RewardSound;
+import BlockBreak.RewardManagement.Rewards.MobSpawn.MobSpawn;
+import BlockBreak.RewardManagement.Rewards.Reward;
+import BlockBreak.RewardManagement.Rewards.RewardSound;
 import me.Spielername124.blockClicker.BlockClicker;
 import org.bukkit.Location;
 import org.bukkit.block.Block;
@@ -33,7 +28,7 @@ public class ExecuteSingleReward {
         } else if (rewardData.containsKey("effect")) {
             //EffectReward.GiveEffect(sound, rewardData, player);
         } else if (rewardData.containsKey("mob")) {
-            Reward a = new MobSpawn(plugin, config, rewardData, sound);
+            //Reward a = new MobSpawn(plugin, config, rewardData, sound);
         } else if (rewardData.containsKey("guaranteed-reward")) {
             //GuaranteedReward.performGuaranteedReward(plugin, sound, rewardData, flags, player, block, location, toolUsed, recursionDepth);
         } else if(rewardData.containsKey("command")){

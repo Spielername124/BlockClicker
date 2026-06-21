@@ -1,8 +1,8 @@
-package BlockBreak.Rewards.CommandExecution;
+package BlockBreak.RewardManagement.Rewards.CommandExecution;
 
 import BlockBreak.GlobalFlags;
-import BlockBreak.Rewards.Reward;
-import BlockBreak.Rewards.RewardSound;
+import BlockBreak.RewardManagement.Rewards.Reward;
+import BlockBreak.RewardManagement.Rewards.RewardSound;
 import me.Spielername124.blockClicker.BlockClicker;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -16,8 +16,8 @@ import me.clip.placeholderapi.PlaceholderAPI;
 import java.util.Map;
 
 public class CommandExecution extends Reward {
-    public CommandExecution(BlockClicker plugin, FileConfiguration config, Map<?, ?> rewardData, RewardSound sound) {
-        super(plugin, config, rewardData, sound);
+    public CommandExecution(BlockClicker plugin, FileConfiguration config, Map<?, ?> rewardData) {
+        super(plugin, config, rewardData);
     }
 
     @Override
