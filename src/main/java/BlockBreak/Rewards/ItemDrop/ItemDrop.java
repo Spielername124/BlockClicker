@@ -3,18 +3,24 @@ package BlockBreak.Rewards.ItemDrop;
 import BlockBreak.GlobalFlags;
 import BlockBreak.Rewards.PossibleItemStacks.CustomItemDrop;
 import BlockBreak.Rewards.PossibleItemStacks.NormalItemDrop;
+import BlockBreak.Rewards.Reward;
 import BlockBreak.Rewards.RewardSound;
 import BlockBreak.Rewards.RewardsHelper.Amount;
 import me.Spielername124.blockClicker.BlockClicker;
 import org.bukkit.Location;
 import org.bukkit.block.Block;
+import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.Map;
 
-public class ItemDrop {
-    public static void performItemDrop(BlockClicker plugin, RewardSound sound, Map<?, ?> rewardData, GlobalFlags flags, Player player, Block block, Location location, ItemStack toolUsed){
+public class ItemDrop extends Reward {
+    public ItemDrop(BlockClicker plugin, FileConfiguration config, Map<?, ?> rewardData, RewardSound sound) {
+        super(plugin, config, rewardData, sound);
+    }
+
+    protected void execute (Player player, Location location, GlobalFlags flags, ItemStack toolUsed, Block block){
 
         String brokenBlockName = block.getType().name();
 

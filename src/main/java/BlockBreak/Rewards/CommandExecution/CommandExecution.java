@@ -1,11 +1,13 @@
 package BlockBreak.Rewards.CommandExecution;
 
 import BlockBreak.GlobalFlags;
+import BlockBreak.Rewards.Reward;
 import BlockBreak.Rewards.RewardSound;
 import me.Spielername124.blockClicker.BlockClicker;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.block.Block;
+import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import me.clip.placeholderapi.PlaceholderAPI;
@@ -13,8 +15,13 @@ import me.clip.placeholderapi.PlaceholderAPI;
 
 import java.util.Map;
 
-public class CommandExecution {
-    public static void performCommandExecution(BlockClicker plugin, RewardSound sound, Map<?, ?> rewardData, Player player, Location location){
+public class CommandExecution extends Reward {
+    public CommandExecution(BlockClicker plugin, FileConfiguration config, Map<?, ?> rewardData, RewardSound sound) {
+        super(plugin, config, rewardData, sound);
+    }
+
+    @Override
+    protected void execute (Player player, Location location, GlobalFlags flags, ItemStack toolUsed, Block block){
 
         //get the necessary config data
         String command = rewardData.get("command").toString();
@@ -44,9 +51,5 @@ public class CommandExecution {
                 Bukkit.dispatchCommand(Bukkit.getConsoleSender(), finalCommand);
             });
         }
-
-
-        //set the sound
-        sound.setSound(rewardData);
     }
 }

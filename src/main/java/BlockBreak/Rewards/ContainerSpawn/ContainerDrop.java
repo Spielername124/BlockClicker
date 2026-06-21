@@ -1,9 +1,11 @@
 package BlockBreak.Rewards.ContainerSpawn;
 
 import BlockBreak.GlobalFlags;
+import BlockBreak.Rewards.Reward;
 import BlockBreak.Rewards.RewardSound;
 import BlockBreak.Rewards.RewardsHelper.Chance;
 import me.Spielername124.blockClicker.BlockClicker;
+import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.configuration.ConfigurationSection;
@@ -19,9 +21,11 @@ import java.util.Map;
 import static BlockBreak.Rewards.ContainerSpawn.ContainerHelper.doesContainerExist;
 
 
-public class ContainerDrop {
-
-    public static void rollContainerDrop(BlockClicker plugin, FileConfiguration config, RewardSound sound, Map<?, ?> rewardData, GlobalFlags flags, Player player, ItemStack toolUsed, Block block){
+public class ContainerDrop extends Reward {
+    public ContainerDrop(BlockClicker plugin, FileConfiguration config, Map<?, ?> rewardData, RewardSound sound) {
+        super(plugin, config, rewardData, sound);
+    }
+    protected void execute (Player player, Location location, GlobalFlags flags, ItemStack toolUsed, Block block){
 
         String containerName = (String) rewardData.get("container");
 
@@ -32,7 +36,6 @@ public class ContainerDrop {
             flags.containerHasBeenPlaced = true;
             // perform the Chest creation
             performContainerDrop(plugin, config, flags, player, toolUsed, containerName, block);
-            sound.setSound(rewardData);
         }
     }
 

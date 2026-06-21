@@ -1,11 +1,12 @@
 package BlockBreak.Rewards.Effects;
 
 import BlockBreak.GlobalFlags;
+import BlockBreak.Rewards.Reward;
 import BlockBreak.Rewards.RewardSound;
-import BlockBreak.Rewards.RewardsHelper.Chance;
 import me.Spielername124.blockClicker.BlockClicker;
 import org.bukkit.Location;
 import org.bukkit.block.Block;
+import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
@@ -13,9 +14,14 @@ import org.bukkit.potion.PotionEffectType;
 
 import java.util.Map;
 
-public class Effects {
-    public static void GiveEffect(RewardSound sound, Map<?, ?> rewardData, Player player){
+public class EffectReward extends Reward {
 
+    public EffectReward(BlockClicker plugin, FileConfiguration config,  Map<?, ?> rewardData, RewardSound sound) {
+        super(plugin, config, rewardData, sound);
+    }
+
+    @Override
+    protected void execute (Player player, Location location, GlobalFlags flags, ItemStack toolUsed, Block block){
         //Get the effect type and convert it to a actual effect Type
         String effectName = (String) rewardData.get("effect");
         if(effectName==null) return;
@@ -31,7 +37,5 @@ public class Effects {
 
             PotionEffect effect = new PotionEffect(effectType, durationTicks, level, true, false, true);
             player.addPotionEffect(effect);
-            sound.setSound(rewardData);
-
     }
 }

@@ -3,10 +3,11 @@ package BlockBreak.Rewards.RewardsHelper;
 import BlockBreak.GlobalFlags;
 import BlockBreak.Rewards.CommandExecution.CommandExecution;
 import BlockBreak.Rewards.ContainerSpawn.ContainerDrop;
-import BlockBreak.Rewards.Effects.Effects;
+import BlockBreak.Rewards.Effects.EffectReward;
 import BlockBreak.Rewards.GuaranteedReward.GuaranteedReward;
 import BlockBreak.Rewards.ItemDrop.ItemDrop;
 import BlockBreak.Rewards.MobSpawn.MobSpawn;
+import BlockBreak.Rewards.Reward;
 import BlockBreak.Rewards.RewardSound;
 import me.Spielername124.blockClicker.BlockClicker;
 import org.bukkit.Location;
@@ -26,17 +27,17 @@ public class ExecuteSingleReward {
         }
 
         if (rewardData.containsKey("item")) {
-            ItemDrop.performItemDrop(plugin, sound, rewardData, flags, player, block, location, toolUsed);
+            //ItemDrop.performItemDrop(plugin, sound, rewardData, flags, player, block, location, toolUsed);
         } else if (rewardData.containsKey("container")) {
-            ContainerDrop.rollContainerDrop(plugin, config, sound, rewardData, flags, player, toolUsed, block);
+            //ContainerDrop.rollContainerDrop(plugin, config, sound, rewardData, flags, player, toolUsed, block);
         } else if (rewardData.containsKey("effect")) {
-            Effects.GiveEffect(sound, rewardData, player);
+            //EffectReward.GiveEffect(sound, rewardData, player);
         } else if (rewardData.containsKey("mob")) {
-            MobSpawn.rollMobSpawn(plugin, sound, rewardData, flags, player, location, toolUsed);
+            Reward a = new MobSpawn(plugin, config, rewardData, sound);
         } else if (rewardData.containsKey("guaranteed-reward")) {
-            GuaranteedReward.performGuaranteedReward(plugin, sound, rewardData, flags, player, block, location, toolUsed, recursionDepth);
+            //GuaranteedReward.performGuaranteedReward(plugin, sound, rewardData, flags, player, block, location, toolUsed, recursionDepth);
         } else if(rewardData.containsKey("command")){
-            CommandExecution.performCommandExecution(plugin, sound, rewardData, player, location);
+            //CommandExecution.performCommandExecution(plugin, sound, rewardData, player, location);
         }
     }
 }

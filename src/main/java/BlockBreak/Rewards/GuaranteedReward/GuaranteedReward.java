@@ -1,11 +1,13 @@
 package BlockBreak.Rewards.GuaranteedReward;
 
 import BlockBreak.GlobalFlags;
+import BlockBreak.Rewards.Reward;
 import BlockBreak.Rewards.RewardSound;
 import BlockBreak.Rewards.RewardsHelper.ExecuteSingleReward;
 import me.Spielername124.blockClicker.BlockClicker;
 import org.bukkit.Location;
 import org.bukkit.block.Block;
+import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
@@ -14,9 +16,15 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ThreadLocalRandom;
 
-public class GuaranteedReward {
+public class GuaranteedReward extends Reward {
+    private int recursionDepth;
+    public GuaranteedReward(BlockClicker plugin, FileConfiguration config, Map<?, ?> rewardData, RewardSound sound, int recursionDepth) {
+        super(plugin, config, rewardData, sound);
 
-    public static void performGuaranteedReward(BlockClicker plugin, RewardSound sound, Map<?, ?> rewardData, GlobalFlags flags, Player player, Block block, Location location, ItemStack toolUsed, int recursionDepth){
+        this.recursionDepth = recursionDepth;
+    }
+
+    protected void execute (Player player, Location location, GlobalFlags flags, ItemStack toolUsed, Block block){
         //sets the sound if one exists
         sound.setSound(rewardData);
 
