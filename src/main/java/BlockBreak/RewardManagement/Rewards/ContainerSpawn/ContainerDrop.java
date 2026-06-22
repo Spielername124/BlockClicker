@@ -26,8 +26,10 @@ import static BlockBreak.RewardManagement.Rewards.ContainerSpawn.ContainerHelper
 public class ContainerDrop extends Reward {
     private final List<ContainerItem> precalculatedItems = new ArrayList<>();
     private final String containerName;
-    private final Material material;
-    private final boolean shuffledSlots;
+    private Material material;
+    private boolean shuffledSlots;
+
+    private boolean valid = false;
 
     public ContainerDrop(BlockClicker plugin, FileConfiguration config, Map<?, ?> rewardData) {
         super(plugin, config, rewardData);
@@ -36,7 +38,10 @@ public class ContainerDrop extends Reward {
 
 
         ConfigurationSection containerSection = config.getConfigurationSection("findable-containers." + containerName);
-        assert (containerSection==null) : containerName + " definition could not be found";
+        if (containerSection == null) {
+            plugin.getLogger().warning("[Config Error] Container definition for '" + containerName + "' could not be found.");
+            return;
+        }
         //get the type of container that should be spawned
         String materialString = containerSection.getString("container-type");
         if(materialString==null) materialString="";
@@ -45,9 +50,10 @@ public class ContainerDrop extends Reward {
         material = Material.matchMaterial(materialString) != null ? Material.matchMaterial(materialString) : Material.CHEST ;
 
         //get whether it should be shuffled or not
-         shuffledSlots = containerSection.getBoolean("shuffle",true);
+        shuffledSlots = containerSection.getBoolean("shuffle",true);
 
-
+        //validates that the config was readable from the metadata point of view
+        this.valid = true;
 
         //find the related loot table for the container
         if (this.containerName != null && config.contains("findable-containers." + this.containerName)) {
@@ -64,6 +70,11 @@ public class ContainerDrop extends Reward {
     }
 
     protected void execute (Player player, Location location, GlobalFlags flags, ItemStack toolUsed, Block block){
+        //refuses to place a container with missing metadata
+        if (!valid) {
+            return;
+        }
+
         //don't create a chest if this drop already spawned a chest
         if(!flags.containerHasBeenPlaced) {
             flags.containerHasBeenPlaced = true;
