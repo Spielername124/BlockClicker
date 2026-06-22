@@ -1,8 +1,10 @@
 package BlockBreak.RewardManagement.Rewards.ContainerSpawn;
 
 import BlockBreak.GlobalFlags;
+import BlockBreak.RewardManagement.Rewards.ContainerSpawn.ItemManagement.ContainerItem;
+import BlockBreak.RewardManagement.Rewards.ContainerSpawn.ItemManagement.ContainerItemCreator;
+import BlockBreak.RewardManagement.Rewards.ContainerSpawn.ItemManagement.ContainerSimpleItem;
 import BlockBreak.RewardManagement.Rewards.Reward;
-import BlockBreak.RewardManagement.Rewards.RewardSound;
 import me.Spielername124.blockClicker.BlockClicker;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -13,6 +15,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -21,16 +24,47 @@ import static BlockBreak.RewardManagement.Rewards.ContainerSpawn.ContainerHelper
 
 
 public class ContainerDrop extends Reward {
+    private final List<ContainerItem> precalculatedItems = new ArrayList<>();
+    private final String containerName;
+    private final Material material;
+    private final boolean shuffledSlots;
+
     public ContainerDrop(BlockClicker plugin, FileConfiguration config, Map<?, ?> rewardData) {
         super(plugin, config, rewardData);
+
+        this.containerName = (String) rewardData.get("container");
+
+
+        ConfigurationSection containerSection = config.getConfigurationSection("findable-containers." + containerName);
+        assert (containerSection==null) : containerName + " definition could not be found";
+        //get the type of container that should be spawned
+        String materialString = containerSection.getString("container-type");
+        if(materialString==null) materialString="";
+
+        //set the material, default to a basic chest
+        material = Material.matchMaterial(materialString) != null ? Material.matchMaterial(materialString) : Material.CHEST ;
+
+        //get whether it should be shuffled or not
+         shuffledSlots = containerSection.getBoolean("shuffle",true);
+
+
+
+        //find the related loot table for the container
+        if (this.containerName != null && config.contains("findable-containers." + this.containerName)) {
+            List<Map<?, ?>> lootConfigList = config.getMapList("findable-containers." + this.containerName + ".loot");
+
+            //convert the loot table in possible items/guaranted rewards that drop items
+            for (Map<?, ?> elementData : lootConfigList) {
+                ContainerItem element = ContainerItemCreator.createPossibleItem(plugin, config, elementData);
+                if (element != null) {
+                    precalculatedItems.add(element);
+                }
+            }
+        }
     }
+
     protected void execute (Player player, Location location, GlobalFlags flags, ItemStack toolUsed, Block block){
-
-        String containerName = (String) rewardData.get("container");
-
-        //if either no name is provided, or the chest is not defined, return
-        if(containerName== null || !doesContainerExist(config, containerName)) return;
-
+        //don't create a chest if this drop already spawned a chest
         if(!flags.containerHasBeenPlaced) {
             flags.containerHasBeenPlaced = true;
             // perform the Chest creation
@@ -38,28 +72,13 @@ public class ContainerDrop extends Reward {
         }
     }
 
-    public static void performContainerDrop(BlockClicker plugin, FileConfiguration config, GlobalFlags flags, Player player, ItemStack toolUsed, String containerName, Block block){
-
-        ConfigurationSection containerSection = config.getConfigurationSection("findable-containers." + containerName);
-
-        //get the type of container that should be spawned
-        String materialString = containerSection.getString("container-type");
-        Material containerMaterial = Material.matchMaterial(materialString);
-        //default to normal chests
-        if (containerMaterial == null) containerMaterial = Material.CHEST;
-        Material finalContainerMaterial = containerMaterial;
-
-        List<Map<?, ?>> possibleContainedItems = config.getMapList("findable-containers." + containerName +".loot");
-
-        //get whether it should be shuffled or not
-        boolean shuffledSlots = containerSection.getBoolean("shuffle",true);
-
+    public void performContainerDrop(BlockClicker plugin, FileConfiguration config, GlobalFlags flags, Player player, ItemStack toolUsed, String containerName, Block block){
 
         //schedule a new Task so that the chest gets placed in the next tick
         plugin.getServer().getScheduler().runTask(plugin, () -> {
 
             // creates a chest at the location of the previous
-            block.setType(finalContainerMaterial, false);
+            block.setType(material, false);
 
             // ensure it, if it is a chest, does not merge with another chest
             if (block.getBlockData() instanceof org.bukkit.block.data.type.Chest chestData) {
@@ -75,14 +94,15 @@ public class ContainerDrop extends Reward {
             org.bukkit.block.Container containerState = (org.bukkit.block.Container) block.getState();
             Inventory containerInventory = containerState.getInventory();
 
+            //create the list of free inventory space
             LinkedList<Integer> freeContainerSlots = ContainerHelper.possibleContainerSlots(containerInventory.getSize(), shuffledSlots);
 
-            for(Map<?, ?> rewardData : possibleContainedItems) {
-                if(freeContainerSlots.isEmpty()) break;
+            //roll the items
+            for (ContainerItem lootElement : precalculatedItems) {
+                if (freeContainerSlots.isEmpty()) break;
 
-                ItemStack rolledItem = ContainerItems.rollPossibleItem(plugin, rewardData, config, flags, player, toolUsed, 0);
-
-                if(rolledItem != null){
+                ItemStack rolledItem = lootElement.rollPossibleItem(flags, player, toolUsed, 0);
+                if (rolledItem != null) {
                     containerInventory.setItem(freeContainerSlots.poll(), rolledItem);
                 }
             }
