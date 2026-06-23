@@ -27,6 +27,7 @@ public final class BlockClicker extends JavaPlugin {
 
     @Override
     public void onEnable() {
+        TOOL_ID_KEY = new NamespacedKey(this, "custom_tool_id");
         saveDefaultConfig();
         createItemsConfig();
 

@@ -25,7 +25,7 @@ public class ToolCacheLoader {
             //if the group is always possible, include a AlwaysPossible so that the checks always work
             if (groupSection.getBoolean("always-possible", false)) {
                 toolGroup.addTool(new AlwaysPossible());
-                return;
+                continue;
             }
 
             List<String> toolsList = groupSection.getStringList("tools");
@@ -49,12 +49,10 @@ public class ToolCacheLoader {
                         //give out a warning that the tool doesn't exist
                         plugin.getLogger().warning("[Config Error] Tool entry '" + toolEntry + "' in group '" + groupName + "' is neither a valid Material nor a registered Custom Item ID.");
                     }
-
                 }
             }
-
+            //register the group to the cache
+            toolCache.registerToolGroup(groupName, toolGroup);
         }
     }
-
-
 }
