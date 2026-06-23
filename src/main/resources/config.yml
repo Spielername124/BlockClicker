@@ -32,6 +32,7 @@ tool-groups:
     tools:
       - "DIAMOND_SHOVEL"
       - "WOODEN_SHOVEL"
+      #you can also use any of your defined custom items as tools
 
 findable-containers:
   normal-chest:

@@ -5,6 +5,10 @@ import BlockBreak.BlockClickerCommands;
 import BlockBreak.GlobalFlags;
 import BlockBreak.RewardManagement.RewardCache;
 import BlockBreak.RewardManagement.RewardCacheLoader;
+import BlockBreak.ToolManagement.ToolCache;
+import BlockBreak.ToolManagement.Tools.ToolCacheLoader;
+import BlockBreak.ToolManagement.Tools.ToolMatcher;
+import org.bukkit.NamespacedKey;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -17,30 +21,39 @@ public final class BlockClicker extends JavaPlugin {
     private File itemsFile;
     private FileConfiguration itemsConfig;
     private RewardCache rewardCache;
+    private ToolCache toolCache;
+    public static NamespacedKey TOOL_ID_KEY;
+
 
     @Override
     public void onEnable() {
         saveDefaultConfig();
         createItemsConfig();
 
+        //create the rewardCache
         this.rewardCache = new RewardCache();
         RewardCacheLoader.loadAllLootTables(this, getConfig(), rewardCache);
 
+        //create the toolCache
+        this.toolCache = new ToolCache();
+        ToolCacheLoader.loadAllToolGroups(this, getConfig(), toolCache);
+
         getCommand("blockclicker").setExecutor(new BlockClickerCommands(this));
 
-        getServer().getPluginManager().registerEvents(new BlockBreakListener(this, rewardCache), this);
+        getServer().getPluginManager().registerEvents(new BlockBreakListener(this, rewardCache, toolCache), this);
 
     }
 
     @Override
     public void onDisable() {
-        // Plugin shutdown logic
     }
 
     public void reloadAllConfigs() {
+        //reload configs and everything that depends on it (the caches)
         reloadConfig();
         itemsConfig = YamlConfiguration.loadConfiguration(itemsFile);
         RewardCacheLoader.loadAllLootTables(this, getConfig(), rewardCache);
+        ToolCacheLoader.loadAllToolGroups(this, getConfig(), toolCache);
     }
 
 

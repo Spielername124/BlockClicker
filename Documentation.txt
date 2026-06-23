@@ -2,7 +2,7 @@ This Documentation is currently work in Progress. Things might be missing and ar
 
 Commands:
     - bc reload: reloads the config
-    - bc saveitem <customName>: saves the item you currently hold in the main hand...
+    - bc saveitem <customName>: saves the item you currently hold in the main hand. IMPORTANT! The name is not allowed to match a material type/ tool type.
 
 
   "global-flags":
@@ -27,7 +27,7 @@ Commands:
     You can do this by giving it a name, for example: "shovels"
     There are two subpoints for a group:
         - a settable flag "always-possible". If this flag is set to true, the loot table will always be activated, no matter which Item the player uses.
-        - A map "tools", where you can list the different Items which will count to this group by adding them as a subpoint with - "<ItemsStackName>" (for example - "DIAMOND_SHOVEL")
+        - A map "tools", where you can list the different Items which will count to this group by adding them as a subpoint with - "<ItemsStackName>" (for example - "DIAMOND_SHOVEL") or the name of a custom Item
 
  "findable-containers":
     Here you define which kinds of containers can be rewarded in a loot table.

@@ -1,6 +1,7 @@
 package BlockBreak;
 
 import BlockBreak.RewardManagement.RewardCache;
+import BlockBreak.ToolManagement.ToolCache;
 import com.sk89q.worldedit.bukkit.BukkitAdapter;
 import com.sk89q.worldedit.math.BlockVector3;
 import com.sk89q.worldguard.WorldGuard;
@@ -19,17 +20,19 @@ import org.bukkit.event.block.BlockBreakEvent;
 public class BlockBreakListener implements Listener {
     private final BlockClicker plugin;
     private final RewardCache rewardCache;
+    private final ToolCache toolCache;
 
 
-    public BlockBreakListener (BlockClicker plugin, RewardCache rewardCache){
+    public BlockBreakListener (BlockClicker plugin, RewardCache rewardCache, ToolCache toolCache){
         this.plugin = plugin;
         this.rewardCache = rewardCache;
+        this.toolCache = toolCache;
     }
 
 
     @EventHandler
     public void onBlockBreak(BlockBreakEvent brokenBlock){
-        //geting the Block and it's location
+        //getting the Block and it's location
         Block block = brokenBlock.getBlock();
         Location location = block.getLocation();
 
@@ -38,6 +41,6 @@ public class BlockBreakListener implements Listener {
 
         Player player =  brokenBlock.getPlayer();
 
-        BlockBreakHandler.checkAreas(plugin, config, rewardCache, player, block, location);
+        BlockBreakHandler.checkAreas(plugin, config, rewardCache, toolCache, player, block, location);
     }
 }

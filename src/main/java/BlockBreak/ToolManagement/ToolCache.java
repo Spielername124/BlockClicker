@@ -1,0 +1,24 @@
+package BlockBreak.ToolManagement;
+
+import org.bukkit.inventory.ItemStack;
+
+import java.util.HashMap;
+import java.util.Map;
+
+public class ToolCache {
+    private final Map<String, ToolGroup> cachedGroups = new HashMap<>();
+
+    public void clear() {
+        cachedGroups.clear();
+    }
+
+    public void registerToolGroup(String groupName, ToolGroup group) {
+        cachedGroups.put(groupName, group);
+    }
+
+    public boolean isToolAllowed(String groupName, ItemStack toolUsed) {
+        ToolGroup group = cachedGroups.get(groupName);
+        return group != null && group.isToolAllowed(toolUsed);
+    }
+}
+
