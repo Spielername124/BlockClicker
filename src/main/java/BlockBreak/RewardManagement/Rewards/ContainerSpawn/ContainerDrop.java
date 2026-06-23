@@ -5,6 +5,7 @@ import BlockBreak.RewardManagement.Rewards.ContainerSpawn.ItemManagement.Contain
 import BlockBreak.RewardManagement.Rewards.ContainerSpawn.ItemManagement.ContainerItemCreator;
 import BlockBreak.RewardManagement.Rewards.ContainerSpawn.ItemManagement.ContainerSimpleItem;
 import BlockBreak.RewardManagement.Rewards.Reward;
+import BlockBreak.RewardManagement.Rewards.RewardSound;
 import me.Spielername124.blockClicker.BlockClicker;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -69,7 +70,7 @@ public class ContainerDrop extends Reward {
         }
     }
 
-    protected void execute (Player player, Location location, GlobalFlags flags, ItemStack toolUsed, Block block){
+    protected void execute(Player player, Location location, GlobalFlags flags, RewardSound sound, ItemStack toolUsed, Block block){
         //refuses to place a container with missing metadata
         if (!valid) {
             return;

@@ -21,7 +21,7 @@ public class CommandExecution extends Reward {
     }
 
     @Override
-    protected void execute (Player player, Location location, GlobalFlags flags, ItemStack toolUsed, Block block){
+    protected void execute(Player player, Location location, GlobalFlags flags, RewardSound sound, ItemStack toolUsed, Block block){
 
         //get the necessary config data
         String command = rewardData.get("command").toString();

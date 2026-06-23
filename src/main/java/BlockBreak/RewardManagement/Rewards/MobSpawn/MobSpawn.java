@@ -20,7 +20,7 @@ public class MobSpawn extends Reward {
     }
 
     @Override
-    protected void execute (Player player, Location location, GlobalFlags flags, ItemStack toolUsed, Block block){
+    protected void execute(Player player, Location location, GlobalFlags flags, RewardSound sound, ItemStack toolUsed, Block block){
 
         //polls mob type and returns if none is specified
         String mobType = (String) rewardData.get("mob");

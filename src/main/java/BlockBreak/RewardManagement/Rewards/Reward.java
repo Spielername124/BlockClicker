@@ -35,14 +35,10 @@ public abstract class Reward {
         if(!Chance.performDropRoll(flags, chance, toolUsed, player, isLuckDependent))
             return;
 
-        //give the sound attribute further if this is a GuaranteedReward which partially handles the sound itself
-        if(this instanceof GuaranteedReward)
-            ((GuaranteedReward) this).sound = sound;
-
-        execute(player, location, flags, toolUsed, block);
+        execute(player, location, flags, sound, toolUsed, block);
 
        sound.setSound(rewardData);
     }
 
-    protected abstract void execute(Player player, Location location, GlobalFlags flags, ItemStack toolUsed, Block block);
+    protected abstract void execute(Player player, Location location, GlobalFlags flags, RewardSound sound, ItemStack toolUsed, Block block);
 }

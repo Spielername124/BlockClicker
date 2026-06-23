@@ -20,8 +20,7 @@ public class ItemDrop extends Reward {
         super(plugin, config, rewardData);
     }
 
-    protected void execute (Player player, Location location, GlobalFlags flags, ItemStack toolUsed, Block block){
-
+    protected void execute(Player player, Location location, GlobalFlags flags, RewardSound sound, ItemStack toolUsed, Block block){
         String brokenBlockName = block.getType().name();
 
         //get all possibly needed data for a drop

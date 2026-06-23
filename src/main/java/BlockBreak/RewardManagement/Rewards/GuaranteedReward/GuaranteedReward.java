@@ -18,7 +18,6 @@ import java.util.concurrent.ThreadLocalRandom;
 
 public class GuaranteedReward extends Reward {
     private final int recursionDepth;
-    public RewardSound sound = null;
     private final List<Reward> guaranteedRewardPool = new ArrayList<>();
     private final List<Double> weights = new ArrayList<>();
     private double totalWeight = 0.0;
@@ -51,7 +50,7 @@ public class GuaranteedReward extends Reward {
     }
 
     @Override
-    protected void execute (Player player, Location location, GlobalFlags flags, ItemStack toolUsed, Block block){
+    protected void execute(Player player, Location location, GlobalFlags flags, RewardSound sound, ItemStack toolUsed, Block block){
         Reward reward = getChosenReward(flags);
         if(reward!=null)
             reward.rollAndExecute(player, location, flags, sound, toolUsed, block);

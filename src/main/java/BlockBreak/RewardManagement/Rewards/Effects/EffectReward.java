@@ -21,7 +21,7 @@ public class EffectReward extends Reward {
     }
 
     @Override
-    protected void execute (Player player, Location location, GlobalFlags flags, ItemStack toolUsed, Block block){
+    protected void execute(Player player, Location location, GlobalFlags flags, RewardSound sound, ItemStack toolUsed, Block block){
         //Get the effect type and convert it to a actual effect Type
         String effectName = (String) rewardData.get("effect");
         if(effectName==null) return;
