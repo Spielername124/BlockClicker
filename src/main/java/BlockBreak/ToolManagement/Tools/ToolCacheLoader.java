@@ -25,6 +25,7 @@ public class ToolCacheLoader {
             //if the group is always possible, include a AlwaysPossible so that the checks always work
             if (groupSection.getBoolean("always-possible", false)) {
                 toolGroup.addTool(new AlwaysPossible());
+                toolCache.registerToolGroup(groupName, toolGroup);
                 continue;
             }
 
