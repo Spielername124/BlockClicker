@@ -9,6 +9,7 @@ Commands:
   "global-flags":
     Here you can set global flags that generally count plugin wide.
       - "mutually-exclusive-regions": if this is set to true, breaking a block will only check the loot table of the highest in the config defined zone-group where the block is a part of.
+      - "mutually-exclusive-tools": is exactly the same, but with tools
       - "deposit-to-inventory": if this flag is set to true, dropped Items and XP will instantly be deposited in the players inventory. If set false or it is omitted, the Items / Xp will drop at the location of the broken block.
       - "fortune-modifier-per-level": Sets in % how much chance increase / decrease a fortune level on the used tool gives to the chance in any loot table element. (to decrease just give a negative number)
       - "luck-modifier-per-level", "badLuckMultiplier": Sets in % how much chance increase / decrease a luck/badLuck effect on player that broke the block gives to the chance in any loot table element. (to decrease just give a negative number

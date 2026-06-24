@@ -2,6 +2,7 @@ package BlockBreak;
 
 import BlockBreak.RewardManagement.RewardCache;
 import BlockBreak.ToolManagement.ToolCache;
+import BlockBreak.ZoneManagement.ZoneCache;
 import com.sk89q.worldedit.bukkit.BukkitAdapter;
 import com.sk89q.worldedit.math.BlockVector3;
 import com.sk89q.worldguard.WorldGuard;
@@ -21,12 +22,14 @@ public class BlockBreakListener implements Listener {
     private final BlockClicker plugin;
     private final RewardCache rewardCache;
     private final ToolCache toolCache;
+    private final ZoneCache zoneCache;
 
 
-    public BlockBreakListener (BlockClicker plugin, RewardCache rewardCache, ToolCache toolCache){
+    public BlockBreakListener (BlockClicker plugin, RewardCache rewardCache, ToolCache toolCache, ZoneCache zoneCache){
         this.plugin = plugin;
         this.rewardCache = rewardCache;
         this.toolCache = toolCache;
+        this.zoneCache = zoneCache;
     }
 
 
@@ -41,6 +44,6 @@ public class BlockBreakListener implements Listener {
 
         Player player =  brokenBlock.getPlayer();
 
-        BlockBreakHandler.checkAreas(plugin, config, rewardCache, toolCache, player, block, location);
+        BlockBreakHandler.checkAreas(plugin, config, rewardCache, toolCache, zoneCache, player, block, location);
     }
 }

@@ -1,4 +1,7 @@
 global-flags:
+  #this flags set if it should be possible to receive drops from multiple zone groups / usage of different tool Groups
+  #if this is set to true, only the first possible match of each is going to be used in the drop roll
+  mutually-exclusive-tools: true
   mutually-exclusive-regions: true
   #setting to decide whether Items are dropped (false) or deposited directly to the players inventory
   deposit-to-inventory: false
@@ -80,30 +83,6 @@ findable-containers:
 
 #The chance has to be given as double between 0 and 100.
 dirtArea:
-  default:
-    DIRT:
-      - item: "xp"
-        # you can set an upper and lower bound to give the player a random amount within these bounds back.
-        # generally a set amount does override the bounds.
-        # if no amount is specified but a lower or upperbound is specified, are the defaults for the bounds 0 and 64.
-        amount-lower-bound: 0
-        amount-upper-bound: 10
-        chance: 100
-
-        #if like here, no amount at all is specified, it defaults to 1.
-      - item: "CLAY_BALL"
-        chance: 0
-
-        # if not chance is specified, like it is here, the item is dropped with a 100% chance.
-      - item: "DIAMOND"
-        chance: 0.001
-        amount: 1
-
-        # this lets you define a command as a possible reward. The Command is generally parsed by PlaceholderAPI.
-        # additionally the plugin lets you access the x y z values of the block that has been removed with the variables you can see below
-      - command: "summon lightning_bolt %blockXValue% %blockYValue% %blockZValue%"
-        chance: 10
-
   shovels:
     DIRT:
       - item: "xp"
@@ -154,3 +133,25 @@ dirtArea:
         #spawns a zombie
       - mob: "ZOMBIE"
         chance: 0.1
+  default:
+    DIRT:
+      - item: "xp"
+        # you can set an upper and lower bound to give the player a random amount within these bounds back.
+        # generally a set amount does override the bounds.
+        # if no amount is specified but a lower or upperbound is specified, are the defaults for the bounds 0 and 64.
+        amount-lower-bound: 0
+        amount-upper-bound: 10
+        chance: 100
+
+        #if like here, no amount at all is specified, it defaults to 1.
+      - item: "CLAY_BALL"
+        chance: 0
+
+        # if not chance is specified, like it is here, the item is dropped with a 100% chance.
+      - item: "DIAMOND"
+        amount: 1
+
+        # this lets you define a command as a possible reward. The Command is generally parsed by PlaceholderAPI.
+        # additionally the plugin lets you access the x y z values of the block that has been removed with the variables you can see below
+      - command: "summon lightning_bolt %blockXValue% %blockYValue% %blockZValue%"
+        chance: 10

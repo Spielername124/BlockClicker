@@ -4,6 +4,7 @@ import org.bukkit.configuration.file.FileConfiguration;
 
 public class GlobalFlags {
     public boolean mutuallyExclusiveRegions =false;
+    public boolean mutuallyExclusiveTools = false;
     public boolean depositToInventory = false;
     public double fortuneMultiplier = 1;
     public double luckMultiplier = 1;
@@ -20,6 +21,7 @@ public class GlobalFlags {
         String globalFlagPath = "global-flags.";
         depositToInventory = config.getBoolean(globalFlagPath + "deposit-to-inventory");
         mutuallyExclusiveRegions = config.getBoolean(globalFlagPath + "mutually-exclusive-regions");
+        mutuallyExclusiveTools = config.getBoolean(globalFlagPath + "mutually-exclusive-tools");
         fortuneMultiplier = percentageInDoubleConverter(config.getDouble(globalFlagPath + "fortune-modifier-per-level"));
         luckMultiplier = percentageInDoubleConverter(config.getDouble(globalFlagPath + "luck-modifier-per-level"));
         badLuckMultiplier = percentageInDoubleConverter(config.getDouble(globalFlagPath + "bad-Luck-modifier-per-level"));

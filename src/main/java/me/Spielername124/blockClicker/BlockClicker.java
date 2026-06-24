@@ -6,6 +6,9 @@ import BlockBreak.RewardManagement.RewardCache;
 import BlockBreak.RewardManagement.RewardCacheLoader;
 import BlockBreak.ToolManagement.ToolCache;
 import BlockBreak.ToolManagement.Tools.ToolCacheLoader;
+import BlockBreak.ZoneManagement.ZoneCache;
+import BlockBreak.ZoneManagement.ZoneCacheLoader;
+import BlockBreak.ZoneManagement.ZoneGroup;
 import org.bukkit.NamespacedKey;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -20,6 +23,7 @@ public final class BlockClicker extends JavaPlugin {
     private FileConfiguration itemsConfig;
     private RewardCache rewardCache;
     private ToolCache toolCache;
+    private ZoneCache zoneCache;
     public static NamespacedKey TOOL_ID_KEY;
 
 
@@ -37,9 +41,12 @@ public final class BlockClicker extends JavaPlugin {
         this.toolCache = new ToolCache();
         ToolCacheLoader.loadAllToolGroups(this, getConfig(), toolCache);
 
+        this.zoneCache = new ZoneCache();
+        ZoneCacheLoader.loadAllZoneGroups(getConfig(), zoneCache);
+
         getCommand("blockclicker").setExecutor(new BlockClickerCommands(this));
 
-        getServer().getPluginManager().registerEvents(new BlockBreakListener(this, rewardCache, toolCache), this);
+        getServer().getPluginManager().registerEvents(new BlockBreakListener(this, rewardCache, toolCache, zoneCache), this);
 
     }
 
@@ -53,6 +60,7 @@ public final class BlockClicker extends JavaPlugin {
         itemsConfig = YamlConfiguration.loadConfiguration(itemsFile);
         RewardCacheLoader.loadAllLootTables(this, getConfig(), rewardCache);
         ToolCacheLoader.loadAllToolGroups(this, getConfig(), toolCache);
+        ZoneCacheLoader.loadAllZoneGroups (getConfig(), zoneCache);
     }
 
 
