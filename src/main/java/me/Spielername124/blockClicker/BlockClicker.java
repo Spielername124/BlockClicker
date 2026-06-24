@@ -1,13 +1,11 @@
 package me.Spielername124.blockClicker;
 
 import BlockBreak.BlockBreakListener;
-import BlockBreak.BlockClickerCommands;
-import BlockBreak.GlobalFlags;
+import BlockBreak.CommandManagement.BlockClickerCommands;
 import BlockBreak.RewardManagement.RewardCache;
 import BlockBreak.RewardManagement.RewardCacheLoader;
 import BlockBreak.ToolManagement.ToolCache;
 import BlockBreak.ToolManagement.Tools.ToolCacheLoader;
-import BlockBreak.ToolManagement.Tools.ToolMatcher;
 import org.bukkit.NamespacedKey;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
