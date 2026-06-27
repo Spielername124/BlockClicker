@@ -18,6 +18,10 @@ public class GlobalFlags {
     public boolean containerHasBeenPlaced = false;
 
     public GlobalFlags(FileConfiguration config){
+     update(config);
+    }
+
+    public void update(FileConfiguration config){
         String globalFlagPath = "global-flags.";
         depositToInventory = config.getBoolean(globalFlagPath + "deposit-to-inventory");
         mutuallyExclusiveRegions = config.getBoolean(globalFlagPath + "mutually-exclusive-regions");
@@ -29,8 +33,6 @@ public class GlobalFlags {
         intraModifierMultiplicativity = config.getBoolean(globalFlagPath + "intra-modifire-multiplicativity", true);
         publicSound = config.getBoolean(globalFlagPath + "public-reward-sound");
         recursionDepth = config. getInt(globalFlagPath + "recursion-depth", 5);
-
-
     }
 
     private double percentageInDoubleConverter(double value) {

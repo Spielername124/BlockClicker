@@ -15,28 +15,34 @@ import org.bukkit.inventory.ItemStack;
 import java.util.Map;
 
 public class MobSpawn extends Reward {
+
+    private final EntityType type;
+
     public MobSpawn(BlockClicker plugin, FileConfiguration config, Map<?, ?> rewardData) {
         super(plugin, config, rewardData);
-    }
 
-    @Override
-    protected void execute(Player player, Location location, GlobalFlags flags, RewardSound sound, ItemStack toolUsed, Block block){
-
-        //polls mob type and returns if none is specified
         String mobType = (String) rewardData.get("mob");
-        if(mobType==null) return;
+        if(mobType==null){
+            type = null;
+            return;
+        }
 
+        EntityType localType = null;
         try{
-            //get the entity type and spawn the entity
-            EntityType type = EntityType.valueOf(mobType);
-            Entity entity = location.getWorld().spawnEntity(location, type);
+            //get the entity type
+            localType = EntityType.valueOf(mobType);
 
         }
         catch (IllegalArgumentException e) {
             plugin.getLogger().warning("Invalid EntityType '" + mobType);
         }
 
+        type = localType;
 
+    }
 
+    @Override
+    protected void execute(Player player, Location location, GlobalFlags flags, RewardSound sound, ItemStack toolUsed, Block block){
+        Entity entity = location.getWorld().spawnEntity(location, type);
     }
 }

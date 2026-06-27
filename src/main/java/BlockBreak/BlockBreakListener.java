@@ -43,7 +43,8 @@ public class BlockBreakListener implements Listener {
         FileConfiguration config = plugin.getConfig();
 
         Player player =  brokenBlock.getPlayer();
+        GlobalFlags flags = plugin.flags;
 
-        BlockBreakHandler.checkAreas(plugin, config, rewardCache, toolCache, zoneCache, player, block, location);
+        BlockBreakHandler.checkAreas(plugin, config, flags, rewardCache, toolCache, zoneCache, player, block, location);
     }
 }

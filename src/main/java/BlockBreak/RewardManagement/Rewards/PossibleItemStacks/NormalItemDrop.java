@@ -1,16 +1,29 @@
 package BlockBreak.RewardManagement.Rewards.PossibleItemStacks;
 
+import BlockBreak.RewardManagement.Rewards.RewardsHelper.Amount;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 
-public class NormalItemDrop {
+import java.util.Map;
 
-    public static ItemStack getNormalItem(String itemName, int amount) {
+public class NormalItemDrop implements DroppedItem {
 
-        Material rewardItem = Material.matchMaterial(itemName);
+    private final ItemStack item;
+    private final Amount amount;
 
-        if (rewardItem == null) return null;
+    public NormalItemDrop(Map<?, ?> rewardData){
+        String itemName = (String) rewardData.get("item");
+        Material rewardMaterial = Material.matchMaterial(itemName);
+        item = rewardMaterial != null ? new ItemStack(rewardMaterial) : null;
+        amount = new Amount(rewardData);
+    }
 
-        return new ItemStack(rewardItem, amount);
+
+    @Override
+    public ItemStack getItem() {
+        if(item == null) return null;
+        ItemStack reward = item.clone();
+        reward.setAmount(amount.getAmount());
+        return reward;
     }
 }

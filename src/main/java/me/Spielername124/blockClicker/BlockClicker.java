@@ -2,6 +2,7 @@ package me.Spielername124.blockClicker;
 
 import BlockBreak.BlockBreakListener;
 import BlockBreak.CommandManagement.BlockClickerCommands;
+import BlockBreak.GlobalFlags;
 import BlockBreak.RewardManagement.RewardCache;
 import BlockBreak.RewardManagement.RewardCacheLoader;
 import BlockBreak.ToolManagement.ToolCache;
@@ -24,6 +25,7 @@ public final class BlockClicker extends JavaPlugin {
     private RewardCache rewardCache;
     private ToolCache toolCache;
     private ZoneCache zoneCache;
+    public GlobalFlags flags;
     public static NamespacedKey TOOL_ID_KEY;
 
 
@@ -44,6 +46,8 @@ public final class BlockClicker extends JavaPlugin {
         this.zoneCache = new ZoneCache();
         ZoneCacheLoader.loadAllZoneGroups(getConfig(), zoneCache);
 
+        this.flags = new GlobalFlags(getConfig());
+
         getCommand("blockclicker").setExecutor(new BlockClickerCommands(this));
 
         getServer().getPluginManager().registerEvents(new BlockBreakListener(this, rewardCache, toolCache, zoneCache), this);
@@ -61,6 +65,7 @@ public final class BlockClicker extends JavaPlugin {
         RewardCacheLoader.loadAllLootTables(this, getConfig(), rewardCache);
         ToolCacheLoader.loadAllToolGroups(this, getConfig(), toolCache);
         ZoneCacheLoader.loadAllZoneGroups (getConfig(), zoneCache);
+        flags.update(getConfig());
     }
 
 

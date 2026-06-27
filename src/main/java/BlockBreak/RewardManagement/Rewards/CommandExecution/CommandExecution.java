@@ -16,20 +16,30 @@ import me.clip.placeholderapi.PlaceholderAPI;
 import java.util.Map;
 
 public class CommandExecution extends Reward {
+
+    private final boolean isExecutedByPlayer;
+    private final String command;
+
     public CommandExecution(BlockClicker plugin, FileConfiguration config, Map<?, ?> rewardData) {
         super(plugin, config, rewardData);
+
+        isExecutedByPlayer = Boolean.TRUE.equals(rewardData.get("executed-by-player"));
+
+         command = rewardData.get("command").toString();
+
+
+
+
+
+
+
     }
 
     @Override
     protected void execute(Player player, Location location, GlobalFlags flags, RewardSound sound, ItemStack toolUsed, Block block){
 
-        //get the necessary config data
-        String command = rewardData.get("command").toString();
-        boolean isExecutedByPlayer = Boolean.TRUE.equals(rewardData.get("executed-by-player"));
-
         if(command == null || command.isEmpty()) return;
-
-        //let PAPI process the command
+        //let PAPI process the command with the runtime data
         String processedPAPICommand = PlaceholderAPI.setPlaceholders(player, command);
         if(processedPAPICommand.startsWith("/"))
             processedPAPICommand = processedPAPICommand.substring(1);

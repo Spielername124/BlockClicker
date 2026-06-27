@@ -2,6 +2,7 @@ package BlockBreak.RewardManagement.Rewards.ContainerSpawn.ItemManagement;
 
 import BlockBreak.GlobalFlags;
 import BlockBreak.RewardManagement.Rewards.PossibleItemStacks.CustomItemDrop;
+import BlockBreak.RewardManagement.Rewards.PossibleItemStacks.DroppedItem;
 import BlockBreak.RewardManagement.Rewards.PossibleItemStacks.NormalItemDrop;
 import BlockBreak.RewardManagement.Rewards.RewardsHelper.Amount;
 import BlockBreak.RewardManagement.Rewards.RewardsHelper.Chance;
@@ -16,21 +17,18 @@ import java.util.Map;
 public class ContainerSimpleItem implements ContainerItem {
 
         private final BlockClicker plugin;
-        private final Map<?, ?> rewardData;
         private final double chance;
         private final boolean isLuckDependent;
-        private final String itemName;
-        private final boolean isCustom;
+        private final DroppedItem item;
 
         public ContainerSimpleItem(BlockClicker plugin, Map<?, ?> rewardData) {
             this.plugin = plugin;
-            this.rewardData = rewardData;
-
             Number chanceNr = (Number) rewardData.get("chance");
             this.chance = chanceNr != null ? chanceNr.doubleValue() : 100.0;
             this.isLuckDependent = Boolean.TRUE.equals(rewardData.get("luck-dependence"));
-            this.itemName = (String) rewardData.get("item");
-            this.isCustom = Boolean.TRUE.equals(rewardData.get("is-custom"));
+
+            boolean isSpecialItem = Boolean.TRUE.equals(rewardData.get("is-custom"));
+            this.item = isSpecialItem ?  new CustomItemDrop(plugin, rewardData) : new NormalItemDrop(rewardData);
         }
 
     @Override
@@ -39,12 +37,6 @@ public class ContainerSimpleItem implements ContainerItem {
         if (!Chance.performDropRoll(flags, chance, toolUsed, player, isLuckDependent)) {
             return null;
         }
-
-        if (itemName == null) return null;
-        int amount = Amount.getAmount(rewardData);
-
-        return isCustom ?
-                CustomItemDrop.getCustomItem(plugin, itemName, amount) :
-                NormalItemDrop.getNormalItem(itemName, amount);
+        return item.getItem();
     }
 }

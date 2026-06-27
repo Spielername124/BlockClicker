@@ -22,10 +22,7 @@ import org.bukkit.inventory.ItemStack;
 import java.util.List;
 
 class BlockBreakHandler {
-    protected static void checkAreas (BlockClicker plugin, FileConfiguration config, RewardCache rewardCache, ToolCache toolCache, ZoneCache zoneCache, Player player, Block block, Location location) {
-        // Read the global flags
-        GlobalFlags flags = new GlobalFlags(config);
-
+    protected static void checkAreas (BlockClicker plugin, FileConfiguration config, GlobalFlags flags, RewardCache rewardCache, ToolCache toolCache, ZoneCache zoneCache, Player player, Block block, Location location) {
         // Iterate through zone-groups
         for (ZoneGroup zoneGroup : zoneCache.getCachedZoneGroups()) {
             if (zoneGroup.isInZone(location)) {
