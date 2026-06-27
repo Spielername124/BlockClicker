@@ -136,7 +136,7 @@ dirtArea:
 
       - item: "DIAMOND_PICKAXE"
         amount: 1
-        chance: 100
+        chance: 1
         #sets the durability to a given value. The value will have no effect if it is higher than the usual max durability
         durability: 1
         #sets a custom name for the dropping item
