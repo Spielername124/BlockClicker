@@ -6,24 +6,17 @@ import org.bukkit.inventory.ItemStack;
 
 import java.util.Map;
 
-public class NormalItemDrop implements DroppedItem {
+public class NormalItemDrop extends DroppedItem {
 
-    private final ItemStack item;
-    private final Amount amount;
 
     public NormalItemDrop(Map<?, ?> rewardData){
-        String itemName = (String) rewardData.get("item");
-        Material rewardMaterial = Material.matchMaterial(itemName);
-        item = rewardMaterial != null ? new ItemStack(rewardMaterial) : null;
-        amount = new Amount(rewardData);
+        super(rewardData);
     }
 
 
     @Override
-    public ItemStack getItem() {
-        if(item == null) return null;
-        ItemStack reward = item.clone();
-        reward.setAmount(amount.getAmount());
-        return reward;
+    public ItemStack getItemStack() {
+        Material rewardMaterial = Material.matchMaterial(itemType);
+        return rewardMaterial != null ? new ItemStack(rewardMaterial) : null;
     }
 }

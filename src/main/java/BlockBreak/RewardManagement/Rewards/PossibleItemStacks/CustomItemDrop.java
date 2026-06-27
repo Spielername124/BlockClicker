@@ -6,27 +6,17 @@ import org.bukkit.inventory.ItemStack;
 
 import java.util.Map;
 
-public class CustomItemDrop implements DroppedItem {
+public class CustomItemDrop extends DroppedItem {
 
-    private final ItemStack savedItem;
-    private final Amount amount;
-
+    private final BlockClicker plugin;
     public CustomItemDrop(BlockClicker plugin, Map<?, ?> rewardData){
-
-        String itemName = (String) rewardData.get("item");
-        //retrieve saved item
-        savedItem = plugin.getItemsConfig().getItemStack("saved-items." + itemName);
-
-        amount = new Amount(rewardData);
-
+        super(rewardData);
+        this.plugin = plugin;
     }
 
     @Override
-    public ItemStack getItem() {
-        if(savedItem == null) return null;
-        ItemStack reward = savedItem.clone();
-        reward.setAmount(amount.getAmount());
-        return reward;
+    public ItemStack getItemStack() {
+        return plugin.getItemsConfig().getItemStack("saved-items." + itemType);
     }
 }
 
