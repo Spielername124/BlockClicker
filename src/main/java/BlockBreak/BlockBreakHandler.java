@@ -40,9 +40,6 @@ class BlockBreakHandler {
         //gets the tool used to break the block
         ItemStack toolUsed = player.getInventory().getItemInMainHand();
 
-        ConfigurationSection blockRewardsRoot = config.getConfigurationSection(zoneGroup);
-        if (blockRewardsRoot == null) return;
-
         //iterate through all possible tool groups
         for(String groupKey: toolCache.getAllToolGroups()){
 

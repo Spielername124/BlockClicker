@@ -40,7 +40,7 @@ public abstract class Reward {
         Number priorityNr = (Number) rewardData.get("sound-priority");
         this.soundPriority = priorityNr != null ? priorityNr.intValue() : 0;
 
-        if (soundSt != null && !soundSt.isBlank()) {
+        if (soundSt == null || soundSt.isBlank()) {
             sound = null;
             return;
         }
