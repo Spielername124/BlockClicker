@@ -2,7 +2,10 @@ package BlockBreak.RewardManagement.Rewards.PossibleItemStacks;
 
 import BlockBreak.RewardManagement.Rewards.RewardsHelper.Amount;
 import BlockBreak.RewardManagement.Rewards.RewardsHelper.Chance;
+import io.papermc.paper.registry.RegistryAccess;
+import io.papermc.paper.registry.RegistryKey;
 import org.bukkit.NamespacedKey;
+import org.bukkit.Registry;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.meta.ItemMeta;
 
@@ -18,7 +21,12 @@ public class EnchantmentContainer {
     public EnchantmentContainer(Map<?, ?> enchantmentData){
         String typeString = (String) enchantmentData.get("type");
         if (typeString != null) {
-            this.enchantment = Enchantment.getByKey(NamespacedKey.minecraft(typeString.toLowerCase().trim()));
+
+            // get the correct enchantment
+            Registry<Enchantment> enchantmentRegistry = RegistryAccess.registryAccess()
+                    .getRegistry(RegistryKey.ENCHANTMENT);
+            this.enchantment = enchantmentRegistry.get(NamespacedKey.minecraft(typeString.toLowerCase().trim()));
+
         } else {
             this.enchantment = null;
         }

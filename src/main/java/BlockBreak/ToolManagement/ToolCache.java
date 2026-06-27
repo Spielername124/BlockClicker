@@ -3,11 +3,12 @@ package BlockBreak.ToolManagement;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Set;
 
 public class ToolCache {
-    private final Map<String, ToolGroup> cachedGroups = new HashMap<>();
+    private final Map<String, ToolGroup> cachedGroups = new LinkedHashMap<>();
 
     public void clear() {
         cachedGroups.clear();
