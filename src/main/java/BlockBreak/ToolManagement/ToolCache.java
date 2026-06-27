@@ -4,6 +4,7 @@ import org.bukkit.inventory.ItemStack;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
 public class ToolCache {
     private final Map<String, ToolGroup> cachedGroups = new HashMap<>();
@@ -19,6 +20,10 @@ public class ToolCache {
     public boolean isToolAllowed(String groupName, ItemStack toolUsed) {
         ToolGroup group = cachedGroups.get(groupName);
         return group != null && group.isToolAllowed(toolUsed);
+    }
+
+    public Set<String> getAllToolGroups() {
+        return cachedGroups.keySet();
     }
 }
 

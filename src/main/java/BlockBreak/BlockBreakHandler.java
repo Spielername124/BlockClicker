@@ -44,7 +44,7 @@ class BlockBreakHandler {
         if (blockRewardsRoot == null) return;
 
         //iterate through all possible tool groups
-        for(String groupKey: blockRewardsRoot.getKeys(false)){
+        for(String groupKey: toolCache.getAllToolGroups()){
 
             //if the used tool is not in the current group, skip.
             if(!toolCache.isToolAllowed(groupKey,toolUsed)) continue;

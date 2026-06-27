@@ -21,27 +21,12 @@ public class RewardSound {
         this.plugin = plugin;
     }
 
-    public void setSound(Map<?, ?> rewardData){
-        //get sound
-        String soundSt = (String) rewardData.get("sound");
-        if(soundSt== null) return;
-        soundSt.trim();
-
-        //get priority, return if the new sound has a lower priority than the current one
-        Number priorityNr = (Number) rewardData.get("sound-priority");
-        int priority = priorityNr != null ? priorityNr.intValue() : 0;
+    public void setSound(Sound newSound, int priority){
+        if(newSound == null) return;
         if(priority <= currentPriority) return;
-        try {
-            //overwrite the sound and priority if possible
-            Key soundKey = Key.key(soundSt.toLowerCase());
-            this.sound = Sound.sound(soundKey, Sound.Source.MASTER, 1.0f, 1.0f);
-            this.currentPriority = priority;
 
-        } catch (InvalidKeyException e) {
-            // throw a error if the key is invalid
-            plugin.getLogger().severe("The sound '" + soundSt + "' in your config has invalid characters! Must be lowercase only.");
-        }
-
+        this.sound = newSound;
+        this.currentPriority = priority;
     }
 
 
