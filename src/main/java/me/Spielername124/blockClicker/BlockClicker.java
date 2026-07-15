@@ -1,15 +1,16 @@
 package me.Spielername124.blockClicker;
 
-import BlockBreak.BlockBreakListener;
-import BlockBreak.CommandManagement.BlockClickerCommands;
-import BlockBreak.GlobalFlags;
-import BlockBreak.RewardManagement.RewardCache;
-import BlockBreak.RewardManagement.RewardCacheLoader;
-import BlockBreak.ToolManagement.ToolCache;
-import BlockBreak.ToolManagement.Tools.ToolCacheLoader;
-import BlockBreak.ZoneManagement.ZoneCache;
-import BlockBreak.ZoneManagement.ZoneCacheLoader;
-import BlockBreak.ZoneManagement.ZoneGroup;
+import me.Spielername124.blockClicker.BlockBreak.BlockBreak.BlockBreakListener;
+import me.Spielername124.blockClicker.BlockBreak.CommandManagement.BlockClickerCommands;
+import me.Spielername124.blockClicker.BlockBreak.GlobalFlags;
+import me.Spielername124.blockClicker.BlockBreak.MobDeath.MobLootCache;
+import me.Spielername124.blockClicker.BlockBreak.MobDeath.MobLootCacheLoader;
+import me.Spielername124.blockClicker.BlockBreak.RewardManagement.RewardCache;
+import me.Spielername124.blockClicker.BlockBreak.RewardManagement.RewardCacheLoader;
+import me.Spielername124.blockClicker.BlockBreak.ToolManagement.ToolCache;
+import me.Spielername124.blockClicker.BlockBreak.ToolManagement.Tools.ToolCacheLoader;
+import me.Spielername124.blockClicker.BlockBreak.ZoneManagement.ZoneCache;
+import me.Spielername124.blockClicker.BlockBreak.ZoneManagement.ZoneCacheLoader;
 import org.bukkit.NamespacedKey;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -25,13 +26,19 @@ public final class BlockClicker extends JavaPlugin {
     private RewardCache rewardCache;
     private ToolCache toolCache;
     private ZoneCache zoneCache;
+    private MobLootCache mobLootCache;
+
     public GlobalFlags flags;
     public static NamespacedKey TOOL_ID_KEY;
+    public static NamespacedKey MOB_ID_KEY;
 
 
     @Override
     public void onEnable() {
+
         TOOL_ID_KEY = new NamespacedKey(this, "custom_tool_id");
+        MOB_ID_KEY = new NamespacedKey(this, "custom_mob_id");
+
         saveDefaultConfig();
         createItemsConfig();
 
@@ -45,6 +52,9 @@ public final class BlockClicker extends JavaPlugin {
 
         this.zoneCache = new ZoneCache();
         ZoneCacheLoader.loadAllZoneGroups(getConfig(), zoneCache);
+
+        this.mobLootCache = new MobLootCache();
+        MobLootCacheLoader.LoadAllMobLootTables(this, getConfig(), mobLootCache);
 
         this.flags = new GlobalFlags(getConfig());
 
@@ -65,6 +75,7 @@ public final class BlockClicker extends JavaPlugin {
         RewardCacheLoader.loadAllLootTables(this, getConfig(), rewardCache);
         ToolCacheLoader.loadAllToolGroups(this, getConfig(), toolCache);
         ZoneCacheLoader.loadAllZoneGroups (getConfig(), zoneCache);
+        MobLootCacheLoader.LoadAllMobLootTables(this, getConfig(), mobLootCache);
         flags.update(getConfig());
     }
 

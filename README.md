@@ -15,3 +15,5 @@ The full documentation for the config can be found [here](Documentation.txt)
 
 ## Dependencies
 This plugin is dependent on: WorldEdit, WorldGuard, placeholderAPI
+
+
