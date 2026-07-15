@@ -19,7 +19,7 @@ public class MobDeathListener implements Listener {
     private final MobLootCache mobLootCache;
 
 
-    public MobDeathListener (BlockClicker plugin, GlobalFlags flags, MobLootCache mobLootCache){
+    public MobDeathListener (BlockClicker plugin, MobLootCache mobLootCache){
         this.plugin = plugin;
         this.mobLootCache = mobLootCache;
 

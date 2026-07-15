@@ -3,6 +3,7 @@ package me.Spielername124.blockClicker;
 import me.Spielername124.blockClicker.BlockBreak.BlockBreak.BlockBreakListener;
 import me.Spielername124.blockClicker.BlockBreak.CommandManagement.BlockClickerCommands;
 import me.Spielername124.blockClicker.BlockBreak.GlobalFlags;
+import me.Spielername124.blockClicker.BlockBreak.MobDeath.MobDeathListener;
 import me.Spielername124.blockClicker.BlockBreak.MobDeath.MobLootCache;
 import me.Spielername124.blockClicker.BlockBreak.MobDeath.MobLootCacheLoader;
 import me.Spielername124.blockClicker.BlockBreak.RewardManagement.RewardCache;
@@ -61,6 +62,7 @@ public final class BlockClicker extends JavaPlugin {
         getCommand("blockclicker").setExecutor(new BlockClickerCommands(this));
 
         getServer().getPluginManager().registerEvents(new BlockBreakListener(this, rewardCache, toolCache, zoneCache), this);
+        getServer().getPluginManager().registerEvents(new MobDeathListener(this, mobLootCache ), this);
 
     }
 

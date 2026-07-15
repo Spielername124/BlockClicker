@@ -81,6 +81,24 @@ findable-containers:
             amount-lower-bound: 2
             amount-upper-bound: 8
 
+mob-loot:
+  #define the table for one of your mob id's
+  guard:
+    #by default true, if false prevents natural loot drops from occurring (for example blaze rods from blazes
+    natural-drops: false
+    #define the dropping items in the same logic as in the loot tables. There exists at the moment no sound implementation and the chance is not affected by modifiers
+    drops:
+      - item: "COAL"
+        amount-lower-bound: 2
+        amount-upper-bound: 5
+        chance: 100
+
+      # works also with custom items
+      #- item: "oldShovel"
+      #is-custom: true
+      #amount: 5
+      #chance: 100
+
 #The chance has to be given as double between 0 and 100.
 dirtArea:
   shovels:
@@ -132,7 +150,9 @@ dirtArea:
 
         #spawns a zombie
       - mob: "ZOMBIE"
-        chance: 0.1
+        chance: 100
+        #sets a mobId that then can be referenced for custom mob loot
+        mob-id: "guard"
 
       - item: "DIAMOND_PICKAXE"
         amount: 1

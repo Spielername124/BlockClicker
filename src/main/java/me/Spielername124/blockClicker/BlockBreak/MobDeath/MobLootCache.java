@@ -16,6 +16,7 @@ public class MobLootCache {
 
     public void clear(){
         mobDrops.clear();
+        allowsNaturalDrops.clear();
     }
 
     public void registerMobFlags(String mobId, boolean allowsNaturalDrops){
@@ -24,7 +25,7 @@ public class MobLootCache {
 
     public void registerMobDrop(String mobId, MobLoot reward) {
 
-        if (!mobDrops.containsKey("mobId"))
+        if (!mobDrops.containsKey(mobId))
             mobDrops.put(mobId, new ArrayList<MobLoot>());
 
         List<MobLoot> mobDropList = mobDrops.get(mobId);
@@ -32,7 +33,9 @@ public class MobLootCache {
         mobDropList.add(reward);
     }
 
+    public boolean getAllowsNaturalDrops(String mobId){return allowsNaturalDrops.getOrDefault(mobId, true);}
+
     public List<MobLoot> getRewardList(String mobId) {
-        return mobDrops.get(mobId);
+        return mobDrops.getOrDefault(mobId, new ArrayList<>());
     }
 }

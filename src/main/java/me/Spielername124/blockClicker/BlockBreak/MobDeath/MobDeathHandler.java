@@ -20,6 +20,10 @@ public class MobDeathHandler {
         Location location = entity.getLocation();
         Player killingPlayer = entity.getKiller();
 
+        if (!cache.getAllowsNaturalDrops(mobId)){
+            event.getDrops().clear();
+        }
+
         for (MobLoot lootInstance: cache.getRewardList(mobId)){
             lootInstance.rollAndExecute(flags, location, killingPlayer);
         }

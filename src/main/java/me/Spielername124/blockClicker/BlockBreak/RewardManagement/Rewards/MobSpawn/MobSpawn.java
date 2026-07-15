@@ -9,17 +9,22 @@ import org.bukkit.block.Block;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
+import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.persistence.PersistentDataType;
 
 import java.util.Map;
 
 public class MobSpawn extends Reward {
 
     private final EntityType type;
+    private final String customMobId;
 
     public MobSpawn(BlockClicker plugin, FileConfiguration config, Map<?, ?> rewardData) {
         super(plugin, config, rewardData);
+
+        customMobId = (String) rewardData.get("mob-id");
 
         String mobType = (String) rewardData.get("mob");
         if(mobType==null){
@@ -43,6 +48,15 @@ public class MobSpawn extends Reward {
 
     @Override
     protected void execute(Player player, Location location, GlobalFlags flags, RewardSound sound, ItemStack toolUsed, Block block){
-        Entity entity = location.getWorld().spawnEntity(location, type);
+        LivingEntity spawnedMob = (LivingEntity) location.getWorld().spawnEntity(location, type);
+
+        // adds the mobId if one exists
+        if (customMobId != null && !customMobId.isEmpty()) {
+            spawnedMob.getPersistentDataContainer().set(
+                    BlockClicker.MOB_ID_KEY,
+                    PersistentDataType.STRING,
+                    customMobId
+            );
+        }
     }
 }

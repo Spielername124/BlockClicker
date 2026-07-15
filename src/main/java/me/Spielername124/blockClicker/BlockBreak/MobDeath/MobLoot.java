@@ -36,10 +36,10 @@ public class MobLoot {
         if (randomRoll > chance) return;
 
         if(flags.depositToInventory && player !=null)
-            player.getInventory().addItem(droppedItem.getItemStack());
+            player.getInventory().addItem(droppedItem.getItem());
 
         else
-            location.getWorld().dropItemNaturally(location, droppedItem.getItemStack());
+            location.getWorld().dropItemNaturally(location, droppedItem.getItem());
     }
 
 }
