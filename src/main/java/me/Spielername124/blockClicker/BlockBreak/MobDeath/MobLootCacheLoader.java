@@ -19,21 +19,22 @@ public class MobLootCacheLoader {
         //get the mobs section
         ConfigurationSection mobLootSection = config.getConfigurationSection("mob-loot");
         if (mobLootSection == null) return;
-
         //iterate through every mob
         for (String mobName : mobLootSection.getKeys(false)) {
-            List<Map<?, ?>> lootList = mobLootSection.getMapList(mobName);
+
+            ConfigurationSection mobSection = mobLootSection.getConfigurationSection(mobName);
+            if (mobSection == null) continue;
+
+            //register the natural drop flag
+            boolean naturalDrops = mobSection.getBoolean("allows-natural-drops", true);
+            lootCache.registerMobFlags(mobName, naturalDrops);
+
+            List<Map<?, ?>> lootList = mobSection.getMapList("drops");
             if (lootList.isEmpty()) continue;
 
             //convert every possible item to a reward and register it in the cache
             for (Map<?, ?> rewardData : lootList) {
-
-                boolean isSpecialItem = Boolean.TRUE.equals(rewardData.get("is-custom"));
-                String itemName = (String) rewardData.get("item");
-
-                DroppedItem rewardItem = isSpecialItem ? new CustomItemDrop(plugin, rewardData) : new NormalItemDrop(rewardData);
-
-                lootCache.registerMobDrop(mobName, rewardItem);
+                lootCache.registerMobDrop(mobName, new MobLoot(plugin, rewardData));
             }
         }
     }

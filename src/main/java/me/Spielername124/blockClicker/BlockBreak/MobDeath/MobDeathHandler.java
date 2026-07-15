@@ -13,13 +13,16 @@ import org.bukkit.persistence.PersistentDataType;
 import static me.Spielername124.blockClicker.BlockClicker.MOB_ID_KEY;
 
 public class MobDeathHandler {
-    public static void handleMobDeath(BlockClicker plugin, EntityDeathEvent event, MobLootCache cache) {
+    public static void handleMobDeath(BlockClicker plugin, GlobalFlags flags, EntityDeathEvent event, MobLootCache cache) {
 
         LivingEntity entity = event.getEntity();
         String mobId = entity.getPersistentDataContainer().get(MOB_ID_KEY, PersistentDataType.STRING);
         Location location = entity.getLocation();
+        Player killingPlayer = entity.getKiller();
 
-        cache.getRewardList(mobId).getFirst().getItemStack();
+        for (MobLoot lootInstance: cache.getRewardList(mobId)){
+            lootInstance.rollAndExecute(flags, location, killingPlayer);
+        }
 
     }
 }

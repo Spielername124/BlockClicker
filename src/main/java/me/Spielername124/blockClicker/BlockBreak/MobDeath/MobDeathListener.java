@@ -1,5 +1,6 @@
 package me.Spielername124.blockClicker.BlockBreak.MobDeath;
 
+import me.Spielername124.blockClicker.BlockBreak.GlobalFlags;
 import me.Spielername124.blockClicker.BlockBreak.RewardManagement.RewardCache;
 import me.Spielername124.blockClicker.BlockBreak.ToolManagement.ToolCache;
 import me.Spielername124.blockClicker.BlockBreak.ZoneManagement.ZoneCache;
@@ -15,16 +16,13 @@ import static me.Spielername124.blockClicker.BlockClicker.MOB_ID_KEY;
 
 public class MobDeathListener implements Listener {
     private final BlockClicker plugin;
-    private final RewardCache rewardCache;
-    private final ToolCache toolCache;
-    private final ZoneCache zoneCache;
+    private final MobLootCache mobLootCache;
 
 
-    public MobDeathListener (BlockClicker plugin, RewardCache rewardCache, ToolCache toolCache, ZoneCache zoneCache){
+    public MobDeathListener (BlockClicker plugin, GlobalFlags flags, MobLootCache mobLootCache){
         this.plugin = plugin;
-        this.rewardCache = rewardCache;
-        this.toolCache = toolCache;
-        this.zoneCache = zoneCache;
+        this.mobLootCache = mobLootCache;
+
     }
 
 
@@ -34,7 +32,7 @@ public class MobDeathListener implements Listener {
         //return if this was not a BlockClicker mob
         if (!entity.getPersistentDataContainer().has(MOB_ID_KEY, PersistentDataType.STRING)) return;
 
-        MobDeathHandler.handleMobDeath(plugin, event);
+        MobDeathHandler.handleMobDeath(plugin, plugin.flags, event, mobLootCache);
 
     }
 }
