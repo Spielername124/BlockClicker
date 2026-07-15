@@ -5,6 +5,7 @@ Commands:
     - bc saveItem <customName>: saves the item you currently hold in the main hand. IMPORTANT! The name is not allowed to match a material type/ tool type.
     - bc giveItem <CustomName>: gives the player the saved itemStack
     - bc getMetaData: returns if the item currently hold in the main hand has a saved toolId
+    - bc spawnMob <EntityType> <mobId> ([world] x y z) spawns a mob with the plugin internal id tag i.e. following the defined mob loot table. if the command is made by a player, omitting the arguments in the Brackets will spawn the mob at the location of the player. Omitting the argument in the curly bracket, will spawn the entity at the given coordinates in the same world as the player
 
   "global-flags":
     Here you can set global flags that generally count plugin wide.
@@ -38,6 +39,18 @@ Commands:
         set "container-type" to a valid container, eg "CHEST", "FURNACE", ...
         set shuffle, if set to false, the container is filled slot by slot, if set to true or omitted the slots of the container are filled in a random order
         define a loot table under "loot" This behaves in the same way as the loot tables, for the broken blocks, except only accepting rewards of the "item" Type (look below to see how loot tables have to be structured)
+
+ "mob-loot":
+    In this section you can overwrite the loot of mobs that have been created by this plugin with a mobId
+    this works as follows:
+    "<mobId>":
+        there are two arguments that can be used:
+        natural-drops: this is by default true. If set to true or omitted, the custom drops are additional to the vanilla drops, setting it to false prevents the mob from dropping anything from it's vanilla loot table
+
+        drops:
+              followed by a list of drops.
+              The drops in the list generally behave the same as the usual item rewards from the loot table, for example you can drop custom items.
+              The following differences exist: The Items currently can not be xp, Chance is not affected by modifiers, there are no sounds
 
 Now we look at the heart of this whole plugin: The actual mechanic to define and configure the possible rewards for breaking blocks.
 First you have to define in which zone-group a given table should be working, for example "dirtArea"
@@ -76,6 +89,7 @@ There are the following types of rewards, and it's subpoints:
         level: sets the effect level (attention! this means level and not amplifier! to give level 1 you have to set this to 1, not to 0)
 
     - mob: "<mobName>" creates a <mobName> mob at the location of the broken block
+            mob-id: "<name>" gives the mob a id, which can be used for giving it custom loot, and with flags preventing it from dropping vanilla loot
 
     - guaranteed rewards: <List of rewards> Grants one of the rewards in the list that is appended on it. If placed in containers, only item drops are allowed.
             you can set the proportional weight of all list items with the weight: value, which by default is 1
@@ -91,7 +105,6 @@ There are the following types of rewards, and it's subpoints:
                 - "%blockZValue%" -> gets the Z value of the broken block
 
         - executed-by-player: is by default false. If this is set to true, the command gets executed from the player, e.g. is restricted to use their permissions. If omitted or false, the command is executed by the console
-
 
 
  And here are some random Information, that I was not sure where to include but still might be important:
