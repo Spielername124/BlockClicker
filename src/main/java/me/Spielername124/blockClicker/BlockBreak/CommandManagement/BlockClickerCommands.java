@@ -1,7 +1,9 @@
 package me.Spielername124.blockClicker.BlockBreak.CommandManagement;
 
 import me.Spielername124.blockClicker.BlockBreak.CommandManagement.Commands.CustomItemCommands;
+import me.Spielername124.blockClicker.BlockBreak.CommandManagement.Commands.CustomMobCommand;
 import me.Spielername124.blockClicker.BlockBreak.CommandManagement.Commands.ReloadCommand;
+import me.Spielername124.blockClicker.BlockBreak.RewardManagement.Rewards.MobSpawn.MobSpawn;
 import me.Spielername124.blockClicker.BlockClicker;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -42,6 +44,9 @@ public class BlockClickerCommands implements CommandExecutor {
 
             case "getmetadata":
                 return CustomItemCommands.getItemMetadata(sender);
+
+            case "spawnmob":
+                return CustomMobCommand.spawnMob(sender, args);
 
             default:
                 sender.sendMessage("Unknown subcommand");
