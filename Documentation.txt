@@ -13,6 +13,7 @@ Commands:
       - "mutually-exclusive-tools": is exactly the same, but with tools. --> it will only have the loot of the first group it matches with
       - "deposit-to-inventory": if this flag is set to true, dropped Items and XP will instantly be deposited in the players inventory. If set false or it is omitted, the Items / Xp will drop at the location of the broken block.
       - "fortune-modifier-per-level": Sets in % how much chance increase / decrease a fortune level on the used tool gives to the chance in any loot table element. (to decrease just give a negative number)
+      - "looting-modifier-per-level": the same for looting.
       - "luck-modifier-per-level", "badLuckMultiplier": Sets in % how much chance increase / decrease a luck/badLuck effect on player that broke the block gives to the chance in any loot table element. (to decrease just give a negative number
       - "public-reward-sound": if set true all reward sounds are played for every player, by default they only play for the player breaking the block
       - "intra-modifire-multiplicativity": if set to true or on being omitted it makes that modifier level are multiplicative, and else they are additive
@@ -107,4 +108,7 @@ There are the following types of rewards, and it's subpoints:
 
  And here are some random Information, that I was not sure where to include but still might be important:
     - generally only one container can be rewarded in the same drop. It should be the first one which drops, (since the plugin generally reads the config from the top to the bottom, the one defined higher [you have to read the container loot etc. in the line they are called])
+    - mob spawns are mutually exclusive with themselves and container spawns. this was made to prevent mobs from being stuck. The same infos as in the point above apply
     - container only get filled one tick after they are rewarded / created.
+    - for mob kills the chance will check the looting level of the item that killed the mob, for breaking a block the fortune level will be checked
+

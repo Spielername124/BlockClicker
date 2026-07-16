@@ -7,6 +7,7 @@ public class GlobalFlags {
     public boolean mutuallyExclusiveTools = false;
     public boolean depositToInventory = false;
     public double fortuneMultiplier = 1;
+    public double lootingMultiplier = 1;
     public double luckMultiplier = 1;
     public double badLuckMultiplier = 1;
     public boolean interModifierMultiplicativity;
@@ -23,6 +24,7 @@ public class GlobalFlags {
         this.mutuallyExclusiveTools = other.mutuallyExclusiveTools;
         this.depositToInventory = other.depositToInventory;
         this.fortuneMultiplier = other.fortuneMultiplier;
+        this.lootingMultiplier = other.lootingMultiplier;
         this.luckMultiplier = other.luckMultiplier;
         this.badLuckMultiplier = other.badLuckMultiplier;
         this.interModifierMultiplicativity = other.interModifierMultiplicativity;
@@ -42,6 +44,7 @@ public class GlobalFlags {
         mutuallyExclusiveRegions = config.getBoolean(globalFlagPath + "mutually-exclusive-regions");
         mutuallyExclusiveTools = config.getBoolean(globalFlagPath + "mutually-exclusive-tools");
         fortuneMultiplier = percentageInDoubleConverter(config.getDouble(globalFlagPath + "fortune-modifier-per-level"));
+        lootingMultiplier = percentageInDoubleConverter(config.getDouble(globalFlagPath + "looting-modifier-per-level"));
         luckMultiplier = percentageInDoubleConverter(config.getDouble(globalFlagPath + "luck-modifier-per-level"));
         badLuckMultiplier = percentageInDoubleConverter(config.getDouble(globalFlagPath + "bad-Luck-modifier-per-level"));
         interModifierMultiplicativity = config.getBoolean(globalFlagPath + "inter-modifire-multiplicativity", true);

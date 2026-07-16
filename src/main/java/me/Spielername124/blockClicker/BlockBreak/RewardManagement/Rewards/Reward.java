@@ -56,7 +56,7 @@ public abstract class Reward {
     public final void rollAndExecute(Player player, Location location, GlobalFlags flags, RewardSound sound, ItemStack toolUsed, Block block) {
 
         //roll if the reward is granted, return if not
-        if(!Chance.performDropRoll(flags, chance, toolUsed, player, isLuckDependent))
+        if(!Chance.performDropRoll(flags, chance, toolUsed, player, block, isLuckDependent))
             return;
 
         execute(player, location, flags, sound, toolUsed, block);

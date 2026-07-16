@@ -5,8 +5,10 @@ global-flags:
   mutually-exclusive-regions: true
   #setting to decide whether Items are dropped (false) or deposited directly to the players inventory
   deposit-to-inventory: false
-  #setting the bonus to the loot chance from fortune enchantments (in percent), this modifier is multiplicative.
+  #setting the bonus to the loot chance from fortune enchantments (in percent)
   fortune-modifier-per-level: 10
+  looting-modifier-per-level:  10
+
   luck-modifier-per-level: 10
   bad-Luck-modifier-per-level: -10
   #makes that reward sound are hearable by any player if set to true
@@ -89,7 +91,7 @@ mob-loot:
   guard:
     #by default true, if false prevents natural loot drops from occurring (for example blaze rods from blazes
     "allows-natural-drops": false
-    #define the dropping items in the same logic as in the loot tables. There exists at the moment no sound implementation and the chance is not affected by modifiers
+    #define the rewards with the same logic as in the loot tables.
     drops:
       - item: "COAL"
         amount-lower-bound: 2
@@ -101,6 +103,8 @@ mob-loot:
       #is-custom: true
       #amount: 5
       #chance: 100
+
+      - container: "BARREL"
 
 #The chance has to be given as double between 0 and 100.
 dirtArea:

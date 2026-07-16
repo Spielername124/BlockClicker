@@ -3,6 +3,7 @@ package me.Spielername124.blockClicker.BlockBreak.RewardManagement.Rewards.Conta
 import me.Spielername124.blockClicker.BlockBreak.GlobalFlags;
 import me.Spielername124.blockClicker.BlockBreak.RewardManagement.Rewards.RewardsHelper.Chance;
 import me.Spielername124.blockClicker.BlockClicker;
+import org.bukkit.block.Block;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -49,14 +50,14 @@ public class ContainerGuaranteedItem implements ContainerItem {
     }
 
     @Override
-    public ItemStack rollPossibleItem(GlobalFlags flags, Player player, ItemStack toolUsed, int recursionDepth) {
+    public ItemStack rollPossibleItem(GlobalFlags flags, Player player, ItemStack toolUsed, Block block, int recursionDepth) {
         //use the guaranteed reward roll logic
         if (recursionDepth > flags.recursionDepth) {
             plugin.getLogger().warning("Maximum recursion depth reached inside container loot.");
             return null;
         }
 
-        if (!Chance.performDropRoll(flags, chance, toolUsed, player, isLuckDependent)) {
+        if (!Chance.performDropRoll(flags, chance, toolUsed, player, block, isLuckDependent)) {
             return null;
         }
 
@@ -69,7 +70,7 @@ public class ContainerGuaranteedItem implements ContainerItem {
             currentWeight += weights.get(i);
             if (currentWeight >= rolledWeight) {
                 //use recursion to get the ItemStack no matter if it is nested or not
-                return pool.get(i).rollPossibleItem(flags, player, toolUsed, recursionDepth + 1);
+                return pool.get(i).rollPossibleItem(flags, player, toolUsed, block, recursionDepth + 1);
             }
         }
         return null;

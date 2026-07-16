@@ -82,7 +82,7 @@ public class ContainerDrop extends Reward {
             if(!plugin.zoneCache.isAllowedToBeManipulated(location))
                 return;
 
-            performContainerDrop(plugin, config, flags, player, toolUsed, containerName, block);
+            performContainerDrop(plugin, config, flags, player, toolUsed, containerName, location.getBlock());
         }
     }
 
@@ -115,7 +115,7 @@ public class ContainerDrop extends Reward {
             for (ContainerItem lootElement : precalculatedItems) {
                 if (freeContainerSlots.isEmpty()) break;
 
-                ItemStack rolledItem = lootElement.rollPossibleItem(flags, player, toolUsed, 0);
+                ItemStack rolledItem = lootElement.rollPossibleItem(flags, player, toolUsed, block, 0);
                 if (rolledItem != null) {
                     containerInventory.setItem(freeContainerSlots.poll(), rolledItem);
                 }

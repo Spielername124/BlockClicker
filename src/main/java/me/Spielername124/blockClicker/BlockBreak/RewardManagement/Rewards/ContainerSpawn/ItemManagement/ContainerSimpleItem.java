@@ -6,6 +6,7 @@ import me.Spielername124.blockClicker.BlockBreak.RewardManagement.Rewards.Possib
 import me.Spielername124.blockClicker.BlockBreak.RewardManagement.Rewards.PossibleItemStacks.NormalItemDrop;
 import me.Spielername124.blockClicker.BlockBreak.RewardManagement.Rewards.RewardsHelper.Chance;
 import me.Spielername124.blockClicker.BlockClicker;
+import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
@@ -31,9 +32,9 @@ public class ContainerSimpleItem implements ContainerItem {
         }
 
     @Override
-    public ItemStack rollPossibleItem(GlobalFlags flags, Player player, ItemStack toolUsed, int recursionDepth) {
+    public ItemStack rollPossibleItem(GlobalFlags flags, Player player, ItemStack toolUsed, Block block, int recursionDepth) {
 
-        if (!Chance.performDropRoll(flags, chance, toolUsed, player, isLuckDependent)) {
+        if (!Chance.performDropRoll(flags, chance, toolUsed, player, block, isLuckDependent)) {
             return null;
         }
         return item.getItem();

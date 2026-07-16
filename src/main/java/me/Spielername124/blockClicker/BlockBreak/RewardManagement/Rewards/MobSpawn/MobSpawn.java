@@ -50,7 +50,17 @@ public class MobSpawn extends Reward {
 
     @Override
     protected void execute(Player player, Location location, GlobalFlags flags, RewardSound sound, ItemStack toolUsed, Block block){
-        LivingEntity spawnedMob = (LivingEntity) location.getWorld().spawnEntity(location, type);
+        // make mob spawning mutually exclusive with container spawns
+        if(flags.containerHasBeenPlaced)
+            return;
+        flags.containerHasBeenPlaced = true;
+
+        //center the mob spawn so that mobs don't spawn on the edge of the block
+        Location spawnLoc = location.clone();
+        spawnLoc.add(0.5, 0.1, 0.5);
+
+
+        LivingEntity spawnedMob = (LivingEntity) spawnLoc.getWorld().spawnEntity(spawnLoc, type);
 
         // adds the mobId if one exists
         if (customMobId != null && !customMobId.isEmpty()) {
