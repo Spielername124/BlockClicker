@@ -10,6 +10,7 @@ public class ZoneCacheLoader {
     public static void loadAllZoneGroups(FileConfiguration config, ZoneCache zoneCache) {
         zoneCache.clear();
 
+        //handle the zone groups
         ConfigurationSection zoneGroupsSection = config.getConfigurationSection("zone-groups");
         if (zoneGroupsSection == null) return;
 
@@ -23,6 +24,13 @@ public class ZoneCacheLoader {
 
             ZoneGroup zoneGroup = new ZoneGroup(zoneGroupName, everywhere, regionIds);
             zoneCache.registerZoneGroup(zoneGroup);
+        }
+
+        //handle the Manipulation regions
+
+        List<String> manipulationArea = config.getStringList("manipulation-allowed-areas");
+        for (String manipulationAreaName : manipulationArea) {
+            zoneCache.registerBlockManipulationRegion(new BlockManipulationRegion(manipulationAreaName));
         }
     }
 }

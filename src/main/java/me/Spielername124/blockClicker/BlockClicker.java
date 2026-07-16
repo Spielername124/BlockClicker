@@ -26,7 +26,7 @@ public final class BlockClicker extends JavaPlugin {
     private FileConfiguration itemsConfig;
     private RewardCache rewardCache;
     private ToolCache toolCache;
-    private ZoneCache zoneCache;
+    public ZoneCache zoneCache;
     private MobLootCache mobLootCache;
 
     public GlobalFlags flags;

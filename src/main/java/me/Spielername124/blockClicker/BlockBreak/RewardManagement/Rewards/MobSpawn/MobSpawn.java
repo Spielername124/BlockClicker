@@ -5,6 +5,7 @@ import me.Spielername124.blockClicker.BlockBreak.RewardManagement.Rewards.Reward
 import me.Spielername124.blockClicker.BlockBreak.RewardManagement.Rewards.RewardSound;
 import me.Spielername124.blockClicker.BlockClicker;
 import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Entity;
@@ -20,6 +21,7 @@ public class MobSpawn extends Reward {
 
     private final EntityType type;
     private final String customMobId;
+
 
     public MobSpawn(BlockClicker plugin, FileConfiguration config, Map<?, ?> rewardData) {
         super(plugin, config, rewardData);
@@ -58,5 +60,12 @@ public class MobSpawn extends Reward {
                     customMobId
             );
         }
+
+        Location LocationOnZPlus1 = new Location(location.getWorld(),  location.getX(), location.getY()+1, location.getZ());
+        if(plugin.zoneCache.isAllowedToBeManipulated(LocationOnZPlus1)){
+            Block blockOnZPlus1 = LocationOnZPlus1.getBlock();
+            blockOnZPlus1.setType(Material.AIR);
+        }
+
     }
 }
