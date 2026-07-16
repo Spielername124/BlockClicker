@@ -42,6 +42,8 @@ public class EffectReward extends Reward {
     protected void execute(Player player, Location location, GlobalFlags flags, RewardSound sound, ItemStack toolUsed, Block block){
         if(effectType== null) return;
 
+        if(player == null) return;
+
         PotionEffect effect = new PotionEffect(effectType, durationTicks, level, true, false, true);
         player.addPotionEffect(effect);
     }

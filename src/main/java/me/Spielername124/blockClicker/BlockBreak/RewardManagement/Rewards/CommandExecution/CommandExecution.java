@@ -51,7 +51,7 @@ public class CommandExecution extends Reward {
                 .replace("%blockZValue%", String.valueOf(location.getBlockZ()));
 
         //Dispatch the command by either the console or the player
-        if(isExecutedByPlayer){
+        if(isExecutedByPlayer && player!=null){
             Bukkit.getScheduler().runTask(plugin, () -> {
                 Bukkit.dispatchCommand(player, finalCommand);
             });

@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Map;
 
 public class MobLootCache {
-    private final Map<String, List<MobLoot>> mobDrops = new HashMap<>();
+    private final Map<String, List<Reward>> mobDrops = new HashMap<>();
     private final Map<String, Boolean> allowsNaturalDrops = new HashMap<>();
 
 
@@ -23,19 +23,17 @@ public class MobLootCache {
         this.allowsNaturalDrops.put(mobId, allowsNaturalDrops);
     }
 
-    public void registerMobDrop(String mobId, MobLoot reward) {
+    public void registerMobDrop(String mobId, Reward reward) {
 
         if (!mobDrops.containsKey(mobId))
-            mobDrops.put(mobId, new ArrayList<MobLoot>());
+            mobDrops.put(mobId, new ArrayList<Reward>());
 
-        List<MobLoot> mobDropList = mobDrops.get(mobId);
-
-        mobDropList.add(reward);
+        mobDrops.get(mobId).add(reward);
     }
 
     public boolean getAllowsNaturalDrops(String mobId){return allowsNaturalDrops.getOrDefault(mobId, true);}
 
-    public List<MobLoot> getRewardList(String mobId) {
+    public List<Reward> getRewardList(String mobId) {
         return mobDrops.getOrDefault(mobId, new ArrayList<>());
     }
 }

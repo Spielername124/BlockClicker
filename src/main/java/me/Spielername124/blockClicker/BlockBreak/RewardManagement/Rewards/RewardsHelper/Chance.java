@@ -20,20 +20,24 @@ public class Chance {
     }
 
     private static double calculatePostModifierChance(double baseChance, GlobalFlags flags, ItemStack toolUsed, Player player){
-        int fortuneLevel = toolUsed.getEnchantmentLevel(Enchantment.FORTUNE);
-
-        //get the luck level
-        int luckLevel=0;
-        PotionEffect luckEffect = player.getPotionEffect(PotionEffectType.LUCK);
-        if(luckEffect!=null)
-            luckLevel= luckEffect.getAmplifier()+1;
-
-        //unluckLevel
+        int luckLevel = 0;
         int unluckLevel = 0;
-        PotionEffect unluckEffect = player.getPotionEffect(PotionEffectType.UNLUCK);
-        if(unluckEffect!= null)
-            unluckLevel = unluckEffect.getAmplifier()+1;
+        int fortuneLevel = 0;
 
+        //check the player for modifiers if he is not null
+        if(player!=null) {
+            //get the luck level
+            PotionEffect luckEffect = player.getPotionEffect(PotionEffectType.LUCK);
+            if (luckEffect != null)
+                luckLevel = luckEffect.getAmplifier() + 1;
+            //unluckLevel
+            PotionEffect unluckEffect = player.getPotionEffect(PotionEffectType.UNLUCK);
+            if (unluckEffect != null)
+                unluckLevel = unluckEffect.getAmplifier() + 1;
+        }
+        //check the tool used if it isn't null
+        if(toolUsed!=null)
+            fortuneLevel = toolUsed.getEnchantmentLevel(Enchantment.FORTUNE);
 
         //calculates and returns the total chance per type of modifier, depending on if they are multiplicative or additive
         double fortuneModifier = flags.intraModifierMultiplicativity ? Math.pow(flags.fortuneMultiplier,fortuneLevel) : flags.fortuneMultiplier * fortuneLevel ;
