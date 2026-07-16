@@ -77,6 +77,11 @@ public class ContainerDrop extends Reward {
         if(!flags.containerHasBeenPlaced) {
             flags.containerHasBeenPlaced = true;
             // perform the Chest creation
+
+            //check if the block is allowed to be manipulated
+            if(!plugin.zoneCache.isAllowedToBeManipulated(location))
+                return;
+
             performContainerDrop(plugin, config, flags, player, toolUsed, containerName, block);
         }
     }

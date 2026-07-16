@@ -26,6 +26,9 @@ zone-groups:
     #setting this flag enables the loot table of this group everywhere
     everywhere: true
 
+manipulation-allowed-areas:
+  - "clickerzone"
+
 #Define groups of tools to make drops individualized to certain tools
 #Important: If tools are in multiple groups, they will drop loot from all the lists they are in.
 tool-groups:

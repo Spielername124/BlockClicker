@@ -26,13 +26,15 @@ public class MobDeathListener implements Listener {
     }
 
 
-    @EventHandler
+    @EventHandler(ignoreCancelled = true)
     public void onMobDeath(EntityDeathEvent event){
         LivingEntity entity = event.getEntity();
         //return if this was not a BlockClicker mob
         if (!entity.getPersistentDataContainer().has(MOB_ID_KEY, PersistentDataType.STRING)) return;
+        //makes a local copy of the global flags
+        GlobalFlags flags = new GlobalFlags(plugin.flags);
 
-        MobDeathHandler.handleMobDeath(plugin, plugin.flags, event, mobLootCache);
+        MobDeathHandler.handleMobDeath(plugin, flags, event, mobLootCache);
 
     }
 }

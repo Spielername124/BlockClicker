@@ -39,6 +39,9 @@ public abstract class DroppedItem {
 
     public ItemStack getItem(){
         ItemStack item = getItemStack();
+        if (item == null)
+            return null;
+
         ItemStack reward = item.clone();
 
         //edit the item according to the specified details in the config

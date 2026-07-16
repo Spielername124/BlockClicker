@@ -17,6 +17,21 @@ public class GlobalFlags {
     //tracks if already a container was rewarded --> if so prevents another one from spawning
     public boolean containerHasBeenPlaced = false;
 
+    //makes a copy of an existing flags instance
+    public GlobalFlags(GlobalFlags other) {
+        this.mutuallyExclusiveRegions = other.mutuallyExclusiveRegions;
+        this.mutuallyExclusiveTools = other.mutuallyExclusiveTools;
+        this.depositToInventory = other.depositToInventory;
+        this.fortuneMultiplier = other.fortuneMultiplier;
+        this.luckMultiplier = other.luckMultiplier;
+        this.badLuckMultiplier = other.badLuckMultiplier;
+        this.interModifierMultiplicativity = other.interModifierMultiplicativity;
+        this.intraModifierMultiplicativity = other.intraModifierMultiplicativity;
+        this.publicSound = other.publicSound;
+        this.recursionDepth = other.recursionDepth;
+        this.containerHasBeenPlaced = other.containerHasBeenPlaced;
+    }
+
     public GlobalFlags(FileConfiguration config){
      update(config);
     }

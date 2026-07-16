@@ -12,7 +12,7 @@ public class BlockManipulationRegion {
     private final String region;
 
     public BlockManipulationRegion(String region) {
-        this.region = region;
+        this.region = (region.toLowerCase());
     }
 
     public boolean isInZone(Location location) {

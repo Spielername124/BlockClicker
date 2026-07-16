@@ -28,7 +28,7 @@ public class BlockBreakListener implements Listener {
     }
 
 
-    @EventHandler
+    @EventHandler(ignoreCancelled = true)
     public void onBlockBreak(BlockBreakEvent brokenBlock){
         //getting the Block and it's location
         Block block = brokenBlock.getBlock();
@@ -38,7 +38,8 @@ public class BlockBreakListener implements Listener {
         FileConfiguration config = plugin.getConfig();
 
         Player player =  brokenBlock.getPlayer();
-        GlobalFlags flags = plugin.flags;
+        //makes a local copy of the global flags
+        GlobalFlags flags = new GlobalFlags(plugin.flags);
 
         BlockBreakHandler.checkAreas(plugin, config, flags, rewardCache, toolCache, zoneCache, player, block, location);
     }
