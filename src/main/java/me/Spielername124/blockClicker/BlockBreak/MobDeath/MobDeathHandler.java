@@ -18,7 +18,8 @@ public class MobDeathHandler {
         //get some event data
         LivingEntity entity = event.getEntity();
         String mobId = entity.getPersistentDataContainer().get(MOB_ID_KEY, PersistentDataType.STRING);
-        Location location = entity.getLocation();
+        //we use the block where the mobs under body part was
+        Location location = new Location(entity.getWorld(), entity.getLocation().getX(), entity.getLocation().getY()+1, entity.getLocation().getZ());
         Player killingPlayer = entity.getKiller();
         ItemStack weapon = (killingPlayer != null) ? killingPlayer.getInventory().getItemInMainHand() : null;
 
@@ -29,9 +30,9 @@ public class MobDeathHandler {
         }
 
         for (Reward reward : cache.getRewardList(mobId)){
-            // We pass null for the block because mobs are not blocks!
             reward.rollAndExecute(killingPlayer, location, flags, sound, weapon, location.getBlock());
         }
+        sound.PlaySound(flags, killingPlayer, location);
 
     }
 }

@@ -47,10 +47,8 @@ Commands:
         there are two arguments that can be used:
         natural-drops: this is by default true. If set to true or omitted, the custom drops are additional to the vanilla drops, setting it to false prevents the mob from dropping anything from it's vanilla loot table
 
-        drops:
-              followed by a list of drops.
-              The drops in the list generally behave the same as the usual item rewards from the loot table, for example you can drop custom items.
-              The following differences exist: The Items currently can not be xp, Chance is not affected by modifiers, there are no sounds
+        and then you simply list rewards like you do for standard loot tables as if you were in the hierarchy under a block
+
 
 Now we look at the heart of this whole plugin: The actual mechanic to define and configure the possible rewards for breaking blocks.
 First you have to define in which zone-group a given table should be working, for example "dirtArea"

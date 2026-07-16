@@ -33,7 +33,7 @@ public class RewardSound {
                 World world = player.getWorld();
                 world.playSound(this.sound, location.getX(), location.getY(), location.getZ());
             }
-            else{
+            else if (player != null){
                 player.playSound(sound);
             }
 

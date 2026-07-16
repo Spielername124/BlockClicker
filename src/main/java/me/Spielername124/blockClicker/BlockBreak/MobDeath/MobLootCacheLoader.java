@@ -34,7 +34,7 @@ public class MobLootCacheLoader {
 
             //convert every possible item to a reward and register it in the cache
             for (Map<?, ?> rewardData : lootList) {
-                // Create any reward type: item, container, command, effect, guaranteed-reward, etc.
+                //create the reward
                 Reward compiledReward = RewardCreator.createReward(plugin, config, rewardData);
                 if (compiledReward != null) {
                     lootCache.registerMobDrop(mobName, compiledReward);

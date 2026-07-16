@@ -88,7 +88,7 @@ mob-loot:
   #define the table for one of your mob id's
   guard:
     #by default true, if false prevents natural loot drops from occurring (for example blaze rods from blazes
-    natural-drops: false
+    "allows-natural-drops": false
     #define the dropping items in the same logic as in the loot tables. There exists at the moment no sound implementation and the chance is not affected by modifiers
     drops:
       - item: "COAL"
@@ -136,7 +136,7 @@ dirtArea:
             #gives an effect
           - effect: SPEED
             # defines the effect duration
-            duration-duration: 10
+            effect-duration: 10
             # defines the give effect
             level: 1
             weight: 5

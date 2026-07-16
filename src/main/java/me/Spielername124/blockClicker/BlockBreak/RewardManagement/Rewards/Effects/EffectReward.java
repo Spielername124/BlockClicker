@@ -29,7 +29,7 @@ public class EffectReward extends Reward {
         }
         else effectType=null;
 
-        Number duration = (Number) rewardData.get("duration-duration");
+        Number duration = (Number) rewardData.get("effect-duration");
         durationTicks = duration != null ? (int) duration *20 : 200;
 
         Number levelNr = (Number) rewardData.get("level");

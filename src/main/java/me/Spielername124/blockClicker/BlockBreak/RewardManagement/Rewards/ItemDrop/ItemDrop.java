@@ -49,7 +49,11 @@ public class ItemDrop extends Reward {
         ItemStack reward = droppedItem.getItem();
 
         if (reward != null) {
-            if (flags.depositToInventory) player.getInventory().addItem(reward);
+            if (flags.depositToInventory){
+                if (player != null)
+                    player.getInventory().addItem(reward);
+            }
+
             else location.getWorld().dropItemNaturally(location, reward);
         }
     }

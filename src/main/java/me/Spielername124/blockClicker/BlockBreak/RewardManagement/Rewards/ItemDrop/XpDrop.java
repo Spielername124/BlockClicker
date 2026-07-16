@@ -11,7 +11,10 @@ public class XpDrop {
     public static void performXpDrop(GlobalFlags flags, Player player, Location location, int amount, ItemStack toolUsed) {
 
         if( amount > 0) {
-            if (flags.depositToInventory) player.giveExp(amount);
+            if (flags.depositToInventory) {
+                if (player != null)
+                    player.giveExp(amount);
+            }
             else {
                 ExperienceOrb xpDrop = location.getWorld().spawn(location, ExperienceOrb.class);
                 xpDrop.setExperience(amount);
