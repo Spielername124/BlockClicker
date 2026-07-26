@@ -160,6 +160,8 @@ dirtArea:
         chance: 100
         #sets a mobId that then can be referenced for custom mob loot
         mob-id: "guard"
+        #sets the HP of the mob to a given value
+        health: 20
 
       - item: "DIAMOND_PICKAXE"
         amount: 1

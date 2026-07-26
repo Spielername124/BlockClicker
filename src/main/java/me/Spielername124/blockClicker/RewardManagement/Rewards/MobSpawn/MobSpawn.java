@@ -6,6 +6,8 @@ import me.Spielername124.blockClicker.RewardManagement.Rewards.RewardSound;
 import me.Spielername124.blockClicker.BlockClicker;
 import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.attribute.Attribute;
+import org.bukkit.attribute.AttributeInstance;
 import org.bukkit.block.Block;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.EntityType;
@@ -20,12 +22,18 @@ public class MobSpawn extends Reward {
 
     private final EntityType type;
     private final String customMobId;
+    private final boolean customHP;
+    private final double hp;
 
 
     public MobSpawn(BlockClicker plugin, FileConfiguration config, Map<?, ?> rewardData) {
         super(plugin, config, rewardData);
 
         customMobId = (String) rewardData.get("mob-id");
+
+        Number hpRaw = (Number) rewardData.get("health");
+        customHP = hpRaw != null;
+        hp = customHP ? hpRaw.doubleValue() : 0;
 
         String mobType = (String) rewardData.get("mob");
         if(mobType==null){
@@ -60,6 +68,15 @@ public class MobSpawn extends Reward {
 
 
         LivingEntity spawnedMob = (LivingEntity) spawnLoc.getWorld().spawnEntity(spawnLoc, type);
+
+        if(customHP) {
+            AttributeInstance mobHpAttribute = spawnedMob.getAttribute(Attribute.MAX_HEALTH);
+            if (mobHpAttribute != null) {
+                mobHpAttribute.setBaseValue(hp);
+                spawnedMob.setHealth(hp);
+            }
+        }
+
 
         // adds the mobId if one exists
         if (customMobId != null && !customMobId.isEmpty()) {

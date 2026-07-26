@@ -89,6 +89,7 @@ There are the following types of rewards, and it's subpoints:
 
     - mob: "<mobName>" creates a <mobName> mob at the location of the broken block
             mob-id: "<name>" gives the mob a id, which can be used for giving it custom loot, and with flags preventing it from dropping vanilla loot
+            health: sets the mob health to a given value. If this attribute is not set, has the mob simply it's default HP
 
     - guaranteed rewards: <List of rewards> Grants one of the rewards in the list that is appended on it. If placed in containers, only item drops are allowed.
             you can set the proportional weight of all list items with the weight: value, which by default is 1
