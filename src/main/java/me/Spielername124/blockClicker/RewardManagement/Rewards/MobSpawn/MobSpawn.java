@@ -119,7 +119,8 @@ public class MobSpawn extends Reward {
 
         //Build the arena if specified
         if(arenaType !=null){
-            int y = player!= null ? player.getLocation().getBlockY(): location.getBlockY();
+            //sets the y value on the minimum of the player or the spawning mob
+            int y = player!= null ? Math.min(player.getLocation().getBlockY(), location.getBlockY()): location.getBlockY();
             Arena.buildArena(plugin, location, y, arenaType);
         }
 
