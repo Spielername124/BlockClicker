@@ -90,14 +90,16 @@ There are the following types of rewards, and it's subpoints:
     - mob: "<mobName>" creates a <mobName> mob at the location of the broken block
             mob-id: "<name>" gives the mob a id, which can be used for giving it custom loot, and with flags preventing it from dropping vanilla loot
             health: sets the mob health to a given value. If this attribute is not set, has the mob simply it's default HP
+            ttl:  <doubleValue> kills the mob after <doubleValue> seconds if a ttl is set, otherwise nothing happens
+            display-name: "<name>" sets a display name for the mob
+            arena: <"ArenaName"> Spawns a specified arena surrounding the location of the spawned mob at high of the player.
+                currently implemented arena Types: "5x3x5"
+                create a git Issue or contact me if you have specific Arena form wishes
 
     - guaranteed rewards: <List of rewards> Grants one of the rewards in the list that is appended on it. If placed in containers, only item drops are allowed.
             you can set the proportional weight of all list items with the weight: value, which by default is 1
 
-    - guaranteed rewards <List of rewards, as in a normal loot table, !but all of them must be items!>
-        - exampleReward: "blabla" shows the reward for this
 
-          weight gives the weight of this loot in comparison to the other possible loot stated in this declaration for guaranteed rewards
     - command: <your command>: executes <your command>. This command generally parsed by PlaceholderAPI --> look at their documentation to see how your command must be written (https://wiki.placeholderapi.com/users/placeholder-list/minecraft/)
              following variables are added by this plugin to the command to make it possible for the command to target the broken block:
                 - "%blockXValue%" -> gets the X value of the broken block

@@ -4,6 +4,8 @@ import me.Spielername124.blockClicker.GlobalFlags;
 import me.Spielername124.blockClicker.RewardManagement.Rewards.Reward;
 import me.Spielername124.blockClicker.RewardManagement.Rewards.RewardSound;
 import me.Spielername124.blockClicker.BlockClicker;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.attribute.Attribute;
@@ -24,6 +26,9 @@ public class MobSpawn extends Reward {
     private final String customMobId;
     private final boolean customHP;
     private final double hp;
+    private final String arenaType;
+    private final Number ttl;
+    private final String displayName;
 
 
     public MobSpawn(BlockClicker plugin, FileConfiguration config, Map<?, ?> rewardData) {
@@ -34,6 +39,12 @@ public class MobSpawn extends Reward {
         Number hpRaw = (Number) rewardData.get("health");
         customHP = hpRaw != null;
         hp = customHP ? hpRaw.doubleValue() : 0;
+
+        arenaType = (String) rewardData.get("arena");
+
+        ttl = (Number) rewardData.get("ttl");
+
+        displayName = (String) rewardData.get("display-name");
 
         String mobType = (String) rewardData.get("mob");
         if(mobType==null){
@@ -57,6 +68,11 @@ public class MobSpawn extends Reward {
 
     @Override
     protected void execute(Player player, Location location, GlobalFlags flags, RewardSound sound, ItemStack toolUsed, Block block){
+
+        if (type ==  null || !type.isAlive()) {
+            plugin.getLogger().warning("Tried to spawn a mob with a invalid Type");
+            return;
+        }
         // make mob spawning mutually exclusive with container spawns
         if(flags.containerHasBeenPlaced)
             return;
@@ -69,6 +85,14 @@ public class MobSpawn extends Reward {
 
         LivingEntity spawnedMob = (LivingEntity) spawnLoc.getWorld().spawnEntity(spawnLoc, type);
 
+        //sets the custom Name if specified
+        if (displayName != null && !displayName.isEmpty()) {
+            Component formattedName = LegacyComponentSerializer.legacyAmpersand().deserialize(displayName);
+            spawnedMob.customName(formattedName);
+            spawnedMob.setCustomNameVisible(true);
+        }
+
+        //sets the custom HP if specified
         if(customHP) {
             AttributeInstance mobHpAttribute = spawnedMob.getAttribute(Attribute.MAX_HEALTH);
             if (mobHpAttribute != null) {
@@ -87,11 +111,26 @@ public class MobSpawn extends Reward {
             );
         }
 
-        Location LocationOnZPlus1 = new Location(location.getWorld(),  location.getX(), location.getY()+1, location.getZ());
-        if(plugin.zoneCache.isAllowedToBeManipulated(LocationOnZPlus1)){
-            Block blockOnZPlus1 = LocationOnZPlus1.getBlock();
+        Location locationOnYPlus1 = new Location(location.getWorld(),  location.getX(), location.getY()+1, location.getZ());
+        if(plugin.zoneCache.isAllowedToBeManipulated(locationOnYPlus1)){
+            Block blockOnZPlus1 = locationOnYPlus1.getBlock();
             blockOnZPlus1.setType(Material.AIR);
         }
 
+        //Build the arena if specified
+        if(arenaType !=null){
+            int y = player!= null ? player.getLocation().getBlockY(): location.getBlockY();
+            Arena.buildArena(plugin, location, y, arenaType);
+        }
+
+        // removes the entity after its ttl if a ttl is specified
+        if(ttl != null && ttl.doubleValue()>0) {
+            int ttlTicks = (int) ttl.doubleValue() * 20;
+            spawnedMob.getScheduler().runDelayed(plugin, (task) -> {
+                if (spawnedMob.isValid()) {
+                    spawnedMob.remove();
+                }
+            }, null, ttlTicks);
+        }
     }
 }

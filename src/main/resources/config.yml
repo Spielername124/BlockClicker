@@ -157,11 +157,15 @@ dirtArea:
 
         #spawns a zombie
       - mob: "ZOMBIE"
+        #sets a display name for the mob
+        display-name: "Grumm"
         chance: 100
         #sets a mobId that then can be referenced for custom mob loot
         mob-id: "guard"
         #sets the HP of the mob to a given value
         health: 20
+        #gives the Mob a Time to Live, after which the mob gets removed
+        ttl: 1000.5
 
       - item: "DIAMOND_PICKAXE"
         amount: 1
