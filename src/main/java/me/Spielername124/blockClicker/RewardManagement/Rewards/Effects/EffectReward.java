@@ -5,6 +5,8 @@ import me.Spielername124.blockClicker.RewardManagement.Rewards.Reward;
 import me.Spielername124.blockClicker.RewardManagement.Rewards.RewardSound;
 import me.Spielername124.blockClicker.BlockClicker;
 import org.bukkit.Location;
+import org.bukkit.NamespacedKey;
+import org.bukkit.Registry;
 import org.bukkit.block.Block;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
@@ -25,7 +27,8 @@ public class EffectReward extends Reward {
 
         String effectName = (String) rewardData.get("effect");
         if(effectName!=null) {
-            effectType = PotionEffectType.getByName(effectName.toUpperCase());
+            NamespacedKey key = NamespacedKey.fromString(effectName.toLowerCase());
+            effectType = key != null ? Registry.EFFECT.get(key) : null;
         }
         else effectType=null;
 
@@ -33,7 +36,7 @@ public class EffectReward extends Reward {
         durationTicks = duration != null ? (int) duration *20 : 200;
 
         Number levelNr = (Number) rewardData.get("level");
-        level = levelNr!=null ? (int) levelNr + 1 : 1;
+        level = levelNr!=null ? levelNr.intValue() - 1 : 0;
 
 
     }

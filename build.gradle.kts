@@ -1,3 +1,5 @@
+import org.gradle.internal.impldep.org.apache.http.client.methods.RequestBuilder.options
+
 plugins {
     id("java-library")
     alias(libs.plugins.run.paper)
@@ -37,3 +39,9 @@ tasks {
         archiveFileName.set("${project.name}.jar")
     }
 }
+/*
+tasks.withType<JavaCompile>().configureEach {
+    options.compilerArgs.addAll(listOf("-Xlint:deprecation", "-Xlint:unchecked"))
+}
+
+*/
