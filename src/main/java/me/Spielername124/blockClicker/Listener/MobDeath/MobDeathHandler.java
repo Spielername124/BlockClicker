@@ -1,5 +1,6 @@
 package me.Spielername124.blockClicker.Listener.MobDeath;
 
+import me.Spielername124.blockClicker.EventWideFlags;
 import me.Spielername124.blockClicker.GlobalFlags;
 import me.Spielername124.blockClicker.RewardManagement.Rewards.Reward;
 import me.Spielername124.blockClicker.RewardManagement.Rewards.RewardSound;
@@ -26,13 +27,14 @@ public class MobDeathHandler {
 
 
         RewardSound sound = new RewardSound(plugin);
+        EventWideFlags eventWideFlags = new EventWideFlags();
 
         if (!cache.getAllowsNaturalDrops(mobId)){
             event.getDrops().clear();
         }
 
         for (Reward reward : cache.getRewardList(mobId)){
-            reward.rollAndExecute(killingPlayer, location, sound, weapon, null);
+            reward.rollAndExecute(killingPlayer, location, sound, weapon, null, eventWideFlags);
         }
         sound.PlaySound(flags, killingPlayer, location);
 

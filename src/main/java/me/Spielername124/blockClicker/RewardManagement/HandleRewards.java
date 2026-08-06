@@ -1,5 +1,6 @@
 package me.Spielername124.blockClicker.RewardManagement;
 
+import me.Spielername124.blockClicker.EventWideFlags;
 import me.Spielername124.blockClicker.GlobalFlags;
 import me.Spielername124.blockClicker.BlockClicker;
 import me.Spielername124.blockClicker.RewardManagement.Rewards.Reward;
@@ -15,12 +16,14 @@ public class HandleRewards {
 
         //creates a rewardSound to play a sound in case of a reward
         RewardSound sound = new RewardSound(plugin);
+        EventWideFlags  eventWideFlags = new EventWideFlags();
 
         List<Reward> rewardList = cache.getRewardList(zoneGroup, parentGroup, block.getType());
 
         // Iterating through every possible reward for this zone group and roll and Execute it
+
         for(Reward possibleReward : rewardList){
-            possibleReward.rollAndExecute(player, location, sound, toolUsed, block);
+            possibleReward.rollAndExecute(player, location, sound, toolUsed, block, eventWideFlags);
         }
 
         sound.PlaySound(flags, player, location);

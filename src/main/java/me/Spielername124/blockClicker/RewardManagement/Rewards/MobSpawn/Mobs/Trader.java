@@ -1,11 +1,13 @@
 package me.Spielername124.blockClicker.RewardManagement.Rewards.MobSpawn.Mobs;
 
 import me.Spielername124.blockClicker.BlockClicker;
+import me.Spielername124.blockClicker.EventWideFlags;
 import me.Spielername124.blockClicker.GlobalFlags;
 import me.Spielername124.blockClicker.RewardManagement.Rewards.PossibleItemStacks.DroppedItem;
 import org.bukkit.Location;
 import org.bukkit.entity.AbstractVillager;
 import org.bukkit.entity.EntityType;
+import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Villager;
 import org.bukkit.inventory.MerchantRecipe;
 
@@ -66,19 +68,28 @@ public class Trader extends SpawnableMob{
 
 
     @Override
-    public void spawn(BlockClicker plugin, GlobalFlags flags, Location location){
-        super.spawn(plugin, flags, location);
-        if(spawnedMob==null) return;
+    public LivingEntity spawn(BlockClicker plugin, GlobalFlags flags, Location location, EventWideFlags eventWideFlags) {
+        LivingEntity spawnedMob = super.spawn(plugin, flags, location, eventWideFlags);
+        if (spawnedMob == null) return null;
 
         ArrayList<MerchantRecipe> recipes = new ArrayList<>();
-        for(Trade trade : trades){
+        for (Trade trade : trades) {
             recipes.add(trade.createRecipe());
         }
         //we know this cast will work, since this mob is only able to be a AbstractVillager
-        if (spawnedMob instanceof Villager villager)
+        if (spawnedMob instanceof Villager villager) {
             villager.setProfession(Villager.Profession.FARMER);
+            villager.setVillagerLevel(5);
+        }
 
-        ((AbstractVillager) spawnedMob).setRecipes(recipes);
+        //overwrites the Traders loot after one tick, so that not the basic trades overwrite the custom trades
+        plugin.getServer().getScheduler().runTask(plugin, () -> {
+            if (spawnedMob.isValid()) {
+                ((AbstractVillager) spawnedMob).setRecipes(recipes);
+            }
+        });
+
+        return spawnedMob;
     }
 
 

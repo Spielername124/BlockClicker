@@ -1,5 +1,6 @@
 package me.Spielername124.blockClicker.RewardManagement.Rewards.CommandExecution;
 
+import me.Spielername124.blockClicker.EventWideFlags;
 import me.Spielername124.blockClicker.GlobalFlags;
 import me.Spielername124.blockClicker.RewardManagement.Rewards.Reward;
 import me.Spielername124.blockClicker.RewardManagement.Rewards.RewardSound;
@@ -36,7 +37,7 @@ public class CommandExecution extends Reward {
     }
 
     @Override
-    protected void execute(Player player, Location location, GlobalFlags flags, RewardSound sound, ItemStack toolUsed, Block block){
+    protected void execute(Player player, Location location, GlobalFlags flags, RewardSound sound, ItemStack toolUsed, Block block, EventWideFlags eventWideFlags) {
 
         if(command == null || command.isEmpty()) return;
         //let PAPI process the command with the runtime data

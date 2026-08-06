@@ -1,5 +1,6 @@
 package me.Spielername124.blockClicker.RewardManagement.Rewards.ContainerSpawn;
 
+import me.Spielername124.blockClicker.EventWideFlags;
 import me.Spielername124.blockClicker.GlobalFlags;
 import me.Spielername124.blockClicker.RewardManagement.Rewards.ContainerSpawn.ItemManagement.ContainerItem;
 import me.Spielername124.blockClicker.RewardManagement.Rewards.ContainerSpawn.ItemManagement.ContainerItemCreator;
@@ -67,15 +68,15 @@ public class ContainerDrop extends Reward {
         }
     }
 
-    protected void execute(Player player, Location location, GlobalFlags flags, RewardSound sound, ItemStack toolUsed, Block block){
+    protected void execute(Player player, Location location, GlobalFlags flags, RewardSound sound, ItemStack toolUsed, Block block, EventWideFlags eventWideFlags) {
         //refuses to place a container with missing metadata
         if (!valid) {
             return;
         }
 
         //don't create a chest if this drop already spawned a chest
-        if(!flags.containerHasBeenPlaced) {
-            flags.containerHasBeenPlaced = true;
+        if(!eventWideFlags.blocksHaveBeenManipulated) {
+            eventWideFlags.blocksHaveBeenManipulated = true;
             // perform the Chest creation
 
             //check if the block is allowed to be manipulated

@@ -1,6 +1,7 @@
 package me.Spielername124.blockClicker.RewardManagement.Rewards.MobSpawn.Mobs;
 
 import me.Spielername124.blockClicker.BlockClicker;
+import me.Spielername124.blockClicker.EventWideFlags;
 import me.Spielername124.blockClicker.GlobalFlags;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
@@ -25,7 +26,6 @@ public abstract class SpawnableMob {
     private final String arenaType;
     private final Number ttl;
     private final String displayName;
-    LivingEntity spawnedMob;
 
     public SpawnableMob(BlockClicker plugin, Map<?, ?> rewardData, EntityType type) {
 
@@ -45,23 +45,23 @@ public abstract class SpawnableMob {
     }
 
 
-    public void spawn(BlockClicker plugin, GlobalFlags flags, Location location){
+    public LivingEntity spawn(BlockClicker plugin, GlobalFlags flags, Location location, EventWideFlags eventWideFlags){
 
         if (type ==  null || !type.isAlive()) {
             plugin.getLogger().warning("Tried to spawn a mob with a invalid Type");
-            return;
+            return null;
         }
         // make mob spawning mutually exclusive with container spawns
-        if(flags.containerHasBeenPlaced)
-            return;
-        flags.containerHasBeenPlaced = true;
+        if(eventWideFlags.blocksHaveBeenManipulated)
+            return null;
+        eventWideFlags.blocksHaveBeenManipulated = true;
 
         //center the mob spawn so that mobs don't spawn on the edge of the block
         Location spawnLoc = location.clone();
         spawnLoc.add(0.5, 0.1, 0.5);
 
 
-        spawnedMob = (LivingEntity) spawnLoc.getWorld().spawnEntity(spawnLoc, type);
+        LivingEntity spawnedMob = (LivingEntity) spawnLoc.getWorld().spawnEntity(spawnLoc, type);
 
         //sets the custom Name if specified
         if (displayName != null && !displayName.isEmpty()) {
@@ -104,5 +104,7 @@ public abstract class SpawnableMob {
                 }
             }, null, ttlTicks);
         }
+
+        return spawnedMob;
     }
 }

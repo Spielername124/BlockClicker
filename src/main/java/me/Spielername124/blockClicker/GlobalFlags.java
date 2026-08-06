@@ -18,9 +18,6 @@ public class GlobalFlags {
     public boolean publicSound;
     public int recursionDepth;
 
-    //tracks if already a container was rewarded --> if so prevents another one from spawning
-    public boolean containerHasBeenPlaced = false;
-
 
     public GlobalFlags (GlobalFlags other, Map<?, ?>  localOverwrite) {
         depositToInventory = getBooleanOverwrite(localOverwrite.get("deposit-to-inventory"), other.depositToInventory);
@@ -52,7 +49,6 @@ public class GlobalFlags {
         this.intraModifierMultiplicativity = other.intraModifierMultiplicativity;
         this.publicSound = other.publicSound;
         this.recursionDepth = other.recursionDepth;
-        this.containerHasBeenPlaced = other.containerHasBeenPlaced;
     }
 
     public GlobalFlags(FileConfiguration config){

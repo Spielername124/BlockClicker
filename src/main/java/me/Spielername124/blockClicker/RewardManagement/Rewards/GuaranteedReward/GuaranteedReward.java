@@ -1,5 +1,6 @@
 package me.Spielername124.blockClicker.RewardManagement.Rewards.GuaranteedReward;
 
+import me.Spielername124.blockClicker.EventWideFlags;
 import me.Spielername124.blockClicker.GlobalFlags;
 import me.Spielername124.blockClicker.RewardManagement.RewardCreator;
 import me.Spielername124.blockClicker.RewardManagement.Rewards.Reward;
@@ -50,10 +51,10 @@ public class GuaranteedReward extends Reward {
     }
 
     @Override
-    protected void execute(Player player, Location location, GlobalFlags flags, RewardSound sound, ItemStack toolUsed, Block block){
+    protected void execute(Player player, Location location, GlobalFlags flags, RewardSound sound, ItemStack toolUsed, Block block, EventWideFlags eventWideFlags){
         Reward reward = getChosenReward(flags);
         if(reward!=null)
-            reward.rollAndExecute(player, location, sound, toolUsed, block);
+            reward.rollAndExecute(player, location, sound, toolUsed, block, eventWideFlags);
     }
 
     public Reward getChosenReward (GlobalFlags flags){

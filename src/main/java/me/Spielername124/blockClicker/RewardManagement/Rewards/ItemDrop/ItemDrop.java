@@ -1,5 +1,6 @@
 package me.Spielername124.blockClicker.RewardManagement.Rewards.ItemDrop;
 
+import me.Spielername124.blockClicker.EventWideFlags;
 import me.Spielername124.blockClicker.GlobalFlags;
 import me.Spielername124.blockClicker.RewardManagement.Rewards.PossibleItemStacks.CustomItemDrop;
 import me.Spielername124.blockClicker.RewardManagement.Rewards.PossibleItemStacks.DroppedItem;
@@ -34,7 +35,7 @@ public class ItemDrop extends Reward {
         droppedItem = DroppedItem.create(plugin, rewardData);
     }
 
-    protected void execute(Player player, Location location, GlobalFlags flags, RewardSound sound, ItemStack toolUsed, Block block){
+    protected void execute(Player player, Location location, GlobalFlags flags, RewardSound sound, ItemStack toolUsed, Block block, EventWideFlags eventWideFlags){
 
         //handle the Special case that XP should be dropped
         if(itemName.equals("xp")){

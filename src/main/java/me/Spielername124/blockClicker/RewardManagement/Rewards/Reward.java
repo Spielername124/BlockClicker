@@ -1,5 +1,6 @@
 package me.Spielername124.blockClicker.RewardManagement.Rewards;
 
+import me.Spielername124.blockClicker.EventWideFlags;
 import me.Spielername124.blockClicker.GlobalFlags;
 import me.Spielername124.blockClicker.RewardManagement.Rewards.RewardsHelper.Chance;
 import me.Spielername124.blockClicker.BlockClicker;
@@ -25,6 +26,7 @@ public abstract class Reward {
     private final int soundPriority;
 
     private final GlobalFlags flags;
+
 
 
     public Reward(BlockClicker plugin, FileConfiguration config, Map<?, ?> rewardData) {
@@ -66,16 +68,16 @@ public abstract class Reward {
         this.sound = localSound;
     }
 
-    public final void rollAndExecute(Player player, Location location, RewardSound sound, ItemStack toolUsed, Block block) {
+    public final void rollAndExecute(Player player, Location location, RewardSound sound, ItemStack toolUsed, Block block, EventWideFlags eventWideFlags) {
 
         //roll if the reward is granted, return if not
         if(!Chance.performDropRoll(flags, chance, toolUsed, player, block, isLuckDependent))
             return;
 
-        execute(player, location, flags, sound, toolUsed, block);
+        execute(player, location, flags, sound, toolUsed, block, eventWideFlags);
 
        sound.setSound(this.sound, soundPriority);
     }
 
-    protected abstract void execute(Player player, Location location, GlobalFlags flags, RewardSound sound, ItemStack toolUsed, Block block);
+    protected abstract void execute(Player player, Location location, GlobalFlags flags, RewardSound sound, ItemStack toolUsed, Block block, EventWideFlags eventWideFlags);
 }

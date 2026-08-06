@@ -1,5 +1,6 @@
 package me.Spielername124.blockClicker.RewardManagement.Rewards.MobSpawn;
 
+import me.Spielername124.blockClicker.EventWideFlags;
 import me.Spielername124.blockClicker.GlobalFlags;
 import me.Spielername124.blockClicker.RewardManagement.Rewards.MobSpawn.Mobs.MobCreator;
 import me.Spielername124.blockClicker.RewardManagement.Rewards.MobSpawn.Mobs.SpawnableMob;
@@ -36,9 +37,9 @@ public class MobSpawn extends Reward {
     }
 
     @Override
-    protected void execute(Player player, Location location, GlobalFlags flags, RewardSound sound, ItemStack toolUsed, Block block){
+    protected void execute(Player player, Location location, GlobalFlags flags, RewardSound sound, ItemStack toolUsed, Block block, EventWideFlags eventWideFlags){
         //spawn the mob
-        mob.spawn(plugin, flags, location);
+        mob.spawn(plugin, flags, location ,eventWideFlags);
 
         //Build the arena if specified
         if(arenaType !=null){
