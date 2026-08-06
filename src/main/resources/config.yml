@@ -39,6 +39,7 @@ tool-groups:
     tools:
       - "DIAMOND_SHOVEL"
       - "WOODEN_SHOVEL"
+      #- "oldShovel"
   default:
     always-possible: true
 
@@ -172,7 +173,7 @@ dirtArea:
         chance: 1
         #sets the durability to a given value. The value will have no effect if it is higher than the usual max durability
         durability: 1
-        #sets a custom name for the dropping item
+        #sets a custom name for the dropping item !Important, setting a name doesn't make the item a custom item. if no is-custom: "<itemId>" is set, the item will still be generic and only be named with the given name!
         name: "oneHitWonder"
         # allows to randomly add enchantments to the item
         enchantment:
@@ -183,6 +184,11 @@ dirtArea:
           - type: "fortune"
             amount: 3
             chance: 20
+
+        #overwrites the global flag for this reward only. This doesn't work for the rewards children automatically, you have to give them a local-flags attribute too
+        local-flags:
+          #here for example the oneHitWonder will be directly deposited into the players inventory, even though deposit-to-inventrory is set to true in global-flags
+          deposit-to-inventory: true
 
   default:
     DIRT:

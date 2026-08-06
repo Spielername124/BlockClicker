@@ -67,6 +67,8 @@ First you have to define in which zone-group a given table should be working, fo
     sound-priority: defines the priority of a sound. it is by default on 0.
           Per broken block, only the sound with the highest priority gets played. If there are multiple sounds with the same priority, it is not defined which of those gets played. (generally the one that gets processed first, eg is higher up in the config, but no guarantees are given)
     luck-dependence: by default on false, if set to true, the mob spawn is dependent on the luck modifiers
+    local-flags: allows you to overwrite your global flags localy. i.e. for example: deposit-to-inventory: true, while it globaly is set on false, makes that only this item gets depositied directly to the inventory, whilst all other items still folow the global flag. Local flags that are not set will default back to the set global flag.
+      <flagLikeDoneInGlobalFlags>: <flag value>
 
 
 There are the following types of rewards, and it's subpoints:
