@@ -1,8 +1,9 @@
-package me.Spielername124.blockClicker.RewardManagement.Rewards;
+package me.Spielername124.blockClicker.RewardManagement;
 
 import me.Spielername124.blockClicker.GlobalFlags;
-import me.Spielername124.blockClicker.RewardManagement.RewardCache;
 import me.Spielername124.blockClicker.BlockClicker;
+import me.Spielername124.blockClicker.RewardManagement.Rewards.Reward;
+import me.Spielername124.blockClicker.RewardManagement.Rewards.RewardSound;
 import org.bukkit.Location;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
@@ -19,7 +20,7 @@ public class HandleRewards {
 
         // Iterating through every possible reward for this zone group and roll and Execute it
         for(Reward possibleReward : rewardList){
-            possibleReward.rollAndExecute(player, location, flags, sound, toolUsed, block);
+            possibleReward.rollAndExecute(player, location, sound, toolUsed, block);
         }
 
         sound.PlaySound(flags, player, location);

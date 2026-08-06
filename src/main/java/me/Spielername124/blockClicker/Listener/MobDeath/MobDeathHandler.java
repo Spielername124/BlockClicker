@@ -32,7 +32,7 @@ public class MobDeathHandler {
         }
 
         for (Reward reward : cache.getRewardList(mobId)){
-            reward.rollAndExecute(killingPlayer, location, flags, sound, weapon, null);
+            reward.rollAndExecute(killingPlayer, location, sound, weapon, null);
         }
         sound.PlaySound(flags, killingPlayer, location);
 

@@ -53,7 +53,7 @@ public class GuaranteedReward extends Reward {
     protected void execute(Player player, Location location, GlobalFlags flags, RewardSound sound, ItemStack toolUsed, Block block){
         Reward reward = getChosenReward(flags);
         if(reward!=null)
-            reward.rollAndExecute(player, location, flags, sound, toolUsed, block);
+            reward.rollAndExecute(player, location, sound, toolUsed, block);
     }
 
     public Reward getChosenReward (GlobalFlags flags){

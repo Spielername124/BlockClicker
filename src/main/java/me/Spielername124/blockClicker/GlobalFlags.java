@@ -1,6 +1,9 @@
 package me.Spielername124.blockClicker;
 
+import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
+
+import java.util.Map;
 
 public class GlobalFlags {
     public boolean mutuallyExclusiveRegions =false;
@@ -18,8 +21,26 @@ public class GlobalFlags {
     //tracks if already a container was rewarded --> if so prevents another one from spawning
     public boolean containerHasBeenPlaced = false;
 
+
+    public GlobalFlags (GlobalFlags other, Map<?, ?>  localOverwrite) {
+        depositToInventory = getBooleanOverwrite(localOverwrite.get("deposit-to-inventory"), other.depositToInventory);
+        mutuallyExclusiveRegions = getBooleanOverwrite(localOverwrite.get("mutually-exclusive-regions"), other.mutuallyExclusiveRegions);
+        mutuallyExclusiveTools = getBooleanOverwrite(localOverwrite.get("mutually-exclusive-tools"), other.mutuallyExclusiveTools);
+
+        fortuneMultiplier = getDoubleOverwrite(localOverwrite.get("mutually-exclusive-tools"), other.fortuneMultiplier);
+        lootingMultiplier = getDoubleOverwrite(localOverwrite.get("looting-modifier-per-level"), other.lootingMultiplier);
+        luckMultiplier = getDoubleOverwrite(localOverwrite.get("luck-modifier-per-level"), other.luckMultiplier);
+        badLuckMultiplier = getDoubleOverwrite(localOverwrite.get("bad-Luck-modifier-per-level"), other.badLuckMultiplier);
+
+        interModifierMultiplicativity = getBooleanOverwrite(localOverwrite.get("inter-modifire-multiplicativity"), other.interModifierMultiplicativity);
+        intraModifierMultiplicativity = getBooleanOverwrite(localOverwrite.get("intra-modifire-multiplicativity"), other.intraModifierMultiplicativity);
+        publicSound = getBooleanOverwrite(localOverwrite.get("public-reward-sound"), other.publicSound);
+        recursionDepth = getIntOverwrite (localOverwrite.get("recursion-depth"), other.recursionDepth);
+
+    }
+
     //makes a copy of an existing flags instance
-    public GlobalFlags(GlobalFlags other) {
+    public GlobalFlags (GlobalFlags other) {
         this.mutuallyExclusiveRegions = other.mutuallyExclusiveRegions;
         this.mutuallyExclusiveTools = other.mutuallyExclusiveTools;
         this.depositToInventory = other.depositToInventory;
@@ -55,5 +76,23 @@ public class GlobalFlags {
 
     private double percentageInDoubleConverter(double value) {
         return Math.max(0, 1 + (value / 100));
+    }
+
+    //little helper to only overwrite a flag if the new value is specifically set
+    private double getDoubleOverwrite(Object rawData,  double defaultValue) {
+        return (rawData instanceof Number number)?
+                percentageInDoubleConverter(number.doubleValue()) :
+                defaultValue;
+    }
+    private int getIntOverwrite(Object rawData, int defaultValue) {
+        return (rawData instanceof Number number)?
+                number.intValue():
+                defaultValue;
+    }
+
+    private boolean getBooleanOverwrite(Object rawData, boolean defaultValue) {
+        return (rawData instanceof Boolean bool)?
+                bool :
+                defaultValue;
     }
 }

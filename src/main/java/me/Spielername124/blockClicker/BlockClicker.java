@@ -42,6 +42,8 @@ public final class BlockClicker extends JavaPlugin {
         saveDefaultConfig();
         createItemsConfig();
 
+        this.flags = new GlobalFlags(getConfig());
+
         //create the rewardCache
         this.rewardCache = new RewardCache();
         RewardCacheLoader.loadAllLootTables(this, getConfig(), rewardCache);
@@ -55,8 +57,6 @@ public final class BlockClicker extends JavaPlugin {
 
         this.mobLootCache = new MobLootCache();
         MobLootCacheLoader.LoadAllMobLootTables(this, getConfig(), mobLootCache);
-
-        this.flags = new GlobalFlags(getConfig());
 
         getCommand("blockclicker").setExecutor(new BlockClickerCommands(this));
 

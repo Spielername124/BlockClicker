@@ -24,6 +24,8 @@ public abstract class Reward {
     private final Sound sound;
     private final int soundPriority;
 
+    private final GlobalFlags flags;
+
 
     public Reward(BlockClicker plugin, FileConfiguration config, Map<?, ?> rewardData) {
 
@@ -33,6 +35,11 @@ public abstract class Reward {
         this.rewardData = rewardData;
         this.plugin = plugin;
         this.config = config;
+
+        //handle the local flag overwrites
+        flags = rewardData.get("local-flags") instanceof Map<?, ?> localFlags ?
+                new GlobalFlags(plugin.flags, localFlags):
+                plugin.flags;
 
         //set the sound data for the reward
         String soundSt = (String) rewardData.get("sound");
@@ -50,10 +57,16 @@ public abstract class Reward {
         } catch (InvalidKeyException e) {
             plugin.getLogger().severe("The sound '" + soundSt + "' in your config has invalid characters!");
         }
+
+
+
+
+
+
         this.sound = localSound;
     }
 
-    public final void rollAndExecute(Player player, Location location, GlobalFlags flags, RewardSound sound, ItemStack toolUsed, Block block) {
+    public final void rollAndExecute(Player player, Location location, RewardSound sound, ItemStack toolUsed, Block block) {
 
         //roll if the reward is granted, return if not
         if(!Chance.performDropRoll(flags, chance, toolUsed, player, block, isLuckDependent))

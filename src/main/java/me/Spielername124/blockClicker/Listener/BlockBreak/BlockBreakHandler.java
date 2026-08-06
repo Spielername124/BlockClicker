@@ -2,7 +2,7 @@ package me.Spielername124.blockClicker.Listener.BlockBreak;
 
 import me.Spielername124.blockClicker.GlobalFlags;
 import me.Spielername124.blockClicker.RewardManagement.RewardCache;
-import me.Spielername124.blockClicker.RewardManagement.Rewards.HandleRewards;
+import me.Spielername124.blockClicker.RewardManagement.HandleRewards;
 import me.Spielername124.blockClicker.ToolManagement.ToolCache;
 import me.Spielername124.blockClicker.ZoneManagement.ZoneCache;
 import me.Spielername124.blockClicker.ZoneManagement.ZoneGroup;
