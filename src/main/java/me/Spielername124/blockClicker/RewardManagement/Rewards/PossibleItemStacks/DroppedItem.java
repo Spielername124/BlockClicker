@@ -1,5 +1,6 @@
 package me.Spielername124.blockClicker.RewardManagement.Rewards.PossibleItemStacks;
 
+import me.Spielername124.blockClicker.BlockClicker;
 import me.Spielername124.blockClicker.RewardManagement.Rewards.RewardsHelper.Amount;
 import net.kyori.adventure.text.Component;
 import org.bukkit.inventory.ItemStack;
@@ -9,6 +10,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 public abstract class DroppedItem {
     final Amount amount;
@@ -33,8 +35,15 @@ public abstract class DroppedItem {
                 }
             }
         }
+    }
+    public static DroppedItem create(BlockClicker plugin, Map<?,?> rewardData){
 
+        String itemName = (String) rewardData.get("item");
+        if(Objects.equals(itemName, "xp")) return null;
 
+        return (Boolean.TRUE.equals(rewardData.get("is-custom")))?
+                new CustomItemDrop(plugin, rewardData):
+                new NormalItemDrop(rewardData);
     }
 
     public ItemStack getItem(){

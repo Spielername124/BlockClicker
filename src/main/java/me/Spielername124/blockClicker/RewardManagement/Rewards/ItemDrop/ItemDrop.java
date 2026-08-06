@@ -27,15 +27,11 @@ public class ItemDrop extends Reward {
     public ItemDrop(BlockClicker plugin, FileConfiguration config, Map<?, ?> rewardData) {
         super(plugin, config, rewardData);
         amount = new Amount(rewardData);
-        boolean isSpecialItem = Boolean.TRUE.equals(rewardData.get("is-custom"));
 
         itemName = (String) rewardData.get("item");
 
-        if(Objects.equals(itemName, "xp")) droppedItem=null;
-
-        else{
-            droppedItem = isSpecialItem ?  new CustomItemDrop(plugin, rewardData) : new NormalItemDrop(rewardData);
-        }
+        //creates a DroppedItem of the correct kind or returns null if the item is
+        droppedItem = DroppedItem.create(plugin, rewardData);
     }
 
     protected void execute(Player player, Location location, GlobalFlags flags, RewardSound sound, ItemStack toolUsed, Block block){
