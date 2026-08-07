@@ -57,9 +57,30 @@ First you have to define in which zone-group a given table should be working, fo
         one level deeper you have to list a block, for example "DIRT" and then append it a loot table containing the rewards that breaking this block with this tool should give.
 
  The loot tables:
- loot tables generally are lists of different rewards. You can add as many rewards as you like. Each reward must be added like:
+ loot tables generally are lists of rewards. You can add as many rewards as you like. Each reward must be added like:
     - <reward type>:
       <specific reward values>
+
+    Thus, a valid reward list would be
+
+        - chance:  4
+          item: "GOLD_INGOT"
+
+        - item: "NETHERITE_INGOT"
+          chance: 4
+
+
+Rewards:
+    A Reward is a map containing a reward type and certain modifier
+   the order inside a Reward is arbitrary, for example
+            chance:  4
+            item: "GOLD_INGOT"
+
+            is the same as
+            item: "NETHERITE_INGOT"
+            chance: 4
+
+   Are both equally valid rewards
 
  The following modifier work on any rewards:
     chance: sets the chance that a reward is given. this can be given by any double value (basically decimal value) between 0 and 100. it is by default by 100%.
@@ -72,7 +93,7 @@ First you have to define in which zone-group a given table should be working, fo
 
 
 There are the following types of rewards, and it's subpoints:
-    - item: "<item name>" (<item name> is either: a Minecraft item, a custom item, or "xp" for xp points)
+    item: "<item name>" (<item name> is either: a Minecraft item, a custom item, or "xp" for xp points)
            is-custom: if set to true, searches the item in your saved items, which are saved in items.yml, instead of dropping a normal item. This needs to be set to make a custom item a reward
            amount: is by default, if neither it nor any bounds are provided set to 1, determines how many of a given item are dropped
            amount-lower-bound and amount-upper-bound:
@@ -82,14 +103,14 @@ There are the following types of rewards, and it's subpoints:
            durability: sets the durability of the Item to a certain value. This value is limited to the max durability of a item of this kind (this should obviously only be done on items with durability)
            enchantment: <List of enchantments> allows to add enchantments to the item. This enchantments can be affected by the amount and are possible to be given a chance (this chance currently can not be affected by modifiers)
 
-    - container: "<container name>": places a container defined in "findable-containers" on the location the block has been broken.
-        - guaranteed rewards <List of rewards, as in a normal loot table, !but all of them must be items!>
+    container: "<container name>": places a container defined in "findable-containers" on the location the block has been broken.
+        guaranteed rewards <List of rewards, as in a normal loot table, !but all of them must be items!>
 
-    - effect: "<effectName>": effectName sets which effect should be given
+    effect: "<effectName>": effectName sets which effect should be given
         effect-duration : sets the effect time in seconds
         level: sets the effect level (attention! this means level and not amplifier! to give level 1 you have to set this to 1, not to 0)
 
-    - mob: "<mobName>" creates a <mobName> mob at the location of the broken block
+    mob: "<mobName>" creates a <mobName> mob at the location of the broken block
             mob-id: "<name>" gives the mob a id, which can be used for giving it custom loot, and with flags preventing it from dropping vanilla loot
             health: sets the mob health to a given value. If this attribute is not set, has the mob simply it's default HP
             ttl:  <doubleValue> kills the mob after <doubleValue> seconds if a ttl is set, otherwise nothing happens
@@ -98,17 +119,51 @@ There are the following types of rewards, and it's subpoints:
                 currently implemented arena Types: "5x3x5"
                 create a git Issue or contact me if you have specific Arena form wishes
 
-    - guaranteed rewards: <List of rewards> Grants one of the rewards in the list that is appended on it. If placed in containers, only item drops are allowed.
+         there is a special modifier that only works for villager and wandering trader:
+            trades:     here you have to give a list of Trades, !keep the "-" in mind
+            such a list would for example look like:
+                - max-uses: 16
+                  output:
+                    item: "<customName>"
+                    is-custom: true
+                    amount: 2
+                  input1:
+                    item: "COAL"
+                    amount: 4
+                - max-uses: 10
+                  output:
+                    item: "NETHERITE_INGOT"
+                    amount: 2
+                  input1:
+                    item: "CLAY_BALL"
+                    amount: 64
+                  input2:
+                    item: "GOLD_INGOT"
+                    amount: 16
+
+            therefore a Trade looks like the folowing example, and is order insensitive
+                max-uses: <number> Limits how many of this trade can be done like by normal vileager
+                input1:  Sets what the Trader takes as his payment, the <ItemReward> folows the Syntax of the item reward like amount, is-custom or the amount bounds, except that it doesn't accept general reward modifiers (non specific ones to items like "chance")
+                    <ItemReward>
+                input2: This modifier is optional, if this is set, the trade will require the player to give the both items.
+                    <ItemReward2>
+                output: Sets what the player will get if he trades
+                    <ItemReward3>
+
+
+
+    guaranteed rewards: <List of rewards> Grants one of the rewards in the list that is appended on it. If placed in containers, only item drops are allowed.
             you can set the proportional weight of all list items with the weight: value, which by default is 1
+            (keep in to use the list syntax by adding a "-" for every reward.
 
 
-    - command: <your command>: executes <your command>. This command generally parsed by PlaceholderAPI --> look at their documentation to see how your command must be written (https://wiki.placeholderapi.com/users/placeholder-list/minecraft/)
+    command: <your command>: executes <your command>. This command generally parsed by PlaceholderAPI --> look at their documentation to see how your command must be written (https://wiki.placeholderapi.com/users/placeholder-list/minecraft/)
              following variables are added by this plugin to the command to make it possible for the command to target the broken block:
                 - "%blockXValue%" -> gets the X value of the broken block
                 - "%blockYValue%" -> gets the Y value of the broken block
                 - "%blockZValue%" -> gets the Z value of the broken block
 
-        - executed-by-player: is by default false. If this is set to true, the command gets executed from the player, e.g. is restricted to use their permissions. If omitted or false, the command is executed by the console
+        executed-by-player: is by default false. If this is set to true, the command gets executed from the player, e.g. is restricted to use their permissions. If omitted or false, the command is executed by the console
 
 
  And here are some random Information, that I was not sure where to include but still might be important:

@@ -47,7 +47,7 @@ findable-containers:
   normal-chest:
     container-type: "BARREL"
     shuffle: true
-    loot:
+    loot: #list the reward with a "-" followed by the reward specific details
       - item: "CLAY_BALL"
         amount: 64
         chance: 1
@@ -60,9 +60,11 @@ findable-containers:
     shuffle: false
     loot:
       #guarantees that one of th listed rewards gets dropped. If used for container Items, all possible rewards must be items.
+      # "-" always indicates a new reward
+      # one of this sub rewards is picked, this works by adding all weights and then randomly picking one of the items --> the higher the proportional weight to the other elements, the likelier.
       - guaranteed-reward:
           - item: RAW_IRON
-            weight: 10
+            weight: 10 # weight is by default set to 1, but can be a arbitrary double value
             amount-lower-bound: 2
             amount-upper-bound: 6
           - item: RAW_GOLD
@@ -111,18 +113,20 @@ mob-loot:
 dirtArea:
   shovels:
     DIRT:
+      #list the rewards that should be able to get from this block w/ this tool
+      #This is a list, --> you separate a reward with "-" and then specify the reward. Order inside a reward is not needed.
       - item: "xp"
 
         #You can create custom items via the bc saveitem <name of the Item> command while holding the item in your main hand.
-        # You can award a custom reward like this (create the item, replace oldShovel by your items name and remove the  #in the     following lines)
+        # You can award a custom reward like this (create the item, replace oldShovel by your items name and remove the  #in the following lines)
 
         #- item: "oldShovel"
         #is-custom: true
         #amount: 5
         #chance: 100
 
-      - item: "CLAY_BALL"
-        amount: 5
+      - amount: 5
+        item: "CLAY_BALL"
         chance: 0
 
       - item: "DIAMOND"
@@ -212,3 +216,30 @@ dirtArea:
         # additionally the plugin lets you access the x y z values of the block that has been removed with the variables you can see below
       - command: "summon lightning_bolt %blockXValue% %blockYValue% %blockZValue%"
         chance: 10
+
+      - mob: "WANDERING_TRADER"
+        display-name: "Master Trader Bob"
+        chance: 100
+        mob-id: "guard"
+        health: 20
+        ttl: 30
+        trades:
+          #- max-uses: 16
+            #output:
+              #item: "oldShovel"
+              #is-custom: true
+              #amount: 2
+            #input1:
+              #item: "COAL"
+               #amount: 4
+          - max-uses: 10
+            output:
+              item: "NETHERITE_INGOT"
+              amount: 2
+            input1:
+              item: "CLAY_BALL"
+              amount: 64
+            input2:
+              item: "GOLD_INGOT"
+              amount: 16
+
