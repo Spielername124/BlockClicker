@@ -1,6 +1,5 @@
 package me.Spielername124.blockClicker;
 
-import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
 
 import java.util.Map;
@@ -17,6 +16,7 @@ public class GlobalFlags {
     public boolean intraModifierMultiplicativity;
     public boolean publicSound;
     public int recursionDepth;
+    public int maxTradeUsage;
 
 
     public GlobalFlags (GlobalFlags other, Map<?, ?>  localOverwrite) {
@@ -33,6 +33,7 @@ public class GlobalFlags {
         intraModifierMultiplicativity = getBooleanOverwrite(localOverwrite.get("intra-modifire-multiplicativity"), other.intraModifierMultiplicativity);
         publicSound = getBooleanOverwrite(localOverwrite.get("public-reward-sound"), other.publicSound);
         recursionDepth = getIntOverwrite (localOverwrite.get("recursion-depth"), other.recursionDepth);
+        maxTradeUsage = getIntOverwrite (localOverwrite.get("max-trades"), other.maxTradeUsage);
 
     }
 
@@ -49,6 +50,7 @@ public class GlobalFlags {
         this.intraModifierMultiplicativity = other.intraModifierMultiplicativity;
         this.publicSound = other.publicSound;
         this.recursionDepth = other.recursionDepth;
+        this.maxTradeUsage = other.maxTradeUsage;
     }
 
     public GlobalFlags(FileConfiguration config){
@@ -68,6 +70,7 @@ public class GlobalFlags {
         intraModifierMultiplicativity = config.getBoolean(globalFlagPath + "intra-modifire-multiplicativity", true);
         publicSound = config.getBoolean(globalFlagPath + "public-reward-sound");
         recursionDepth = config. getInt(globalFlagPath + "recursion-depth", 5);
+        maxTradeUsage = config. getInt(globalFlagPath +" max-trade-usage-default", 10);
     }
 
     private double percentageInDoubleConverter(double value) {

@@ -3,23 +3,20 @@ package me.Spielername124.blockClicker.RewardManagement.Rewards.ContainerSpawn.I
 import me.Spielername124.blockClicker.GlobalFlags;
 import me.Spielername124.blockClicker.RewardManagement.Rewards.RewardsHelper.Chance;
 import me.Spielername124.blockClicker.BlockClicker;
+import me.Spielername124.blockClicker.RewardManagement.Rewards.RewardsHelper.WeightedList;
 import org.bukkit.block.Block;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.ThreadLocalRandom;
 
 public class ContainerGuaranteedItem implements ContainerItem {
     private final BlockClicker plugin;
     private final double chance;
     private final boolean isLuckDependent;
-    private final List<ContainerItem> pool = new ArrayList<>();
-    private final List<Double> weights = new ArrayList<>();
-    private double totalWeight = 0.0;
+    private final WeightedList<ContainerItem> weightedItemPool = new WeightedList<>();
 
     public ContainerGuaranteedItem(BlockClicker plugin, FileConfiguration config, Map<?, ?> rewardData) {
         this.plugin = plugin;
@@ -30,7 +27,15 @@ public class ContainerGuaranteedItem implements ContainerItem {
         this.isLuckDependent = Boolean.TRUE.equals(rewardData.get("luck-dependence"));
 
         //get all the guaranteed Reward items
-        Object rawList = rewardData.get("guaranteed-reward");
+        Object rawReward = rewardData.get("guaranteed-reward");
+
+        Object rawList = null;
+        if (rawReward instanceof Map<?, ?> rewardMap) {
+            rawList = rewardMap.get("rewards");
+        } else if (rawReward instanceof List) {
+            rawList = rawReward;
+        }
+
         if (rawList instanceof List) {
             for (Object obj : (List<?>) rawList) {
                 if (obj instanceof Map<?, ?> innerData) {
@@ -38,11 +43,9 @@ public class ContainerGuaranteedItem implements ContainerItem {
                     //send it through the ItemCreator and put it into the saving Lists
                     ContainerItem element = ContainerItemCreator.createPossibleItem(plugin, config, innerData);
                     if (element != null) {
-                        pool.add(element);
                         Number weightNr = (Number) innerData.get("weight");
                         double weight = weightNr != null ? weightNr.doubleValue() : 1.0;
-                        weights.add(weight);
-                        totalWeight += weight;
+                        weightedItemPool.addElement(element, weight);
                     }
                 }
             }
@@ -61,19 +64,14 @@ public class ContainerGuaranteedItem implements ContainerItem {
             return null;
         }
 
-        if (pool.isEmpty()) return null;
+        if (weightedItemPool.isEmpty()) return null;
 
-        double rolledWeight = ThreadLocalRandom.current().nextDouble(totalWeight);
-        double currentWeight = 0.0;
+        ContainerItem chosenElement = weightedItemPool.getRandomElement();
 
-        for (int i = 0; i < pool.size(); i++) {
-            currentWeight += weights.get(i);
-            if (currentWeight >= rolledWeight) {
-                //use recursion to get the ItemStack no matter if it is nested or not
-                return pool.get(i).rollPossibleItem(flags, player, toolUsed, block, recursionDepth + 1);
-            }
-        }
-        return null;
+        return chosenElement!= null?
+                chosenElement.rollPossibleItem(flags, player, toolUsed, block, recursionDepth + 1):
+                null;
+
     }
 }
 

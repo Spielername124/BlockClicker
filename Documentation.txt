@@ -19,6 +19,8 @@ Commands:
       - "intra-modifire-multiplicativity": if set to true or on being omitted it makes that modifier level are multiplicative, and else they are additive
         inter-modifire-multiplicativity: if set to true or on being omitted it makes that the different luck influencing modifier are multiplicative, and else they are additive
       - "recursion-depth" sets the maximum depth for recursions to appear. this is by default set to 5 and should only be increased if you are sure your config is loop free
+      - "max-trade-usage-default" sets the default amount of times a trade can be traded, defaults to 10
+
 "zone-groups":
   Under this point you have to define groups of world guard zones in which the plugin will check for broken blocks, and uses the loot table defined for this region.
   You can do this by giving it a name, for example: "dirtArea".
@@ -120,7 +122,9 @@ There are the following types of rewards, and it's subpoints:
                 create a git Issue or contact me if you have specific Arena form wishes
 
          there is a special modifier that only works for villager and wandering trader:
-            trades:     here you have to give a list of Trades, !keep the "-" in mind
+            trades:  <List>   here you have to give a list of Trades, !keep the "-" in mind
+                              A short input: You can with "number_of_trades:" let randomly x trades of your list be picked that than will be available, default is Integer.MAXVALUE, for more details see "guaranteed Rewards"
+
             such a list would for example look like:
                 - max-uses: 16
                   output:
@@ -130,6 +134,7 @@ There are the following types of rewards, and it's subpoints:
                   input1:
                     item: "COAL"
                     amount: 4
+                  weight: 2
                 - max-uses: 10
                   output:
                     item: "NETHERITE_INGOT"
@@ -140,21 +145,29 @@ There are the following types of rewards, and it's subpoints:
                   input2:
                     item: "GOLD_INGOT"
                     amount: 16
+                  weight: 1
 
             therefore a Trade looks like the folowing example, and is order insensitive
                 max-uses: <number> Limits how many of this trade can be done like by normal vileager
-                input1:  Sets what the Trader takes as his payment, the <ItemReward> folows the Syntax of the item reward like amount, is-custom or the amount bounds, except that it doesn't accept general reward modifiers (non specific ones to items like "chance")
+                input1:  Sets what the Trader takes as his payment, the <ItemReward> folows the Syntax of the item reward like amount, is-custom or the amount bounds, except that it doesn't accept general reward modifiers (non-specific ones to items like "chance")
                     <ItemReward>
                 input2: This modifier is optional, if this is set, the trade will require the player to give the both items.
                     <ItemReward2>
                 output: Sets what the player will get if he trades
                     <ItemReward3>
+                weight: <Integer> sets the weight for random trade selections. dafaults to 1
 
 
 
-    guaranteed rewards: <List of rewards> Grants one of the rewards in the list that is appended on it. If placed in containers, only item drops are allowed.
-            you can set the proportional weight of all list items with the weight: value, which by default is 1
-            (keep in to use the list syntax by adding a "-" for every reward.
+    guaranteed-rewards:
+        rewards:
+                <List of rewards> Grants one of the rewards in the list that is appended on it. If placed in containers, only item drops are allowed.
+                                  you can set the proportional weight of all list items with the weight: value, which by default is 1
+                                  keep in mind to use the list syntax by adding a "-" for every reward.
+
+            you can also let multiple sub rewards be selected at the same time, this works the with the following by adding a
+            number_of_rewards:
+                <amount>      using the standard amount logic with or without bounds.
 
 
     command: <your command>: executes <your command>. This command generally parsed by PlaceholderAPI --> look at their documentation to see how your command must be written (https://wiki.placeholderapi.com/users/placeholder-list/minecraft/)

@@ -30,7 +30,7 @@ public class MobSpawn extends Reward {
     public MobSpawn(BlockClicker plugin, FileConfiguration config, Map<?, ?> rewardData) {
         super(plugin, config, rewardData);
 
-        mob = MobCreator.createMob(plugin, rewardData);
+        mob = MobCreator.createMob(plugin, super.flags, rewardData);
 
         arenaType = (String) rewardData.get("arena");
 

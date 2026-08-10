@@ -14,9 +14,9 @@ global-flags:
   #makes that reward sound are hearable by any player if set to true
   public-reward-sound: true
   #if set to false for fortune modifier 10, level 2 would mean that the final fortune multiplier would amount to a 20% bonus instead of a bonus of 1.21 (= 1.1^2). Default is true
-  intra-modifire-multiplicativity: true
+  intra-modifier-multiplicativity: true
   #if set to false, a fortune modifier of 10 and a luck modifier of 10, and fortune 1 and luck 1 would amount to a 20% bonus instead of a bonus of 1.21 (= 1.1 * 1.1) Default is true
-  inter-modifire-multiplicativity: true
+  inter-modifier-multiplicativity: true
 
 #define the groups of world guard regions, that share a lootable
 zone-groups:
@@ -63,31 +63,33 @@ findable-containers:
       # "-" always indicates a new reward
       # one of this sub rewards is picked, this works by adding all weights and then randomly picking one of the items --> the higher the proportional weight to the other elements, the likelier.
       - guaranteed-reward:
-          - item: RAW_IRON
-            weight: 10 # weight is by default set to 1, but can be a arbitrary double value
-            amount-lower-bound: 2
-            amount-upper-bound: 6
-          - item: RAW_GOLD
-            weight: 5
-            amount-lower-bound: 1
-            amount-upper-bound: 4
-          - item: RAW_COPPER
-            weight: 15
-            amount-lower-bound: 4
-            amount-upper-bound: 12
+          rewards:
+            - item: RAW_IRON
+              weight: 10 # weight is by default set to 1, but can be a arbitrary double value
+              amount-lower-bound: 2
+              amount-upper-bound: 6
+            - item: RAW_GOLD
+              weight: 5
+              amount-lower-bound: 1
+              amount-upper-bound: 4
+            - item: RAW_COPPER
+              weight: 15
+              amount-lower-bound: 4
+              amount-upper-bound: 12
       - guaranteed-reward:
-          - item: COAL
-            weight: 20
-            amount-lower-bound: 5
-            amount-upper-bound: 15
-          - item: CHARCOAL
-            weight: 10
-            amount-lower-bound: 5
-            amount-upper-bound: 15
-          - item: OAK_LOG
-            weight: 5
-            amount-lower-bound: 2
-            amount-upper-bound: 8
+          rewards:
+            - item: COAL
+              weight: 20
+              amount-lower-bound: 5
+              amount-upper-bound: 15
+            - item: CHARCOAL
+              weight: 10
+              amount-lower-bound: 5
+              amount-upper-bound: 15
+            - item: OAK_LOG
+              weight: 5
+              amount-lower-bound: 2
+              amount-upper-bound: 8
 
 mob-loot:
   #define the table for one of your mob id's
@@ -107,7 +109,8 @@ mob-loot:
       #amount: 5
       #chance: 100
 
-      - container: "BARREL"
+      #you summon a container by using one of the names of the defined container
+      - container: "normal-chest"
 
 #The chance has to be given as double between 0 and 100.
 dirtArea:
@@ -135,22 +138,32 @@ dirtArea:
 
         # since this reward is defined on the outside of a container, any possible reward may be guaranteed
       - guaranteed-reward:
-          - container: "normal-chest"
-            #sets weight for the roll of which reward from the guaranteed rewards gets granted
-            weight: 10
+          #lets you set the rewards
+          rewards:
+            - container: "normal-chest"
+              #sets weight for the roll of which reward from the guaranteed rewards gets granted
+              weight: 10
 
-          - container: "smelting-furnace"
-            weight: 1
+            - container: "smelting-furnace"
+              weight: 1
 
-            #gives an effect
-          - effect: SPEED
-            # defines the effect duration
-            effect-duration: 10
-            # defines the give effect
-            level: 1
-            weight: 5
-            sound: "entity.firework_rocket.launch"
-            sound-priority: 1
+              #gives an effect
+            - effect: SPEED
+              # defines the effect duration
+              effect-duration: 10
+              # defines the give effect
+              level: 1
+              weight: 5
+              sound: "entity.firework_rocket.launch"
+              sound-priority: 1
+
+          #sets how many rewards of this list will be given if this reward is rolled, if this point is omitted, it will default to 1
+          number_of_given_rewards:
+            #uses the standard reward logic
+            amount-lower-bound: 1
+            amount-upper-bound: 2
+
+
 
         # defines chance for the guaranteed reward
         chance: 25
@@ -220,9 +233,11 @@ dirtArea:
       - mob: "WANDERING_TRADER"
         display-name: "Master Trader Bob"
         chance: 100
-        mob-id: "guard"
+        mob-id: "t1"
         health: 20
         ttl: 30
+        #sets the trades for a trader.
+        #these trades are List of trades.
         trades:
           #- max-uses: 16
             #output:
@@ -232,14 +247,31 @@ dirtArea:
             #input1:
               #item: "COAL"
                #amount: 4
-          - max-uses: 10
-            output:
+            #weight: 4
+
+           # A trade consists of 2–4 Values.
+          # mandatorily it has an output, that follows the Item modifiers, which specifies what the player can get from the trade
+          - output:
               item: "NETHERITE_INGOT"
               amount: 2
+          # And a mandatory input, that follows the item modifiers, which specifies what the player needs to give for the trade
             input1:
               item: "CLAY_BALL"
-              amount: 64
+              amount-lower-bound: 10
+              amount-upper-bound: 50
+          # Optionally you can set a second input
             input2:
               item: "GOLD_INGOT"
               amount: 16
+          # You can define how times this trade can be done until the trader stops
+            max-uses: 10
+            #sets the weight of this trade (default 1), important if you want to have randomly rotating trades
+            weight: 1
+
+        #You can set the number of trades a spawned trader will get.
+        number_of_trades:
+          # is done with the standard amount logics
+          amount-lower-bound: 1
+          amount-upper-bound: 2
+
 

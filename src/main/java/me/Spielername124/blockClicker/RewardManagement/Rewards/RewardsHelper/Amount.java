@@ -32,6 +32,13 @@ public class Amount {
 
     }
 
+    //sets a static amount as amount
+    public Amount(int amount){
+        this.amount = amount;
+        this.lowerBound = -1;
+        this.upperBound = -1;
+    }
+
     public int getAmount(){
 
         //if a specific amount is set, we return this amount

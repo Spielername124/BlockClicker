@@ -25,7 +25,7 @@ public abstract class Reward {
     private final Sound sound;
     private final int soundPriority;
 
-    private final GlobalFlags flags;
+    protected final GlobalFlags flags;
 
 
 
