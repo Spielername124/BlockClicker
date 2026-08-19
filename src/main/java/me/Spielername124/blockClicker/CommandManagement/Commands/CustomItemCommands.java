@@ -16,7 +16,7 @@ public class CustomItemCommands {
             sender.sendMessage("Can only be used by players");
             return true;
         }
-        if (args.length != 2) {
+        if (args.length <= 2) {
             sender.sendMessage("Item not saved, you need to provide a Item name");
             return true;
         }
@@ -38,6 +38,10 @@ public class CustomItemCommands {
                     PersistentDataType.STRING,
                     itemId
             );
+            //increases the max stack size, if requested
+            if(args.length == 3) {
+                meta.setMaxStackSize(Integer.valueOf(args[2]));
+            }
 
             itemInHand.setItemMeta(meta);
         }
