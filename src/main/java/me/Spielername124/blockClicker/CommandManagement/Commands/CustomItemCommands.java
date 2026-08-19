@@ -80,7 +80,7 @@ public class CustomItemCommands {
         HashMap<Integer, ItemStack> nonStorableItems =  player.getInventory().addItem(droppingItem);
 
         if(!nonStorableItems.isEmpty()){
-            player.sendMessage("you were had not enough inventory space to receive the item. If possible, you've received it partially.");
+            player.sendMessage("you had not enough inventory space to receive the item. If possible, you've received it partially.");
         }
         return true;
     }

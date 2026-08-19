@@ -38,7 +38,7 @@ public class BlockClickerCommands implements CommandExecutor {
             case "saveitem":
                 return CustomItemCommands.saveItem(plugin, sender, args);
 
-            case "getitem":
+            case "giveitem":
                 return CustomItemCommands.getItem(plugin, sender, args);
 
             case "getmetadata":
