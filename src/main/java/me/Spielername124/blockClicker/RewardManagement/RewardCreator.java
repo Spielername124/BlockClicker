@@ -6,6 +6,7 @@ import me.Spielername124.blockClicker.RewardManagement.Rewards.Effects.EffectRew
 import me.Spielername124.blockClicker.RewardManagement.Rewards.GuaranteedReward.GuaranteedReward;
 import me.Spielername124.blockClicker.RewardManagement.Rewards.ItemDrop.ItemDrop;
 import me.Spielername124.blockClicker.RewardManagement.Rewards.MobSpawn.MobSpawn;
+import me.Spielername124.blockClicker.RewardManagement.Rewards.ReplaceBlock.SetBlock;
 import me.Spielername124.blockClicker.RewardManagement.Rewards.Reward;
 import me.Spielername124.blockClicker.BlockClicker;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -30,6 +31,8 @@ public class RewardCreator {
                         return new CommandExecution(plugin, config, rewardData);
                     case "guaranteed-reward":
                         return new GuaranteedReward(plugin, config, rewardData, 0);
+                    case "set_block":
+                        return new SetBlock(plugin, config, rewardData);
                 }
             }
         }
