@@ -4,7 +4,7 @@ import me.Spielername124.blockClicker.EventWideFlags;
 import me.Spielername124.blockClicker.GlobalFlags;
 import me.Spielername124.blockClicker.RewardManagement.RewardCreator;
 import me.Spielername124.blockClicker.RewardManagement.Rewards.Reward;
-import me.Spielername124.blockClicker.RewardManagement.Rewards.RewardSound;
+import me.Spielername124.blockClicker.RewardManagement.Rewards.RewardSoundAndParticle;
 import me.Spielername124.blockClicker.BlockClicker;
 import me.Spielername124.blockClicker.RewardManagement.Rewards.RewardsHelper.Amount;
 import me.Spielername124.blockClicker.RewardManagement.Rewards.RewardsHelper.WeightedList;
@@ -14,10 +14,8 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.ThreadLocalRandom;
 
 public class GuaranteedReward extends Reward {
     private final int recursionDepth;
@@ -66,7 +64,7 @@ public class GuaranteedReward extends Reward {
     }
 
     @Override
-    protected void execute(Player player, Location location, GlobalFlags flags, RewardSound sound, ItemStack toolUsed, Block block, EventWideFlags eventWideFlags){
+    protected void execute(Player player, Location location, GlobalFlags flags, RewardSoundAndParticle sound, ItemStack toolUsed, Block block, EventWideFlags eventWideFlags){
         List<Reward> rewardList = getChosenReward(flags);
         if(rewardList!=null)
             for (Reward reward : rewardList) {

@@ -3,7 +3,7 @@ package me.Spielername124.blockClicker.Listener.MobDeath;
 import me.Spielername124.blockClicker.EventWideFlags;
 import me.Spielername124.blockClicker.GlobalFlags;
 import me.Spielername124.blockClicker.RewardManagement.Rewards.Reward;
-import me.Spielername124.blockClicker.RewardManagement.Rewards.RewardSound;
+import me.Spielername124.blockClicker.RewardManagement.Rewards.RewardSoundAndParticle;
 import me.Spielername124.blockClicker.BlockClicker;
 import org.bukkit.Location;
 import org.bukkit.entity.LivingEntity;
@@ -26,7 +26,7 @@ public class MobDeathHandler {
 
 
 
-        RewardSound sound = new RewardSound(plugin);
+        RewardSoundAndParticle sound = new RewardSoundAndParticle(plugin);
         EventWideFlags eventWideFlags = new EventWideFlags();
 
         if (!cache.getAllowsNaturalDrops(mobId)){
@@ -37,6 +37,7 @@ public class MobDeathHandler {
             reward.rollAndExecute(killingPlayer, location, sound, weapon, null, eventWideFlags);
         }
         sound.PlaySound(flags, killingPlayer, location);
+        sound.PlayParticle(killingPlayer, location);
 
     }
 }

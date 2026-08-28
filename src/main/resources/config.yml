@@ -116,7 +116,7 @@ mob-loot:
 dirtArea:
   shovels:
     DIRT:
-      #list the rewards that should be able to get from this block w/ this tool
+      #list the rewards that should be able to get from this block
       #This is a list, --> you separate a reward with "-" and then specify the reward. Order inside a reward is not needed.
       - item: "xp"
 
@@ -157,21 +157,18 @@ dirtArea:
               sound: "entity.firework_rocket.launch"
               sound-priority: 1
 
-          #sets how many rewards of this list will be given if this reward is rolled, if this point is omitted, it will default to 1
+            #sets how many rewards of this list will be given if this reward is rolled, if this point is omitted, it will default to 1
           number_of_given_rewards:
             #uses the standard reward logic
             amount-lower-bound: 1
             amount-upper-bound: 2
+          # defines chance for the guaranteed reward
+          chance: 25
 
-
-
-        # defines chance for the guaranteed reward
-        chance: 25
-
-        #chooses a sound that should be played if the reward is awarded
-        sound: "ui.toast.challenge_complete"
-        # sets the priority of the sound chosen for this reward. The system only plays the first sound of the highest priority it received
-        sound-priority: 0
+          #chooses a sound that should be played if the reward is awarded
+          sound: "ui.toast.challenge_complete"
+          # sets the priority of the sound chosen for this reward. The system only plays the first sound of the highest priority it received
+          sound-priority: 0
 
         #spawns a zombie
       - mob: "ZOMBIE"
@@ -206,6 +203,12 @@ dirtArea:
         local-flags:
           #here for example the oneHitWonder will be directly deposited into the players inventory, even though deposit-to-inventrory is set to true in global-flags
           deposit-to-inventory: true
+      #sets a block
+      - set_block: "netherite_block"
+        #if set to true, the block is set on the player, else it is set at the block that got removed (defaults to false)
+        on_player: false
+
+
 
   default:
     DIRT:

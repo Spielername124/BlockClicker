@@ -5,21 +5,13 @@ import me.Spielername124.blockClicker.GlobalFlags;
 import me.Spielername124.blockClicker.RewardManagement.Rewards.MobSpawn.Mobs.MobCreator;
 import me.Spielername124.blockClicker.RewardManagement.Rewards.MobSpawn.Mobs.SpawnableMob;
 import me.Spielername124.blockClicker.RewardManagement.Rewards.Reward;
-import me.Spielername124.blockClicker.RewardManagement.Rewards.RewardSound;
+import me.Spielername124.blockClicker.RewardManagement.Rewards.RewardSoundAndParticle;
 import me.Spielername124.blockClicker.BlockClicker;
-import net.kyori.adventure.text.Component;
-import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
 import org.bukkit.Location;
-import org.bukkit.Material;
-import org.bukkit.attribute.Attribute;
-import org.bukkit.attribute.AttributeInstance;
 import org.bukkit.block.Block;
 import org.bukkit.configuration.file.FileConfiguration;
-import org.bukkit.entity.EntityType;
-import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.persistence.PersistentDataType;
 
 import java.util.Map;
 
@@ -37,7 +29,7 @@ public class MobSpawn extends Reward {
     }
 
     @Override
-    protected void execute(Player player, Location location, GlobalFlags flags, RewardSound sound, ItemStack toolUsed, Block block, EventWideFlags eventWideFlags){
+    protected void execute(Player player, Location location, GlobalFlags flags, RewardSoundAndParticle sound, ItemStack toolUsed, Block block, EventWideFlags eventWideFlags){
         //spawn the mob
         mob.spawn(plugin, flags, location ,eventWideFlags);
 

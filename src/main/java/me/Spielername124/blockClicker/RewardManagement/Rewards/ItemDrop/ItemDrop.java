@@ -2,11 +2,9 @@ package me.Spielername124.blockClicker.RewardManagement.Rewards.ItemDrop;
 
 import me.Spielername124.blockClicker.EventWideFlags;
 import me.Spielername124.blockClicker.GlobalFlags;
-import me.Spielername124.blockClicker.RewardManagement.Rewards.PossibleItemStacks.CustomItemDrop;
 import me.Spielername124.blockClicker.RewardManagement.Rewards.PossibleItemStacks.DroppedItem;
-import me.Spielername124.blockClicker.RewardManagement.Rewards.PossibleItemStacks.NormalItemDrop;
 import me.Spielername124.blockClicker.RewardManagement.Rewards.Reward;
-import me.Spielername124.blockClicker.RewardManagement.Rewards.RewardSound;
+import me.Spielername124.blockClicker.RewardManagement.Rewards.RewardSoundAndParticle;
 import me.Spielername124.blockClicker.RewardManagement.Rewards.RewardsHelper.Amount;
 import me.Spielername124.blockClicker.BlockClicker;
 import org.bukkit.Location;
@@ -16,7 +14,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.Map;
-import java.util.Objects;
 
 public class ItemDrop extends Reward {
 
@@ -35,7 +32,7 @@ public class ItemDrop extends Reward {
         droppedItem = DroppedItem.create(plugin, rewardData);
     }
 
-    protected void execute(Player player, Location location, GlobalFlags flags, RewardSound sound, ItemStack toolUsed, Block block, EventWideFlags eventWideFlags){
+    protected void execute(Player player, Location location, GlobalFlags flags, RewardSoundAndParticle sound, ItemStack toolUsed, Block block, EventWideFlags eventWideFlags){
 
         //handle the Special case that XP should be dropped
         if(itemName.equals("xp")){

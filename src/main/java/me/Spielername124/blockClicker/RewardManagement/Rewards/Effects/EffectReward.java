@@ -3,7 +3,7 @@ package me.Spielername124.blockClicker.RewardManagement.Rewards.Effects;
 import me.Spielername124.blockClicker.EventWideFlags;
 import me.Spielername124.blockClicker.GlobalFlags;
 import me.Spielername124.blockClicker.RewardManagement.Rewards.Reward;
-import me.Spielername124.blockClicker.RewardManagement.Rewards.RewardSound;
+import me.Spielername124.blockClicker.RewardManagement.Rewards.RewardSoundAndParticle;
 import me.Spielername124.blockClicker.BlockClicker;
 import org.bukkit.Location;
 import org.bukkit.NamespacedKey;
@@ -43,7 +43,7 @@ public class EffectReward extends Reward {
     }
 
     @Override
-    protected void execute(Player player, Location location, GlobalFlags flags, RewardSound sound, ItemStack toolUsed, Block block, EventWideFlags eventWideFlags) {
+    protected void execute(Player player, Location location, GlobalFlags flags, RewardSoundAndParticle sound, ItemStack toolUsed, Block block, EventWideFlags eventWideFlags) {
         if(effectType== null) return;
 
         if(player == null) return;

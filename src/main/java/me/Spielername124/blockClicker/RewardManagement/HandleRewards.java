@@ -4,7 +4,7 @@ import me.Spielername124.blockClicker.EventWideFlags;
 import me.Spielername124.blockClicker.GlobalFlags;
 import me.Spielername124.blockClicker.BlockClicker;
 import me.Spielername124.blockClicker.RewardManagement.Rewards.Reward;
-import me.Spielername124.blockClicker.RewardManagement.Rewards.RewardSound;
+import me.Spielername124.blockClicker.RewardManagement.Rewards.RewardSoundAndParticle;
 import org.bukkit.Location;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
@@ -15,7 +15,7 @@ public class HandleRewards {
     public static void handleGroupDrops(BlockClicker plugin, RewardCache cache, GlobalFlags flags, Player player, Block block, Location location, ItemStack toolUsed, String parentGroup, String zoneGroup) {
 
         //creates a rewardSound to play a sound in case of a reward
-        RewardSound sound = new RewardSound(plugin);
+        RewardSoundAndParticle sound = new RewardSoundAndParticle(plugin);
         EventWideFlags  eventWideFlags = new EventWideFlags();
 
         List<Reward> rewardList = cache.getRewardList(zoneGroup, parentGroup, block.getType());
@@ -27,5 +27,6 @@ public class HandleRewards {
         }
 
         sound.PlaySound(flags, player, location);
+        sound.PlayParticle(player, location);
     }
 }
