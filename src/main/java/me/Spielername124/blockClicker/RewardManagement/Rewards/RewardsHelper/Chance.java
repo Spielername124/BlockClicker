@@ -12,15 +12,25 @@ import java.util.concurrent.ThreadLocalRandom;
 
 public class Chance {
 
-    public static boolean performDropRoll(GlobalFlags flags, double baseChance, ItemStack toolUsed, Player player, Block block, boolean  isLuckLuckDependent){
+    public enum LuckModifierDependence {
+        NORMAL,
+        DISABLED,
+        INVERTED
+    }
 
-        double totalChance = isLuckLuckDependent ? calculatePostModifierChance(baseChance, flags, toolUsed, player, block): baseChance;
+    public static boolean performDropRoll(GlobalFlags flags, double baseChance, ItemStack toolUsed, Player player, Block block, LuckModifierDependence luckModifierDependence){
+        double totalChance= baseChance;
+        if(luckModifierDependence != LuckModifierDependence.DISABLED) {
+            totalChance = luckModifierDependence == LuckModifierDependence.NORMAL ?
+                    calculatePostModifierChance(baseChance, flags, toolUsed, player, block, false)
+                    : calculatePostModifierChance(baseChance, flags, toolUsed, player, block, true);
 
+        }
         double randomRoll = ThreadLocalRandom.current().nextDouble(100.0);
         return randomRoll <= totalChance;
     }
 
-    private static double calculatePostModifierChance(double baseChance, GlobalFlags flags, ItemStack toolUsed, Player player, Block block){
+    private static double calculatePostModifierChance(double baseChance, GlobalFlags flags, ItemStack toolUsed, Player player, Block block, boolean inverted){
         int luckLevel = 0;
         int unluckLevel = 0;
         int fortuneLevel = 0;
@@ -51,17 +61,24 @@ public class Chance {
 
 
 
+        int invert = (inverted) ? -1 : 1;
+
         //calculates and returns the total chance per type of modifier, depending on if they are multiplicative or additive
-        double fortuneModifier = flags.intraModifierMultiplicativity ? Math.pow(flags.fortuneMultiplier,fortuneLevel) : flags.fortuneMultiplier * fortuneLevel;
-        double lootingModifier = flags.intraModifierMultiplicativity ? Math.pow(flags.lootingMultiplier,lootingLevel) : flags.lootingMultiplier * lootingLevel;
+        double fortuneModifier = computeModifier(flags.fortuneMultiplier, fortuneLevel * invert, flags.intraModifierMultiplicativity);
+        double lootingModifier = computeModifier(flags.lootingMultiplier, lootingLevel * invert, flags.intraModifierMultiplicativity);
+        double luckModifier    = computeModifier(flags.luckMultiplier, luckLevel * invert, flags.intraModifierMultiplicativity);
+        double badLuckModifier = computeModifier(flags.badLuckMultiplier, unluckLevel * invert, flags.intraModifierMultiplicativity);
 
-        double luckModifier = flags.intraModifierMultiplicativity ? Math.pow(flags.luckMultiplier, luckLevel) : flags.luckMultiplier * luckLevel;
-        double badLuckModifier = flags.intraModifierMultiplicativity ? Math.pow(flags.badLuckMultiplier, unluckLevel) : flags.badLuckMultiplier * unluckLevel;
+        double totalModifier = flags.interModifierMultiplicativity
+                ? fortuneModifier * lootingModifier * luckModifier * badLuckModifier
+                : fortuneModifier + lootingModifier + luckModifier + badLuckModifier;
 
-        //calculates the total modifier depending on if the submodifier are multiplicative or additive
-        double totalModifier= flags.interModifierMultiplicativity ? fortuneModifier * lootingModifier * luckModifier * badLuckModifier : fortuneModifier + lootingModifier + luckModifier + badLuckModifier;
-
-        //returns an on 0% and 100% capped total chance
         return Math.clamp(baseChance * totalModifier, 0, 100);
+    }
+
+    private static double computeModifier(double baseMultiplier, int effectiveLevel, boolean isMultiplicative) {
+        return isMultiplicative
+                ? Math.pow(baseMultiplier, effectiveLevel)
+                : baseMultiplier * effectiveLevel;
     }
 }

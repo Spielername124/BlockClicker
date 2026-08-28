@@ -12,20 +12,21 @@ import org.bukkit.inventory.ItemStack;
 
 import java.util.Map;
 
+import static me.Spielername124.blockClicker.Helper.MapParser.getLuckModifierDependence;
 
 
 public class ContainerSimpleItem implements ContainerItem {
 
         private final BlockClicker plugin;
         private final double chance;
-        private final boolean isLuckDependent;
+        private final Chance.LuckModifierDependence luckModifierDependence;
         private final DroppedItem item;
 
         public ContainerSimpleItem(BlockClicker plugin, Map<?, ?> rewardData) {
             this.plugin = plugin;
             Number chanceNr = (Number) rewardData.get("chance");
             this.chance = chanceNr != null ? chanceNr.doubleValue() : 100.0;
-            this.isLuckDependent = Boolean.TRUE.equals(rewardData.get("luck-dependence"));
+            luckModifierDependence = getLuckModifierDependence(rewardData,"luck-modifier-dependence", Chance.LuckModifierDependence.NORMAL);
 
             boolean isSpecialItem = Boolean.TRUE.equals(rewardData.get("is-custom"));
             this.item = isSpecialItem ?  new CustomItemDrop(plugin, rewardData) : new NormalItemDrop(rewardData);
@@ -34,7 +35,7 @@ public class ContainerSimpleItem implements ContainerItem {
     @Override
     public ItemStack rollPossibleItem(GlobalFlags flags, Player player, ItemStack toolUsed, Block block, int recursionDepth) {
 
-        if (!Chance.performDropRoll(flags, chance, toolUsed, player, block, isLuckDependent)) {
+        if (!Chance.performDropRoll(flags, chance, toolUsed, player, block, luckModifierDependence)) {
             return null;
         }
         return item.getItem();

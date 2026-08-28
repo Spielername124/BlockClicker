@@ -1,5 +1,7 @@
 package me.Spielername124.blockClicker.Helper;
 
+import me.Spielername124.blockClicker.RewardManagement.Rewards.RewardsHelper.Chance;
+
 import java.util.Collections;
 import java.util.Map;
 
@@ -58,5 +60,17 @@ public final class MapParser {
             return nested;
         }
         return Collections.emptyMap();
+    }
+
+    public static Chance.LuckModifierDependence getLuckModifierDependence(Map<?, ?> map, String key, Chance.LuckModifierDependence defaultValue) {
+        if (map == null) return defaultValue;
+        Object val = map.get(key);
+        if (val == null) return defaultValue;
+
+        try {
+            return Chance.LuckModifierDependence.valueOf(val.toString().trim().toUpperCase());
+        } catch (IllegalArgumentException ignored) {
+            return defaultValue;
+        }
     }
 }

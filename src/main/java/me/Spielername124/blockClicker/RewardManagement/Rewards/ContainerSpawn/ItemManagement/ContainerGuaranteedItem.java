@@ -12,10 +12,12 @@ import org.bukkit.inventory.ItemStack;
 import java.util.List;
 import java.util.Map;
 
+import static me.Spielername124.blockClicker.Helper.MapParser.getLuckModifierDependence;
+
 public class ContainerGuaranteedItem implements ContainerItem {
     private final BlockClicker plugin;
     private final double chance;
-    private final boolean isLuckDependent;
+    private final Chance.LuckModifierDependence luckModifierDependence;
     private final WeightedList<ContainerItem> weightedItemPool = new WeightedList<>();
 
     public ContainerGuaranteedItem(BlockClicker plugin, FileConfiguration config, Map<?, ?> rewardData) {
@@ -24,7 +26,7 @@ public class ContainerGuaranteedItem implements ContainerItem {
         //get the chance
         Number chanceNr = (Number) rewardData.get("chance");
         this.chance = chanceNr != null ? chanceNr.doubleValue() : 100.0;
-        this.isLuckDependent = Boolean.TRUE.equals(rewardData.get("luck-dependence"));
+        luckModifierDependence = getLuckModifierDependence(rewardData,"luck-modifier-dependence", Chance.LuckModifierDependence.NORMAL);
 
         //get all the guaranteed Reward items
         Object rawReward = rewardData.get("guaranteed-reward");
@@ -60,7 +62,7 @@ public class ContainerGuaranteedItem implements ContainerItem {
             return null;
         }
 
-        if (!Chance.performDropRoll(flags, chance, toolUsed, player, block, isLuckDependent)) {
+        if (!Chance.performDropRoll(flags, chance, toolUsed, player, block, luckModifierDependence)) {
             return null;
         }
 

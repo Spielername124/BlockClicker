@@ -23,7 +23,7 @@ public abstract class Reward {
     protected final BlockClicker plugin;
     protected final double chance;
     public final Map<?, ?> rewardData;
-    protected final boolean isLuckDependent;
+    private final Chance.LuckModifierDependence luckModifierDependence;
 
     private final Sound sound;
     private final int soundPriority;
@@ -41,12 +41,12 @@ public abstract class Reward {
 
         Number chanceNr = (Number) rewardData.get("chance");
         chance = chanceNr != null ? chanceNr.doubleValue() : 100;
-        isLuckDependent = Boolean.TRUE.equals(rewardData.get("luck-dependence"));
+        luckModifierDependence = getLuckModifierDependence(rewardData,"luck-modifier-dependence", Chance.LuckModifierDependence.NORMAL);
         this.rewardData = rewardData;
         this.plugin = plugin;
         this.config = config;
 
-        //handle the local flag overwrites
+        //handle the local flag overwrite
         flags = rewardData.get("local-flags") instanceof Map<?, ?> localFlags ?
                 new GlobalFlags(plugin.flags, localFlags):
                 plugin.flags;
@@ -65,8 +65,7 @@ public abstract class Reward {
     public final void rollAndExecute(Player player, Location location, RewardSoundAndParticle soundAndParticle, ItemStack toolUsed, Block block, EventWideFlags eventWideFlags) {
 
         //roll if the reward is granted, return if not
-        if(!Chance.performDropRoll(flags, chance, toolUsed, player, block, isLuckDependent))
-            return;
+        if(!Chance.performDropRoll(flags, chance, toolUsed, player, block, luckModifierDependence)) return;
 
         execute(player, location, flags, soundAndParticle, toolUsed, block, eventWideFlags);
 
