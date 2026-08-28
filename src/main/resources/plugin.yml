@@ -8,7 +8,7 @@ load: POSTWORLD
 commands:
   blockclicker:
     description: Main command for managing BlockClicker.
-    aliases: [bc]
+    aliases: [bc, blc]
     permission: blockclicker.admin
     usage: /<command> <saveitem|reload>
 

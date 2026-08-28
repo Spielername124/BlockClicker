@@ -1,11 +1,11 @@
 This Documentation is currently work in Progress. Things might be missing and are subject to change :)
 
 Commands:
-    - bc reload: reloads the config
-    - bc saveItem <customName> (<MaxStacksize>): saves the item you currently hold in the main hand. IMPORTANT! The name is not allowed to match a material type/ tool type. (max stack size is optional)
-    - bc giveItem <CustomName>: gives the player the saved itemStack
-    - bc getMetaData: returns if the item currently hold in the main hand has a saved toolId
-    - bc spawnMob <EntityType> <mobId> ([world] x y z) spawns a mob with the plugin internal id tag i.e. following the defined mob loot table. if the command is made by a player, omitting the arguments in the Brackets will spawn the mob at the location of the player. Omitting the argument in the curly bracket, will spawn the entity at the given coordinates in the same world as the player
+    - blc reload: reloads the config
+    - blc saveItem <customName> (<MaxStacksize>): saves the item you currently hold in the main hand. IMPORTANT! The name is not allowed to match a material type/ tool type. (max stack size is optional)
+    - blc giveItem <CustomName>: gives the player the saved itemStack
+    - blc getMetaData: returns if the item currently hold in the main hand has a saved toolId
+    - blc spawnMob <EntityType> <mobId> ([world] x y z) spawns a mob with the plugin internal id tag i.e. following the defined mob loot table. if the command is made by a player, omitting the arguments in the Brackets will spawn the mob at the location of the player. Omitting the argument in the curly bracket, will spawn the entity at the given coordinates in the same world as the player
 
   "global-flags":
     Here you can set global flags that generally count plugin wide.
