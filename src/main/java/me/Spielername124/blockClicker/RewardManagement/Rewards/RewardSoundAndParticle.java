@@ -57,6 +57,7 @@ public class RewardSoundAndParticle {
     }
 
     public void PlayParticle(Player player, Location BlockLocation){
+        if(particle == null) return;
         //gets the location
         Location location = BlockLocation;
         if(particleOnPlayer){
