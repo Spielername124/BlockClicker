@@ -198,6 +198,12 @@ There are the following types of rewards, and it's subpoints:
 
         executed-by-player: is by default false. If this is set to true, the command gets executed from the player, e.g. is restricted to use their permissions. If omitted or false, the command is executed by the console
 
+    entity: <entityName>           spawns a given entity
+        on_player: true            if set to true,the entity will spawn on the player, else at the reward location
+
+        for tnt, there are two additional configurable things, which are by default on minecrafts default:
+        fuseTicks: 30          sets the time for the tnt to fuse
+        yield: 100             sets the yield of the tnt
 
  And here are some random Information, that I was not sure where to include but still might be important:
     - generally only one container can be rewarded in the same drop. It should be the first one which drops, (since the plugin generally reads the config from the top to the bottom, the one defined higher [you have to read the container loot etc. in the line they are called])

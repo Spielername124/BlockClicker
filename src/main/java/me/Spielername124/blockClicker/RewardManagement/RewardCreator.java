@@ -3,6 +3,7 @@ package me.Spielername124.blockClicker.RewardManagement;
 import me.Spielername124.blockClicker.RewardManagement.Rewards.CommandExecution.CommandExecution;
 import me.Spielername124.blockClicker.RewardManagement.Rewards.ContainerSpawn.ContainerDrop;
 import me.Spielername124.blockClicker.RewardManagement.Rewards.Effects.EffectReward;
+import me.Spielername124.blockClicker.RewardManagement.Rewards.Entity.EntitySpawn;
 import me.Spielername124.blockClicker.RewardManagement.Rewards.GuaranteedReward.GuaranteedReward;
 import me.Spielername124.blockClicker.RewardManagement.Rewards.ItemDrop.ItemDrop;
 import me.Spielername124.blockClicker.RewardManagement.Rewards.MobSpawn.MobSpawn;
@@ -33,6 +34,8 @@ public class RewardCreator {
                         return new GuaranteedReward(plugin, config, rewardData, 0);
                     case "set_block":
                         return new SetBlock(plugin, config, rewardData);
+                    case "entity":
+                        return new EntitySpawn(plugin, config, rewardData);
                 }
             }
         }

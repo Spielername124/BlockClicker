@@ -233,6 +233,15 @@ dirtArea:
       - command: "summon lightning_bolt %blockXValue% %blockYValue% %blockZValue%"
         chance: 10
 
+      #spawns an Entity. This works for living and non-living entities, but to spawn living entities, you should use "mob", because it can be configured in more details
+      - entity: "TNT"
+        on_player: true #if set to true,the entity will spawn on the player, else at the reward location
+        #both of the following modifiers are tnt exclusive
+        #sets the time to explode for the tnt
+        fuseTicks: 30
+        #sets the tnt yield
+        yield: 100
+
       - mob: "WANDERING_TRADER"
         display-name: "Master Trader Bob"
         chance: 100
