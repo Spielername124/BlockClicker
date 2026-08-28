@@ -96,6 +96,23 @@ Rewards:
     local-flags: allows you to overwrite your global flags localy. i.e. for example: deposit-to-inventory: true, while it globaly is set on false, makes that only this item gets depositied directly to the inventory, whilst all other items still folow the global flag. Local flags that are not set will default back to the set global flag.
       <flagLikeDoneInGlobalFlags>: <flag value>
 
+    particle-priority: <int>        sets the particle priority, default 0
+    particle-on-player: false       if true the particles spawn pre offset on the players position else they spawn at the reward location
+    type: <ParticleType>            sets the particle type
+    count: <int>                    sets the amount of particles, defaults to 10
+    speed: <double>                 changes the speed of the particles, default 0.05
+    offset:                         sets the offset of the particles
+      x: <double>
+      y: <double>
+      z: <double>
+
+    color:                          sets the size and color of the particles
+      red: <int>
+      green: <int>
+      blue: <int>
+      size: <double>                defaults to 1
+
+
 
 There are the following types of rewards, and it's subpoints:
     item: "<item name>" (<item name> is either: a Minecraft item, a custom item, or "xp" for xp points)
