@@ -107,8 +107,11 @@ public class ContainerDrop extends Reward {
 
 
             // get the Chest Inventory
-            org.bukkit.block.Container containerState = (org.bukkit.block.Container) block.getState();
-            Inventory containerInventory = containerState.getInventory();
+            if (!(block.getState() instanceof org.bukkit.inventory.InventoryHolder holder)) {
+                plugin.getLogger().warning("[BlockClicker] The material " + material.name() + " is not a valid inventory holder!");
+                return;
+            }
+            Inventory containerInventory = holder.getInventory();
 
             //create the list of free inventory space
             LinkedList<Integer> freeContainerSlots = ContainerHelper.possibleContainerSlots(containerInventory.getSize(), shuffledSlots);
