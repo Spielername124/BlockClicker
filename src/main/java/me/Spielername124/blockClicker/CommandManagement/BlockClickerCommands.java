@@ -2,6 +2,7 @@ package me.Spielername124.blockClicker.CommandManagement;
 
 import me.Spielername124.blockClicker.CommandManagement.Commands.CustomItemCommands;
 import me.Spielername124.blockClicker.CommandManagement.Commands.CustomMobCommand;
+import me.Spielername124.blockClicker.CommandManagement.Commands.HelpCommand;
 import me.Spielername124.blockClicker.CommandManagement.Commands.ReloadCommand;
 import me.Spielername124.blockClicker.BlockClicker;
 import org.bukkit.command.Command;
@@ -46,6 +47,8 @@ public class BlockClickerCommands implements CommandExecutor {
 
             case "spawnmob":
                 return CustomMobCommand.spawnMob(sender, args);
+            case "help":
+                return HelpCommand.help(sender);
 
             default:
                 sender.sendMessage("Unknown subcommand");
