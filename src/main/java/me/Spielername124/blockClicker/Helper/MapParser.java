@@ -40,6 +40,18 @@ public final class MapParser {
         return defaultValue;
     }
 
+    public static float getFloat(Map<?, ?> map, String key, float defaultValue) {
+        if (map == null) return defaultValue;
+        Object val = map.get(key);
+        if (val instanceof Number num) {
+            return num.floatValue();
+        }
+        if (val instanceof String str) {
+            try { return Float.parseFloat(str.trim()); } catch (NumberFormatException ignored) {}
+        }
+        return defaultValue;
+    }
+
     public static boolean getBoolean(Map<?, ?> map, String key, boolean defaultValue) {
         if (map == null) return defaultValue;
         Object val = map.get(key);

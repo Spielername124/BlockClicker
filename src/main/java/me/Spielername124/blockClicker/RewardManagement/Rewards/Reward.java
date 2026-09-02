@@ -79,13 +79,15 @@ public abstract class Reward {
     private Sound getSoundFromConfig(Map<?, ?> rewardData){
         //set the sound data for the reward
         String soundSt = (String) rewardData.get("sound");
+        float soundVolume = getFloat(rewardData, "sound-volume", 1.0f);
+        float soundPitch = getFloat(rewardData, "sound-pitch", 1.0f);
 
         if (soundSt == null || soundSt.isBlank()) {
             return null;
         }
         try {
             Key soundKey = Key.key(soundSt.trim().toLowerCase());
-            return Sound.sound(soundKey, Sound.Source.MASTER, 1.0f, 1.0f);
+            return Sound.sound(soundKey, Sound.Source.MASTER, soundVolume, soundPitch);
         } catch (InvalidKeyException e) {
             plugin.getLogger().severe("The sound '" + soundSt + "' in your config has invalid characters!");
             return null;

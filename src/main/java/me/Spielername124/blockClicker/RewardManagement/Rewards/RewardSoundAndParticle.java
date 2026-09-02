@@ -14,7 +14,6 @@ public class RewardSoundAndParticle {
     private Sound sound;
     private int currentSoundPriority =-1;
 
-    private Location particleLocation;
     private int currentParticlePriority =-1;
     private ParticleBuilder particle;
     private boolean particleOnPlayer;
@@ -34,7 +33,7 @@ public class RewardSoundAndParticle {
 
     public void setParticle(ParticleBuilder newParticle, int priority, boolean onPlayer){
         if(newParticle == null) return;
-        if(priority <= currentSoundPriority) return;
+        if(priority <= currentParticlePriority) return;
 
         this.particle = newParticle;
         this.currentParticlePriority = priority;
