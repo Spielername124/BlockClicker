@@ -41,6 +41,7 @@ public class ContainerDrop extends Reward {
             plugin.getLogger().warning("[Config Error] Container definition for '" + containerName + "' could not be found.");
             return;
         }
+
         //get the type of container that should be spawned
         String materialString = containerSection.getString("container-type");
         if(materialString==null) materialString="";

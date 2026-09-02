@@ -32,33 +32,31 @@ public class GuaranteedReward extends Reward {
         Amount tempAmount = new Amount(1);
 
         //create the lootPool on creation of this instance
-        Object rawReward = rewardData.get("guaranteed-reward");
 
-        if (rawReward instanceof Map<?,?> reward) {
 
-            Object rawAmountMap = reward.get("number_of_rewards");
-            if(rawAmountMap instanceof Map<?,?> amountMap) {
-                tempAmount  = new Amount(amountMap);
-            }
+        Object rawAmountMap = rewardData.get("number-of-rewards");
+        if(rawAmountMap instanceof Map<?,?> amountMap) {
+            tempAmount  = new Amount(amountMap);
+        }
 
-            Object rawList = reward.get("rewards");
-            if (rawList instanceof List) {
-                for (Object obj : (List<?>) rawList) {
-                    if (obj instanceof Map<?, ?> innerData) {
+        Object rawList = rewardData.get("rewards");
+        if (rawList instanceof List) {
+            for (Object obj : (List<?>) rawList) {
+                if (obj instanceof Map<?, ?> innerData) {
 
-                        //create the rewards
-                        Reward compiledReward = RewardCreator.createReward(plugin, config, innerData);
+                    //create the rewards
+                    Reward compiledReward = RewardCreator.createReward(plugin, config, innerData);
 
-                        if (compiledReward != null) {
-                            // Extract and cache the weight
-                            Number weightNr = (Number) innerData.get("weight");
-                            double weight = weightNr != null ? weightNr.doubleValue() : 1.0;
-                            weightedRewardPool.addElement(compiledReward, weight);
-                        }
+                    if (compiledReward != null) {
+                        // Extract and cache the weight
+                        Number weightNr = (Number) innerData.get("weight");
+                        double weight = weightNr != null ? weightNr.doubleValue() : 1.0;
+                        weightedRewardPool.addElement(compiledReward, weight);
                     }
                 }
             }
         }
+
         //sets the temporary amount as the final amount
         amount = tempAmount;
     }

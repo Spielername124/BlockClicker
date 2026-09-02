@@ -35,7 +35,7 @@ public class Trader extends SpawnableMob{
 
 
         //get the amounts of trades
-        amount = (rewardData.get("number_of_trades") instanceof  Map<?, ?> amountMap) ?
+        amount = (rewardData.get("number-of-trades") instanceof  Map<?, ?> amountMap) ?
                 new Amount(amountMap):
                 new Amount(Integer.MAX_VALUE);
 

@@ -16,7 +16,7 @@ public class CustomItemCommands {
             sender.sendMessage("Can only be used by players");
             return true;
         }
-        if (args.length <= 2) {
+        if (args.length < 2) {
             sender.sendMessage("Item not saved, you need to provide a Item name");
             return true;
         }

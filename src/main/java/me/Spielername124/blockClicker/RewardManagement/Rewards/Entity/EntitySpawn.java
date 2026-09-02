@@ -37,6 +37,9 @@ public class EntitySpawn extends Reward {
         onPlayer= getBoolean(rewardData, "on_player", false);
         //defaults to Minecraft's default value
         fuseTicks = getInt(rewardData, "fuseTicks", -1);
+
+
+
         this.yield = (float) getDouble(rewardData, "yield", 4.0);
     }
 
