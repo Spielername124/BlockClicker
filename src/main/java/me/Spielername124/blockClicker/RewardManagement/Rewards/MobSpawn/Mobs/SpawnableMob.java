@@ -88,11 +88,17 @@ public abstract class SpawnableMob {
                     customMobId
             );
         }
+        // gets the mob height
+        int requiredHeightBlocks = (int) Math.ceil(spawnedMob.getHeight());
+        //goes through all the mobs blocks (in height) and makes them to air to prevent suffocation
+        for (int i = 1; i < requiredHeightBlocks; i++) {
+            Location checkLoc = location.clone().add(0, i, 0);
+            Block checkBlock = checkLoc.getBlock();
 
-        Location locationOnYPlus1 = new Location(location.getWorld(),  location.getX(), location.getY()+1, location.getZ());
-        if(plugin.zoneCache.isAllowedToBeManipulated(locationOnYPlus1)){
-            Block blockOnZPlus1 = locationOnYPlus1.getBlock();
-            blockOnZPlus1.setType(Material.AIR);
+            // Only clear the block if it is solid/collidable and region permissions allow it
+            if (!checkBlock.isPassable() && plugin.zoneCache.isAllowedToBeManipulated(checkLoc)) {
+                checkBlock.setType(Material.AIR);
+            }
         }
 
         // removes the entity after its ttl if a ttl is specified
