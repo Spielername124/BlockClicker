@@ -52,7 +52,7 @@ Commands:
 
         and then you simply list rewards like you do for standard loot tables as if you were in the hierarchy under a block
 
-  set_block: <block_Id> sets a <block_id> type block
+  set-block: <block_Id> sets a <block_id> type block
      on_player: <Boolean> if set to true, the block is set on the players feet. Else it is set at the removed block/ location of the mob
 
 

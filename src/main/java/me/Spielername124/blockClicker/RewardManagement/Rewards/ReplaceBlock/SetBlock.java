@@ -20,7 +20,7 @@ public class SetBlock extends Reward {
 
     public SetBlock(BlockClicker plugin, FileConfiguration config, Map<?, ?> rewardData) {
         super(plugin, config, rewardData);
-        String  materialString = (String) rewardData.get("set_block");
+        String  materialString = (String) rewardData.get("set-block");
         if(materialString==null){
             plugin.getLogger().warning("Invalid block block material!");
             materialString="";

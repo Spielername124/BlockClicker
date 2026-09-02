@@ -32,7 +32,7 @@ public class RewardCreator {
                         return new CommandExecution(plugin, config, rewardData);
                     case "guaranteed-reward":
                         return new GuaranteedReward(plugin, config, rewardData, 0);
-                    case "set_block":
+                    case "set-block":
                         return new SetBlock(plugin, config, rewardData);
                     case "entity":
                         return new EntitySpawn(plugin, config, rewardData);
