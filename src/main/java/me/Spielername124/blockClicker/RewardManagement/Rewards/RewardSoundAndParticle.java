@@ -15,7 +15,7 @@ public class RewardSoundAndParticle {
     private int currentSoundPriority =-1;
 
     private Location particleLocation;
-    private int currentParticlePriority;
+    private int currentParticlePriority =-1;
     private ParticleBuilder particle;
     private boolean particleOnPlayer;
 
@@ -63,6 +63,9 @@ public class RewardSoundAndParticle {
         if(particleOnPlayer){
             if(player == null) return;
             location = player.getLocation();
+        }
+        else {
+            location = location.clone().add(0.5, 0.5, 0.5);
         }
 
         //spawns the particle
