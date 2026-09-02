@@ -76,8 +76,8 @@ public class ContainerDrop extends Reward {
         }
 
         //don't create a chest if this drop already spawned a chest
-        if(!eventWideFlags.blocksHaveBeenManipulated) {
-            eventWideFlags.blocksHaveBeenManipulated = true;
+        if(!eventWideFlags.blockOnRewardLocationHasBeenManipulated) {
+            eventWideFlags.blockOnRewardLocationHasBeenManipulated = true;
             // perform the Chest creation
 
             //check if the block is allowed to be manipulated

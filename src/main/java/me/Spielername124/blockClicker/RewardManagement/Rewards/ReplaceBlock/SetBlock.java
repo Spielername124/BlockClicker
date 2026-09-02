@@ -36,13 +36,20 @@ public class SetBlock extends Reward {
 
     @Override
     protected void execute(Player player, Location location, GlobalFlags flags, RewardSoundAndParticle sound, ItemStack toolUsed, Block block, EventWideFlags eventWideFlags) {
-        if(!onPlayer){
+
+        if(!onPlayer &!eventWideFlags.blockOnRewardLocationHasBeenManipulated){
+            //sets the manipulation flag
+            eventWideFlags.blockOnRewardLocationHasBeenManipulated = true;
+
             plugin.getServer().getScheduler().runTask(plugin, () -> {
 
                 block.setType(material);
             });
+
         }
-        else{
+        else if (!eventWideFlags.blockOnPlayerHasBeenManipulated){
+            //sets the manipulation flag
+            eventWideFlags.blockOnPlayerHasBeenManipulated = true;
             //sets the block on the player
             player.getLocation().getBlock().setType(material);
         }

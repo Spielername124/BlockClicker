@@ -10,10 +10,8 @@ import org.bukkit.Material;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.attribute.AttributeInstance;
 import org.bukkit.block.Block;
-import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.LivingEntity;
-import org.bukkit.inventory.ItemStack;
 import org.bukkit.persistence.PersistentDataType;
 
 import java.util.Map;
@@ -52,9 +50,9 @@ public abstract class SpawnableMob {
             return null;
         }
         // make mob spawning mutually exclusive with container spawns
-        if(eventWideFlags.blocksHaveBeenManipulated)
+        if(eventWideFlags.blockOnRewardLocationHasBeenManipulated)
             return null;
-        eventWideFlags.blocksHaveBeenManipulated = true;
+        eventWideFlags.blockOnRewardLocationHasBeenManipulated = true;
 
         //center the mob spawn so that mobs don't spawn on the edge of the block
         Location spawnLoc = location.clone();

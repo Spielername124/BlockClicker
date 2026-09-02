@@ -1,9 +1,11 @@
 package me.Spielername124.blockClicker;
 
 public class EventWideFlags {
-    public boolean blocksHaveBeenManipulated;
+    public boolean blockOnRewardLocationHasBeenManipulated;
+    public boolean blockOnPlayerHasBeenManipulated;
 
     public EventWideFlags(){
-        blocksHaveBeenManipulated=false;
+        blockOnRewardLocationHasBeenManipulated =false;
+        blockOnPlayerHasBeenManipulated = false;
     }
 }
