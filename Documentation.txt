@@ -106,7 +106,7 @@ Rewards:
       y: <double>
       z: <double>
 
-    color: "<#FFFFFF>" sets dust to the selected color
+    color: "<#FFFFFF>" sets dust to the selected color (does only work for dust particles)
 
 
 
@@ -191,6 +191,7 @@ There are the following types of rewards, and it's subpoints:
                 - "%blockXValue%" -> gets the X value of the broken block
                 - "%blockYValue%" -> gets the Y value of the broken block
                 - "%blockZValue%" -> gets the Z value of the broken block
+                - "%player%" -> sets the player that made the kill/ broke the block
 
         executed-by-player: is by default false. If this is set to true, the command gets executed from the player, e.g. is restricted to use their permissions. If omitted or false, the command is executed by the console
 

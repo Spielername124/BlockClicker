@@ -45,11 +45,15 @@ public class CommandExecution extends Reward {
         if(processedPAPICommand.startsWith("/"))
             processedPAPICommand = processedPAPICommand.substring(1);
 
+        //make null safety for the player
+        String playerName = player != null? player.getName(): "";
+
         //replace the block location in the command
         String finalCommand = processedPAPICommand
                 .replace("%blockXValue%", String.valueOf(location.getBlockX()))
                 .replace("%blockYValue%", String.valueOf(location.getBlockY()))
-                .replace("%blockZValue%", String.valueOf(location.getBlockZ()));
+                .replace("%blockZValue%", String.valueOf(location.getBlockZ()))
+                .replace("%player%",  playerName);
 
         //Dispatch the command by either the console or the player
         if(isExecutedByPlayer){
