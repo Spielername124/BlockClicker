@@ -53,7 +53,7 @@ Commands:
         and then you simply list rewards like you do for standard loot tables as if you were in the hierarchy under a block
 
   set-block: <block_Id> sets a <block_id> type block
-     on_player: <Boolean> if set to true, the block is set on the players feet. Else it is set at the removed block/ location of the mob
+     on-player: <Boolean> if set to true, the block is set on the players feet. Else it is set at the removed block/ location of the mob
 
 
 Now we look at the heart of this whole plugin: The actual mechanic to define and configure the possible rewards for breaking blocks.
@@ -199,7 +199,7 @@ There are the following types of rewards, and it's subpoints:
         executed-by-player: is by default false. If this is set to true, the command gets executed from the player, e.g. is restricted to use their permissions. If omitted or false, the command is executed by the console
 
     entity: <entityName>           spawns a given entity
-        on_player: true            if set to true,the entity will spawn on the player, else at the reward location
+        on-player: true            if set to true,the entity will spawn on the player, else at the reward location
 
         for tnt, there are two additional configurable things, which are by default on minecrafts default:
         fuseTicks: 30          sets the time for the tnt to fuse

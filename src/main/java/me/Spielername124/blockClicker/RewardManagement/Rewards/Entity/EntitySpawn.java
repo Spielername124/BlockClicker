@@ -34,7 +34,7 @@ public class EntitySpawn extends Reward {
             plugin.getLogger().warning("[BlockClicker] Unknown entity type: " + typeStr);
         }
 
-        onPlayer= getBoolean(rewardData, "on_player", false);
+        onPlayer= getBoolean(rewardData, "on-player", false);
         //defaults to Minecraft's default value
         fuseTicks = getInt(rewardData, "fuseTicks", -1);
 

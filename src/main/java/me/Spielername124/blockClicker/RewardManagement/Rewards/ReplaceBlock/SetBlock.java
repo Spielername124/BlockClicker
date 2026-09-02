@@ -27,7 +27,7 @@ public class SetBlock extends Reward {
         }
 
         //gets whether the block is placed on the player or the location of the removed block
-        Object rawOnPlayer = rewardData.get("on_player");
+        Object rawOnPlayer = rewardData.get("on-player");
         onPlayer = rawOnPlayer != null && (boolean) rawOnPlayer;
         material = Material.matchMaterial(materialString) != null ? Material.matchMaterial(materialString) : Material.AIR ;
 
