@@ -98,7 +98,7 @@ Rewards:
 
     particle-priority: <int>        sets the particle priority, default 0
     particle-on-player: false       if true the particles spawn pre offset on the players position else they spawn at the reward location
-    type: <ParticleType>            sets the particle type
+    particle: <ParticleType>            sets the particle type
     count: <int>                    sets the amount of particles, defaults to 10
     speed: <double>                 changes the speed of the particles, default 0.05
     offset:                         sets the offset of the particles
@@ -106,11 +106,7 @@ Rewards:
       y: <double>
       z: <double>
 
-    color:                          sets the size and color of the particles
-      red: <int>
-      green: <int>
-      blue: <int>
-      size: <double>                defaults to 1
+    color: "<#FFFFFF>" sets dust to the selected color
 
 
 
@@ -202,7 +198,7 @@ There are the following types of rewards, and it's subpoints:
         on-player: true            if set to true,the entity will spawn on the player, else at the reward location
 
         for tnt, there are two additional configurable things, which are by default on minecrafts default:
-        fuseTicks: 30          sets the time for the tnt to fuse
+        fuse-ticks: 30          sets the time for the tnt to fuse
         yield: 100             sets the yield of the tnt
 
  And here are some random Information, that I was not sure where to include but still might be important:

@@ -36,7 +36,7 @@ public class EntitySpawn extends Reward {
 
         onPlayer= getBoolean(rewardData, "on-player", false);
         //defaults to Minecraft's default value
-        fuseTicks = getInt(rewardData, "fuseTicks", -1);
+        fuseTicks = getInt(rewardData, "fuse-ticks", -1);
 
 
 

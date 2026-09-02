@@ -97,7 +97,7 @@ public abstract class Reward {
     private ParticleBuilder getParticleFromConfig(Map<?, ?> rewardData){
         if (rewardData==null) return null;
 
-        String particleTypeName = getString(rewardData, "type",null);
+        String particleTypeName = getString(rewardData, "particle",null);
         Particle particleType;
 
         if (particleTypeName == null) return null;
@@ -120,16 +120,29 @@ public abstract class Reward {
                     getDouble(offsetMap, "z", 0.0)
             );
         }
-        if (particleType == Particle.DUST && rewardData.get("color") instanceof Map<?, ?> colorMap) {
-            int r = getInt(colorMap, "red", 255);
-            int g = getInt(colorMap, "green", 0);
-            int b = getInt(colorMap, "blue", 0);
-            float size = (float) getDouble(colorMap, "size", 1.0);
+        if (particleType == Particle.DUST) {
+            String hexColor = getString(rewardData, "color", "#FFFFFF");
+            Color color = parseHexColor(hexColor);
+            float size = (float) getDouble(rewardData, "size", 1.0);
 
-            builder.data(new Particle.DustOptions(Color.fromRGB(r, g, b), size));
+            builder.data(new Particle.DustOptions(color, size));
         }
 
         return builder;
+    }
+
+    private Color parseHexColor(String hex) {
+        if (hex == null || hex.isBlank()) return Color.WHITE;
+
+        hex = hex.replace("#", "").trim();
+
+        try {
+            int rgb = Integer.parseInt(hex, 16);
+            return Color.fromRGB(rgb);
+        } catch (NumberFormatException e) {
+            plugin.getLogger().warning("Ungültiger Hex-Farbcode in der Config: " + hex);
+            return Color.WHITE;
+        }
     }
 }
 
