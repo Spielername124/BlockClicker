@@ -23,21 +23,32 @@ public class Trade {
 
         //prevent inputs from having 0 as amount (which would make them invalid item stacks for trading)
         ItemStack localInput1 = input1.getItem();
-        if(localInput1.getAmount() == 0) localInput1=null;
-        ItemStack localInput2 = input2.getItem();
-        if(localInput2.getAmount() == 0) localInput2=null;
+        if(localInput1.getAmount() == 0) localInput1 =null;
+
+        ItemStack localInput2 = null;
+        if(input2!=null) {
+            localInput2 = input2.getItem();
+            if (localInput2 == null || (localInput2.getAmount()) == 0) localInput2 = null;
+        }
+
+        if(localInput1 == null && localInput2 != null) {
+            localInput1 = localInput2;
+            localInput2 = null;
+        }
 
         //fallback if both inputs are null because they have an amount of 0
-        localInput1 = input1.getItemStack();
-        localInput1.setAmount(1);
+        if(localInput1 == null && localInput2 == null) {
+            localInput1 = input1.getItemStack();
+            localInput1.setAmount(1);
+        }
 
         MerchantRecipe recipe = new MerchantRecipe(output.getItem(),maxUses);
         recipe.addIngredient(localInput1);
-        if (input2 != null) {
-            ItemStack input2Stack = input2.getItem();
-            if (input2Stack != null)
-                recipe.addIngredient(input2Stack);
+
+        if (localInput2 != null) {
+            recipe.addIngredient(localInput2);
         }
+
         return recipe;
 
     }

@@ -156,8 +156,6 @@ tool-groups:
       - "golden_pickaxe"
   default:
     always-possible: true
-  traderTier:
-    always-possible: true
 
 
 
@@ -515,54 +513,16 @@ cobbleclicker:
               amount: 1
             input1:
               item: "IRON_INGOT"
-              amount-lower-bound: 6
-              amount-upper-bound: 9
+              amount-lower-bound: 0
+              amount-upper-bound: 6
+            input2:
+              item: "COBBLED_DEEPSLATE"
+              amount-lower-bound: 0
+              amount-upper-bound: 6
 
-          - max-uses: 16
-            output:
-              item: "DIAMOND"
-              amount: 1
-            input1:
-              item: "GOLD_INGOT"
-              amount-lower-bound: 6
-              amount-upper-bound: 9
-
-          - max-uses: 16
-            output:
-              item: "COPPER_NUGGET"
-              amount-lower-bound: 1
-              amount-upper-bound: 4
-            input1:
-              item: "VINE"
-              amount-lower-bound: 32
-              amount-upper-bound: 64
-
-          - max-uses: 16
-            output:
-              item: "RAW_IRON"
-              amount: 1
-            input1:
-              item: "IRON_INGOT"
-              amount: 1
-
-          - max-uses: 16
-            output:
-              item: "RAW_GOLD"
-              amount: 1
-            input1:
-              item: "GOLD_INGOT"
-              amount: 1
-
-          - max-uses: 16
-            output:
-              item: "ANCIENT_DEBRIS"
-              amount: 1
-            input1:
-              item: "NETHERITE_SCRAP"
-              amount: 1
         number_of_trades:
-          amount: 256
-
+          amount-lower-bound: 1
+          amount-upper-bound: 2
 
 
 
@@ -594,8 +554,5 @@ mob-loot:
     drops: []
 
   vindicator:
-    allows-natural-drops: false
-    drops: []
-  schwarzmarktHändler:
     allows-natural-drops: false
     drops: []
