@@ -1,7 +1,7 @@
 global-flags:
   #this flags set if it should be possible to receive drops from multiple zone groups / usage of different tool Groups
   #if this is set to true, only the first possible match of each is going to be used in the drop roll
-  mutually-exclusive-tools: true
+  mutually-exclusive-tools: false
   mutually-exclusive-regions: true
   #setting to decide whether Items are dropped (false) or deposited directly to the players inventory
   deposit-to-inventory: false
@@ -20,270 +20,582 @@ global-flags:
 
 #define the groups of world guard regions, that share a lootable
 zone-groups:
-  dirtArea:
-    #list your regions
+  cobbleclicker:
     region-ids:
-      - "clickerzone"
-  default:
-    #setting this flag enables the loot table of this group everywhere
-    everywhere: true
+      - "cobblebox"
 
 manipulation-allowed-areas:
-  - "clickerzone"
+  - "cobblebox"
+
+### CONTAINER
+findable-containers:
+  pottery:
+    container-type: "DECORATED_POT"
+  chest:
+    container-type: "CHEST"
+    shuffle: true
+    loot:
+      - item: "DIAMOND"
+        chance: 5.0
+        amount: 1
+
+      - item: "EMERALD"
+        chance: 10.0
+        amount-lower-bound: 1
+        amount-upper-bound: 3
+
+      - item: "NETHERITE_SCRAP"
+        chance: 1.0
+        amount: 1
+
+      - item: "REDSTONE_BLOCK"
+        chance: 15.0
+        amount-lower-bound: 1
+        amount-upper-bound: 2
+
+      - item: "LAPIS_BLOCK"
+        chance: 15.0
+        amount-lower-bound: 1
+        amount-upper-bound: 2
+
+      - item: "EXPERIENCE_BOTTLE"
+        chance: 50.0
+        amount-lower-bound: 5
+        amount-upper-bound: 25
+
+      - item: "IRON_NUGGET"
+        chance: 70.0
+        amount-lower-bound: 1
+        amount-upper-bound: 48
+
+      - item: "GOLD_NUGGET"
+        chance: 25.0
+        amount-lower-bound: 1
+        amount-upper-bound: 32
+
+      - item: "COPPER_NUGGET"
+        chance: 95.0
+        amount-lower-bound: 8
+        amount-upper-bound: 64
+
+      - item: "COPPER_SPEAR"
+        chance: 15.0
+        amount: 1
+        enchantment:
+          - type: "smite"
+            amount: 1
+
+      - item: "SHIELD"
+        chance: 3.0
+        amount: 1
+
+      - item: "TOTEM_OF_UNDYING"
+        chance: 40.0
+        amount: 1
+
+      - item: "LADDER"
+        chance: 80.0
+        amount-lower-bound: 8
+        amount-upper-bound: 32
+
+      - item: "TORCH"
+        chance: 80.0
+        amount-lower-bound: 4
+        amount-upper-bound: 32
+
+      - item: golden_pickaxe
+        is-custom: true
+        chance: 30.0
+        amount: 1
+        enchantment:
+          - type: "fortune"
+            amount: 3
+          - type: "efficiency"
+            amount: 3
+          - type: "durability"
+            amount: 1
+
+      - item: "CAKE"
+        chance: 75.0
+        amount: 1
+
+      - item: "SNOWBALL"
+        chance: 50.0
+        amount-lower-bound: 1
+        amount-upper-bound: 2
+
+      - item: "GOLDEN_APPLE"
+        chance: 80.0
+        amount: 1
+
+      - item: "COOKIE"
+        chance: 75.0
+        amount-lower-bound: 1
+        amount-upper-bound: 32
+
+      - item: "AXOLOTL_BUCKET"
+        chance: 8.0
+        amount: 1
+
+### TOOL GRUPPEN
 
 #Define groups of tools to make drops individualized to certain tools
 #Important: If tools are in multiple groups, they will drop loot from all the lists they are in.
 tool-groups:
   #you can also use any of your defined custom items as tools
-  shovels:
+  tier1_copper:
     tools:
-      - "DIAMOND_SHOVEL"
-      - "WOODEN_SHOVEL"
-      #- "oldShovel"
+      - "copper_pickaxe"
+      - "stone_pickaxe"
+  tier2_iron:
+    tools:
+      - "iron_pickaxe"
+  tier3_diamond:
+    tools:
+      - "diamond_pickaxe"
+      - "golden_pickaxe"
   default:
     always-possible: true
-
-findable-containers:
-  normal-chest:
-    container-type: "BARREL"
-    shuffle: true
-    loot: #list the reward with a "-" followed by the reward specific details
-      - item: "CLAY_BALL"
-        amount: 64
-        chance: 1
-      - item: "DIAMOND"
-        amount-lower-bound: 1
-        amount-upper-bound: 10
-
-  smelting-furnace:
-    container-type: FURNACE
-    shuffle: false
-    loot:
-      #guarantees that one of th listed rewards gets dropped. If used for container Items, all possible rewards must be items.
-      # "-" always indicates a new reward
-      # one of this sub rewards is picked, this works by adding all weights and then randomly picking one of the items --> the higher the proportional weight to the other elements, the likelier.
-      - guaranteed-reward:
-          rewards:
-            - item: RAW_IRON
-              weight: 10 # weight is by default set to 1, but can be a arbitrary double value
-              amount-lower-bound: 2
-              amount-upper-bound: 6
-            - item: RAW_GOLD
-              weight: 5
-              amount-lower-bound: 1
-              amount-upper-bound: 4
-            - item: RAW_COPPER
-              weight: 15
-              amount-lower-bound: 4
-              amount-upper-bound: 12
-      - guaranteed-reward:
-          rewards:
-            - item: COAL
-              weight: 20
-              amount-lower-bound: 5
-              amount-upper-bound: 15
-            - item: CHARCOAL
-              weight: 10
-              amount-lower-bound: 5
-              amount-upper-bound: 15
-            - item: OAK_LOG
-              weight: 5
-              amount-lower-bound: 2
-              amount-upper-bound: 8
-
-mob-loot:
-  #define the table for one of your mob id's
-  guard:
-    #by default true, if false prevents natural loot drops from occurring (for example blaze rods from blazes
-    "allows-natural-drops": false
-    #define the rewards with the same logic as in the loot tables.
-    drops:
-      - item: "COAL"
-        amount-lower-bound: 2
-        amount-upper-bound: 5
-        chance: 100
-
-      # works also with custom items
-      #- item: "oldShovel"
-      #is-custom: true
-      #amount: 5
-      #chance: 100
-
-      #you summon a container by using one of the names of the defined container
-      - container: "normal-chest"
-
-#The chance has to be given as double between 0 and 100.
-dirtArea:
-  shovels:
-    DIRT:
-      #list the rewards that should be able to get from this block
-      #This is a list, --> you separate a reward with "-" and then specify the reward. Order inside a reward is not needed.
-      - item: "xp"
-
-        #You can create custom items via the bc saveitem <name of the Item> command while holding the item in your main hand.
-        # You can award a custom reward like this (create the item, replace oldShovel by your items name and remove the  #in the following lines)
-
-        #- item: "oldShovel"
-        #is-custom: true
-        #amount: 5
-        #chance: 100
-
-      - amount: 5
-        item: "CLAY_BALL"
-        chance: 0
-
-      - item: "DIAMOND"
-        amount: 1
-        chance: 10
-
-        # since this reward is defined on the outside of a container, any possible reward may be guaranteed
-      - guaranteed-reward:
-          #lets you set the rewards
-          rewards:
-            - container: "normal-chest"
-              #sets weight for the roll of which reward from the guaranteed rewards gets granted
-              weight: 10
-
-            - container: "smelting-furnace"
-              weight: 1
-
-              #gives an effect
-            - effect: SPEED
-              # defines the effect duration
-              effect-duration: 10
-              # defines the give effect
-              level: 1
-              weight: 5
-              sound: "entity.firework_rocket.launch"
-              sound-priority: 1
-
-            #sets how many rewards of this list will be given if this reward is rolled, if this point is omitted, it will default to 1
-          number_of_given_rewards:
-            #uses the standard reward logic
-            amount-lower-bound: 1
-            amount-upper-bound: 2
-          # defines chance for the guaranteed reward
-          chance: 25
-
-          #chooses a sound that should be played if the reward is awarded
-          sound: "ui.toast.challenge_complete"
-          # sets the priority of the sound chosen for this reward. The system only plays the first sound of the highest priority it received
-          sound-priority: 0
-
-        #spawns a zombie
-      - mob: "ZOMBIE"
-        #sets a display name for the mob
-        display-name: "Grumm"
-        chance: 100
-        #sets a mobId that then can be referenced for custom mob loot
-        mob-id: "guard"
-        #sets the HP of the mob to a given value
-        health: 20
-        #gives the Mob a Time to Live, after which the mob gets removed
-        ttl: 1000.5
-
-      - item: "DIAMOND_PICKAXE"
-        amount: 1
-        chance: 1
-        #sets the durability to a given value. The value will have no effect if it is higher than the usual max durability
-        durability: 1
-        #sets a custom name for the dropping item !Important, setting a name doesn't make the item a custom item. if no is-custom: "<itemId>" is set, the item will still be generic and only be named with the given name!
-        name: "oneHitWonder"
-        # allows to randomly add enchantments to the item
-        enchantment:
-          - type: "efficiency"
-            amount-lower-bound: 1
-            amount-upper-bound: 5
-            chance: 80
-          - type: "fortune"
-            amount: 3
-            chance: 20
-
-        #overwrites the global flag for this reward only. This doesn't work for the rewards children automatically, you have to give them a local-flags attribute too
-        local-flags:
-          #here for example the oneHitWonder will be directly deposited into the players inventory, even though deposit-to-inventrory is set to true in global-flags
-          deposit-to-inventory: true
-      #sets a block
-      - set_block: "netherite_block"
-        #if set to true, the block is set on the player, else it is set at the block that got removed (defaults to false)
-        on_player: false
+  traderTier:
+    always-possible: true
 
 
+
+cobbleclicker:
 
   default:
-    DIRT:
+    DECORATED_POT:
+      - guaranteed-reward:
+        rewards:
+          - set-block: "cobweb"
+            weight: 10.0
+          - mob: "ZOMBIE"
+            mob-id: "zombie"
+            weight: 5.0
+          - mob: "SKELETON"
+            mob-id: "skeleton"
+            weight: 5.0
+          - item: "EMERALD"
+            amount: 1
+            weight: 25.0
+          - item: "COBBLESTONE"
+            amount: 1
+            weight: 10.0
+          - item: "xp"
+            weight: 50.0
+            amount: 10.0
+    STONE:
+      - container: "chest"
+        chance: 0.0025
+      - container: "pottery"
+        chance: 0.03
+
       - item: "xp"
-        # you can set an upper and lower bound to give the player a random amount within these bounds back.
-        # generally a set amount does override the bounds.
-        # if no amount is specified but a lower or upperbound is specified, are the defaults for the bounds 0 and 64.
-        amount-lower-bound: 0
-        amount-upper-bound: 10
-        chance: 100
+        chance: 5.0
+        amount: 1.0
+        local-flags:
+          deposit-to-inventory: false
 
-        #if like here, no amount at all is specified, it defaults to 1.
-      - item: "CLAY_BALL"
-        chance: 0
+      - item: "beetrot"
+        amount: 2
+        chance: 0.5
+        local-flags:
+          deposit-to-inventory: true
 
-        # if not chance is specified, like it is here, the item is dropped with a 100% chance.
+      - entity: "tnt"
+        chance: 0.009
+        yield: 50.0
+        fuse-ticks: 400
+        sound: "minecraft:entity.tnt.primed"
+        sound-priority: 1
+        sound-volume: 0.5
+
+      - mob: "BREEZE"
+        chance: 0.014
+        mob-id: "breeze"
+      - mob: "BLAZE"
+        chance: 0.01
+        mob-id: "blaze"
+      - mob: "HUSK"
+        chance: 0.0022
+        mob-id: "husk"
+      - mob: "VINDICATOR"
+        chance: 0.008
+        mob-id: "vindicator"
+
+      - entity: "end_crystal"
+        chance: 0.001
+      - entity: "evoker_fangs"
+        chance: 0.002
+        on-player: true
+
+      - guaranteed-reward:
+        number-of-rewards:
+          amount: 2
+        rewards:
+          - set-block: "cobweb"
+            on-player: true
+          - mob: "CAVE_SPIDER"
+            mob-id: "cavespider"
+        chance: 0.04
+
+      - guaranteed-reward:
+        number-of-rewards:
+          amount: 2
+        rewards:
+          - command: "dontlogoutcc %player%"
+          - mob: "SILVERFISH"
+            particle: "cloud"
+            mob-id: "silverfish"
+            particle-priority: 10
+            count: 5
+            speed: 0.1
+            sound: "minecraft:entity.parrot.imitate.silverfish"
+            sound-priority: 1
+            sound-volume: 0.5
+        chance: 0.2
+
+    DEEPSLATE:
+      - container: "chest"
+        chance: 0.0025
+      - container: "pottery"
+        chance: 0.03
+
+      - item: "xp"
+        chance: 5.0
+        amount: 1.0
+        local-flags:
+          deposit-to-inventory: false
+
+      - item: "beetrot"
+        amount: 2
+        chance: 0.5
+        local-flags:
+          deposit-to-inventory: true
+
+      - mob: "SILVERFISH"
+        chance: 0.2
+        particle: "cloud"
+        mob-id: "silverfish"
+        particle-priority: 10
+        count: 5
+        speed: 0.1
+
+      - entity: "tnt"
+        chance: 0.009
+        yield: 50.0
+        fuse-ticks: 400
+        sound: "minecraft:entity.tnt.primed"
+        sound-priority: 1
+        sound-volume: 0.5
+
+      - mob: "BREEZE"
+        chance: 0.014
+        mob-id: "breeze"
+      - mob: "BLAZE"
+        chance: 0.01
+        mob-id: "blaze"
+      - mob: "HUSK"
+        chance: 0.0022
+        mob-id: "husk"
+      - mob: "VINDICATOR"
+        chance: 0.008
+        mob-id: "vindicator"
+
+      - entity: "end_crystal"
+        chance: 0.001
+      - entity: "evoker_fangs"
+        chance: 0.002
+        on-player: true
+
+      - guaranteed-reward:
+        number-of-rewards:
+          amount: 2
+        rewards:
+          - set-block: "cobweb"
+            on-player: true
+          - mob: "CAVE_SPIDER"
+            mob-id: "cavespider"
+        chance: 0.04
+
+
+  tier1_copper:
+    STONE:
+      - item: "COPPER_NUGGET"
+        chance: 1.0
+        amount: 1
+      - item: "RAW_IRON"
+        chance: 0.1
+        amount: 1
+      - item: "RAW_GOLD"
+        chance: 0.01
+        amount: 1
       - item: "DIAMOND"
+        chance: 0.001
+        amount: 1
+      - item: "EMERALD"
+        chance: 0.002
         amount: 1
 
-        # this lets you define a command as a possible reward. The Command is generally parsed by PlaceholderAPI.
-        # additionally the plugin lets you access the x y z values of the block that has been removed with the variables you can see below
-      - command: "summon lightning_bolt %blockXValue% %blockYValue% %blockZValue%"
-        chance: 10
+      - item: "REDSTONE"
+        chance: 0.15
+        amount: 1
+      - item: "LAPIS_LAZULI"
+        chance: 0.15
+        amount: 1
 
-      #spawns an Entity. This works for living and non-living entities, but to spawn living entities, you should use "mob", because it can be configured in more details
-      - entity: "TNT"
-        on_player: true #if set to true,the entity will spawn on the player, else at the reward location
-        #both of the following modifiers are tnt exclusive
-        #sets the time to explode for the tnt
-        fuseTicks: 30
-        #sets the tnt yield
-        yield: 100
+    DEEPSLATE:
+      - item: "COPPER_NUGGET"
+        chance: 1.1
+        amount: 1
+      - item: "RAW_IRON"
+        chance: 0.11
+        amount: 1
+      - item: "RAW_GOLD"
+        chance: 0.011
+        amount: 1
+      - item: "DIAMOND"
+        chance: 0.0011
+        amount: 1
+      - item: "EMERALD"
+        chance: 0.0022
+        amount: 1
 
+      - item: "REDSTONE"
+        chance: 0.165
+        amount: 1
+      - item: "LAPIS_LAZULI"
+        chance: 0.165
+        amount: 1
+
+  tier2_iron:
+    STONE:
+      - item: "COPPER_NUGGET"
+        chance: 1.0
+        amount-lower-bound: 1
+        amount-upper-bound: 2
+      - item: "RAW_IRON"
+        chance: 0.45
+        amount: 1
+      - item: "RAW_GOLD"
+        chance: 0.06
+        amount: 1
+      - item: "DIAMOND"
+        chance: 0.001
+        amount: 1
+      - item: "EMERALD"
+        chance: 0.002
+        amount: 1
+
+      - item: "REDSTONE"
+        chance: 0.15
+        amount-lower-bound: 1
+        amount-upper-bound: 2
+      - item: "LAPIS_LAZULI"
+        chance: 0.15
+        amount-lower-bound: 1
+        amount-upper-bound: 2
+
+    DEEPSLATE:
+      - item: "COPPER_NUGGET"
+        chance: 1.1
+        amount-lower-bound: 1
+        amount-upper-bound: 2
+      - item: "RAW_IRON"
+        chance: 0.495
+        amount: 1
+      - item: "RAW_GOLD"
+        chance: 0.066
+        amount: 1
+      - item: "DIAMOND"
+        chance: 0.0011
+        amount: 1
+      - item: "EMERALD"
+        chance: 0.0022
+        amount: 1
+
+      - item: "REDSTONE"
+        chance: 0.165
+        amount-lower-bound: 1
+        amount-upper-bound: 2
+      - item: "LAPIS_LAZULI"
+        chance: 0.165
+        amount-lower-bound: 1
+        amount-upper-bound: 2
+
+  tier3_diamond:
+    STONE:
+      - item: "COPPER_NUGGET"
+        chance: 1.2
+        amount-lower-bound: 1
+        amount-upper-bound: 2
+      - item: "RAW_IRON"
+        chance: 0.6
+        amount: 1
+      - item: "RAW_GOLD"
+        chance: 0.17
+        amount: 1
+      - item: "DIAMOND"
+        chance: 0.03
+        amount: 1
+      - item: "EMERALD"
+        chance: 0.06
+        amount: 1
+
+      - item: "REDSTONE"
+        chance: 0.18
+        amount-lower-bound: 1
+        amount-upper-bound: 2
+      - item: "LAPIS_LAZULI"
+        chance: 0.18
+        amount-lower-bound: 1
+        amount-upper-bound: 2
+
+    DEEPSLATE:
+      - item: "COPPER_NUGGET"
+        chance: 1.32
+        amount-lower-bound: 1
+        amount-upper-bound: 2
+      - item: "RAW_IRON"
+        chance: 0.66
+        amount: 1
+      - item: "RAW_GOLD"
+        chance: 0.187
+        amount: 1
+      - item: "DIAMOND"
+        chance: 0.033
+        amount: 1
+      - item: "EMERALD"
+        chance: 0.066
+        amount: 1
+
+      - item: "REDSTONE"
+        chance: 0.198
+        amount-lower-bound: 1
+        amount-upper-bound: 2
+      - item: "LAPIS_LAZULI"
+        chance: 0.198
+        amount-lower-bound: 1
+        amount-upper-bound: 2
+
+  traderTier:
+    STONE:
       - mob: "WANDERING_TRADER"
-        display-name: "Master Trader Bob"
+        display-name: "Schwarzmarkt Händler"
         chance: 100
-        mob-id: "t1"
+        mob-id: "schwarzmarktHändler"
         health: 20
         ttl: 30
-        #sets the trades for a trader.
-        #these trades are List of trades.
         trades:
-          #- max-uses: 16
-            #output:
-              #item: "oldShovel"
-              #is-custom: true
-              #amount: 2
-            #input1:
-              #item: "COAL"
-               #amount: 4
-            #weight: 4
 
-           # A trade consists of 2–4 Values.
-          # mandatorily it has an output, that follows the Item modifiers, which specifies what the player can get from the trade
-          - output:
-              item: "NETHERITE_INGOT"
-              amount: 2
-          # And a mandatory input, that follows the item modifiers, which specifies what the player needs to give for the trade
+          - max-uses: 16
+            output:
+              item: "COPPER_NUGGET"
+              amount: 1
             input1:
-              item: "CLAY_BALL"
-              amount-lower-bound: 10
-              amount-upper-bound: 50
-          # Optionally you can set a second input
+              item: "COBBLESTONE"
+              amount-lower-bound: 40
+              amount-upper-bound: 64
+
+          - max-uses: 16
+            output:
+              item: "IRON_INGOT"
+              amount: 1
+            input1:
+              item: "COPPER_INGOT"
+              amount: 1
             input2:
+              item: "COBBLED_DEEPSLATE"
+              amount-lower-bound: 0
+              amount-upper-bound: 6
+
+          - max-uses: 16
+            output:
               item: "GOLD_INGOT"
-              amount: 16
-          # You can define how times this trade can be done until the trader stops
-            max-uses: 10
-            #sets the weight of this trade (default 1), important if you want to have randomly rotating trades
-            weight: 1
+              amount: 1
+            input1:
+              item: "IRON_INGOT"
+              amount-lower-bound: 6
+              amount-upper-bound: 9
 
-        #You can set the number of trades a spawned trader will get.
+          - max-uses: 16
+            output:
+              item: "DIAMOND"
+              amount: 1
+            input1:
+              item: "GOLD_INGOT"
+              amount-lower-bound: 6
+              amount-upper-bound: 9
+
+          - max-uses: 16
+            output:
+              item: "COPPER_NUGGET"
+              amount-lower-bound: 1
+              amount-upper-bound: 4
+            input1:
+              item: "VINE"
+              amount-lower-bound: 32
+              amount-upper-bound: 64
+
+          - max-uses: 16
+            output:
+              item: "RAW_IRON"
+              amount: 1
+            input1:
+              item: "IRON_INGOT"
+              amount: 1
+
+          - max-uses: 16
+            output:
+              item: "RAW_GOLD"
+              amount: 1
+            input1:
+              item: "GOLD_INGOT"
+              amount: 1
+
+          - max-uses: 16
+            output:
+              item: "ANCIENT_DEBRIS"
+              amount: 1
+            input1:
+              item: "NETHERITE_SCRAP"
+              amount: 1
         number_of_trades:
-          # is done with the standard amount logics
-          amount-lower-bound: 1
-          amount-upper-bound: 2
+          amount: 256
 
 
+
+
+
+
+
+
+
+
+mob-loot:
+  silverfish:
+    allows-natural-drops: false
+    drops: []
+
+  breeze:
+    allows-natural-drops: false
+    drops: []
+
+  blaze:
+    allows-natural-drops: false
+    drops: []
+
+  cavespider:
+    allows-natural-drops: false
+    drops: []
+
+  husk:
+    allows-natural-drops: false
+    drops: []
+
+  vindicator:
+    allows-natural-drops: false
+    drops: []
+  schwarzmarktHändler:
+    allows-natural-drops: false
+    drops: []
