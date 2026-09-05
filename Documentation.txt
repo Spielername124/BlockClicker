@@ -201,8 +201,9 @@ There are the following types of rewards, and it's subpoints:
         on-player: true            if set to true,the entity will spawn on the player, else at the reward location
 
         for tnt, there are two additional configurable things, which are by default on minecrafts default:
-        fuse-ticks: 30          sets the time for the tnt to fuse
-        yield: 100             sets the yield of the tnt
+        fuse-ticks: <value>          sets the time for the tnt to fuse
+        yield: <value>            sets the yield of the tnt
+        tnt-dmg-modifier: <double> sets the damage from this specific tnt (default by 1).
 
  And here are some random Information, that I was not sure where to include but still might be important:
     - generally only one container can be rewarded in the same drop. It should be the first one which drops, (since the plugin generally reads the config from the top to the bottom, the one defined higher [you have to read the container loot etc. in the line they are called])

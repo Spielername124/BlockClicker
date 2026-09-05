@@ -14,6 +14,9 @@ import org.bukkit.block.Block;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.*;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.metadata.FixedMetadataValue;
+import org.bukkit.persistence.PersistentDataType;
+
 import static me.Spielername124.blockClicker.Helper.MapParser.*;
 
 import java.util.Map;
@@ -23,6 +26,7 @@ public class EntitySpawn extends Reward {
     private final boolean onPlayer;
     private final int fuseTicks;
     private final float yield;
+    private final double dmgModifier;
 
     public EntitySpawn(BlockClicker plugin, FileConfiguration config, Map<?, ?> rewardData) {
         super(plugin, config, rewardData);
@@ -37,6 +41,7 @@ public class EntitySpawn extends Reward {
         onPlayer= getBoolean(rewardData, "on-player", false);
         //defaults to Minecraft's default value
         fuseTicks = getInt(rewardData, "fuse-ticks", -1);
+        dmgModifier = getDouble(rewardData, "tnt-dmg-modifier", 1.0);
 
 
 
@@ -59,6 +64,13 @@ public class EntitySpawn extends Reward {
                     tnt.setFuseTicks(fuseTicks);
                 }
                 tnt.setYield(yield);
+
+                //set the dmg modifier
+                tnt.getPersistentDataContainer().set(
+                        BlockClicker.TNT_DAMAGE_KEY,
+                        PersistentDataType.DOUBLE,
+                        dmgModifier
+                );
             }
         }
     }

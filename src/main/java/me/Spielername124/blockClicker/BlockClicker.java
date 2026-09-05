@@ -5,6 +5,7 @@ import me.Spielername124.blockClicker.CommandManagement.BlockClickerCommands;
 import me.Spielername124.blockClicker.Listener.MobDeath.MobDeathListener;
 import me.Spielername124.blockClicker.Listener.MobDeath.MobLootCache;
 import me.Spielername124.blockClicker.Listener.MobDeath.MobLootCacheLoader;
+import me.Spielername124.blockClicker.Listener.TNTDamageListener;
 import me.Spielername124.blockClicker.RewardManagement.RewardCache;
 import me.Spielername124.blockClicker.RewardManagement.RewardCacheLoader;
 import me.Spielername124.blockClicker.ToolManagement.ToolCache;
@@ -31,6 +32,7 @@ public final class BlockClicker extends JavaPlugin {
     public GlobalFlags flags;
     public static NamespacedKey TOOL_ID_KEY;
     public static NamespacedKey MOB_ID_KEY;
+    public static NamespacedKey TNT_DAMAGE_KEY;
 
 
     @Override
@@ -38,6 +40,7 @@ public final class BlockClicker extends JavaPlugin {
 
         TOOL_ID_KEY = new NamespacedKey(this, "custom_tool_id");
         MOB_ID_KEY = new NamespacedKey(this, "custom_mob_id");
+        TNT_DAMAGE_KEY = new NamespacedKey(this, "tnt_dmg_modifier");
 
         saveDefaultConfig();
         createItemsConfig();
@@ -62,6 +65,7 @@ public final class BlockClicker extends JavaPlugin {
 
         getServer().getPluginManager().registerEvents(new BlockBreakListener(this, rewardCache, toolCache, zoneCache), this);
         getServer().getPluginManager().registerEvents(new MobDeathListener(this, mobLootCache ), this);
+        getServer().getPluginManager().registerEvents(new TNTDamageListener(), this);
 
     }
 
