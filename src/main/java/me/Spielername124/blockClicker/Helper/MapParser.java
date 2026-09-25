@@ -28,6 +28,18 @@ public final class MapParser {
         return defaultValue;
     }
 
+    public static long getLong(Map<?, ?> map, String key, long defaultValue) {
+        if (map == null) return defaultValue;
+        Object val = map.get(key);
+        if (val instanceof Number num) {
+            return num.longValue();
+        }
+        if (val instanceof String str) {
+            try { return Long.parseLong(str.trim()); } catch (NumberFormatException ignored) {}
+        }
+        return defaultValue;
+    }
+
     public static double getDouble(Map<?, ?> map, String key, double defaultValue) {
         if (map == null) return defaultValue;
         Object val = map.get(key);

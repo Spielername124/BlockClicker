@@ -32,6 +32,8 @@ public abstract class Reward {
     private final int particlePriority;
     private final boolean particleOnPlayer;
 
+    private final long delay;
+
 
     protected final GlobalFlags flags;
 
@@ -60,18 +62,39 @@ public abstract class Reward {
         particle = getParticleFromConfig(rewardData);
         particlePriority = getInt(rewardData, "particle-priority", 0);
         particleOnPlayer = getBoolean(rewardData, "particle-on-player", false);
+
+        delay = getLong(rewardData, "delay", 0);
     }
 
     public final void rollAndExecute(Player player, Location location, RewardSoundAndParticle soundAndParticle, ItemStack toolUsed, Block block, EventWideFlags eventWideFlags) {
-
         //roll if the reward is granted, return if not
-        if(!Chance.performDropRoll(flags, chance, toolUsed, player, block, luckModifierDependence)) return;
+        if (!Chance.performDropRoll(flags, chance, toolUsed, player, block, luckModifierDependence)) return;
 
-        execute(player, location, flags, soundAndParticle, toolUsed, block, eventWideFlags);
 
-       soundAndParticle.setSound(this.sound, soundPriority);
-       soundAndParticle.setParticle(particle,particlePriority,particleOnPlayer);
+        if (delay <= 0) {
+            execute(player, location, flags, soundAndParticle, toolUsed, block, eventWideFlags);
 
+            soundAndParticle.setSound(this.sound, soundPriority);
+            soundAndParticle.setParticle(particle, particlePriority, particleOnPlayer);
+        }
+
+        //if a delay is set, schedule the reward at the wished point in future
+        else {
+            // Delay the execution using Bukkit's scheduler
+            plugin.getServer().getScheduler().runTaskLater(plugin, () -> {
+
+                execute(player, location, flags, soundAndParticle, toolUsed, block, eventWideFlags);
+
+                // Play sound and particles directly when the delayed task executes
+                if (sound != null) {
+                    player.playSound(sound);
+                }
+                if (particle != null) {
+                    Location targetLocation = particleOnPlayer ? player.getLocation() : location;
+                    particle.clone().location(targetLocation).spawn();
+                }
+            }, delay);
+        }
     }
 
     protected abstract void execute(Player player, Location location, GlobalFlags flags, RewardSoundAndParticle sound, ItemStack toolUsed, Block block, EventWideFlags eventWideFlags);

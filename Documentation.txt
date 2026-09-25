@@ -97,6 +97,7 @@ Rewards:
     "luck-modifier-dependence": by default on "NORMAL". "NORMAL" has the standart behavior, DISABLED removes all Luck modifications from effects and fortune, Inverted makes positive efects to negative effects, vice versa.
     local-flags: allows you to overwrite your global flags localy. i.e. for example: deposit-to-inventory: true, while it globaly is set on false, makes that only this item gets depositied directly to the inventory, whilst all other items still folow the global flag. Local flags that are not set will default back to the set global flag.
       <flagLikeDoneInGlobalFlags>: <flag value>
+    delay: <long> scedules a delay for the reward in ticks
 
     particle-priority: <int>        sets the particle priority, default 0
     particle-on-player: false       if true the particles spawn pre offset on the players position else they spawn at the reward location
